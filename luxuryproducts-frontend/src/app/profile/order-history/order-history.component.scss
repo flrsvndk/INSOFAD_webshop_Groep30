@@ -1,0 +1,21 @@
+.order-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+  }
+  .customer-info {
+    padding: 10px;
+  }
+  .products-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-image img {
+    max-width: 100px;
+    height: auto;
+  }

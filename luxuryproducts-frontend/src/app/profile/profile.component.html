@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <div class="card col-9 mx-auto align-items-center justify-content-center">
+    <div *ngIf="user" class="d-flex mt-5 mb-5 align-items-center justify-content-center">
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" class="img-fluid" style="max-width: 100%;" alt="User Profile Image">
+        </div>
+        <div class="col-lg-6">
+          <div class="card-body">
+            <h5 class="card-title">User Information</h5>
+            <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
+            <p class="card-text"><strong>Tussenvoegsel:</strong> {{ user.infix }}</p>
+            <p class="card-text"><strong>Achternaam:</strong> {{ user.lastName }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            <a href="/profile-update" class="btn btn-primary">Wijzigen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

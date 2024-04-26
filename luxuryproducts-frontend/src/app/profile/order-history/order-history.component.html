@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="orders-container">
+    <div *ngFor="let order of orders" class="mb-4">
+      <div class="order-header">
+        <p>Order ID: {{order.id}}</p>
+        <p>Order Date: {{order.orderDate | date: 'medium'}}</p>
+      </div>
+      <div class="customer-info">
+        <p class="customer-name">{{order.name}} {{order.infix}} {{order.last_name}}</p>
+        <p class="customer-address">{{order.zipcode}}, {{order.houseNumber}}</p>
+        <p class="customer-notes">{{order.notes}}</p>
+      </div>
+      <ul class="products-list">
+        <li *ngFor="let product of order.products" class="d-flex justify-content-between align-items-center mb-2">
+          <div class="product-details">
+            <p class="product-name">{{product.name}}</p>
+            <p class="product-price">Price: {{product.price | currency: 'EUR'}}</p>
+          </div>
+          <div class="product-image">
+            <img src="{{product.imgURL}}" alt="{{product.name}}">
+          </div>
+        </li>
+        <li class="d-flex justify-content-between align-items-center fw-bold">Total: €{{calculateTotal(order.products)}}</li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+
+</div>
