@@ -18,16 +18,7 @@ public class OrderItem {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonManagedReference
-    private ProductSpecificationType productType;
-
-    public OrderItem() {
-    }
-
-    public OrderItem(int quantity, PlacedOrder placedOrder, ProductSpecificationType productType) {
-        this.quantity = quantity;
-        this.placedOrder = placedOrder;
-        this.productType = productType;
-    }
+    private Product product;
 
     public long getId() {
         return id;
@@ -53,11 +44,11 @@ public class OrderItem {
         this.placedOrder = placedOrder;
     }
 
-    public ProductSpecificationType getProductType() {
-        return productType;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductType(ProductSpecificationType productType) {
-        this.productType = productType;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

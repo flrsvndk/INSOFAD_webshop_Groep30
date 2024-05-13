@@ -2,10 +2,12 @@ package com.example.todoappdeel3.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,17 +22,11 @@ public class CustomUser {
     private String lastName;
     private String email;
     private String password;
-    private String imgUrl = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
-    private String role = "USER";
 
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private List<PlacedOrder> placedOrders;
-
-    @OneToOne
-    @JsonManagedReference
-    private Adress adress;
+    private Set<PlacedOrder> placedOrders;
 
     public CustomUser() {
     }
@@ -43,53 +39,11 @@ public class CustomUser {
         this.password = password;
     }
 
-    public CustomUser(String name, String infix, String lastName, String email, String password, String imgUrl) {
-        this.name = name;
-        this.infix = infix;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.imgUrl = imgUrl;
-    }
-
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<PlacedOrder> getPlacedOrders() {
+    public Set<PlacedOrder> getOrders() {
         return placedOrders;
     }
 
-    public void setPlacedOrders(List<PlacedOrder> placedOrders) {
-        this.placedOrders = placedOrders;
-    }
-
-    public Adress getAdress() {
-        return adress;
-    }
-
-    public void setAdress(Adress adress) {
-        this.adress = adress;
-    }
-
-    public List<PlacedOrder> getOrders() {
-        return placedOrders;
-    }
-
-    public void setOrders(List<PlacedOrder> placedOrders) {
+    public void setOrders(Set<PlacedOrder> placedOrders) {
         this.placedOrders = placedOrders;
     }
 

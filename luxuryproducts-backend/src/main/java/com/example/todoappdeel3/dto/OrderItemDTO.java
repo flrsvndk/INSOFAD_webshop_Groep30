@@ -1,13 +1,13 @@
 package com.example.todoappdeel3.dto;
 
-import java.util.UUID;
-
 public class OrderItemDTO {
-    public int quantity;
-    public UUID typeId;
+    public long orderId;
+    public int quanity;
+    public long productId;
 
-    public OrderItemDTO(int quantity, UUID typeId) {
-        this.quantity = quantity;
-        this.typeId = typeId;
+    public OrderItemDTO(long orderId, int quanity, long productId) {
+        this.orderId = orderId;
+        this.quanity = quanity;
+        this.productId = productId;
     }
 }

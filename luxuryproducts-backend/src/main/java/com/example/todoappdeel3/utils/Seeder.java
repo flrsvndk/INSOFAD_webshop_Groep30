@@ -1,39 +1,33 @@
 package com.example.todoappdeel3.utils;
 
-//import com.example.todoappdeel3.dao.OrderDAO;
-import com.example.todoappdeel3.dao.CategoryDAO;
+import com.example.todoappdeel3.dao.OrderDAO;
 import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dao.ProductRepository;
 import com.example.todoappdeel3.dao.UserRepository;
-import com.example.todoappdeel3.dto.CategoryDTO;
-import com.example.todoappdeel3.dto.ProductDTO;
-import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
-import com.example.todoappdeel3.dto.TypeDTO;
 import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.models.PlacedOrder;
 import com.example.todoappdeel3.models.Product;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class Seeder {
     private ProductDAO productDAO;
     private UserRepository userRepository;
-//    private OrderDAO orderDAO;
+    private OrderDAO orderDAO;
     private ProductRepository productRepository;
-    private CategoryDAO categoryDAO;
 
 
-    public Seeder(ProductDAO productDAO, UserRepository userRepository, ProductRepository productRepository, CategoryDAO categoryDAO) {
+    public Seeder(ProductDAO productDAO, UserRepository userRepository, OrderDAO orderDAO, ProductRepository productRepository) {
         this.productDAO = productDAO;
         this.userRepository = userRepository;
-//        this.orderDAO = orderDAO;
+        this.orderDAO = orderDAO;
         this.productRepository = productRepository;
-        this.categoryDAO = categoryDAO;
     }
 
     @EventListener
@@ -42,92 +36,27 @@ public class Seeder {
         this.seedUser();
     }
 
-//    public String name;
-//    public String description;
-//    public Double minimumPrice;
-//    public String standardImgUrl;
-//    public CategoryDTO categoryDTO;
-//    public long categoryId;
-//    public ProductSpecificationsDTO productSpecificationsDTO;
-
     private void seedProducts(){
-        CategoryDTO categoryDTO = new CategoryDTO("Horloges");
-        this.categoryDAO.createCategory(categoryDTO);
-
-        CategoryDTO categoryDTO2 = new CategoryDTO("Kleding");
-
-        List<TypeDTO> typesDTO2b = new ArrayList<>();
-        List<TypeDTO> typesDTO2c = new ArrayList<>();
-
-        TypeDTO typeb1a = new TypeDTO("S", 10005.00, 3, "https://example.com/cotton-burberry-trench.jpg", null);
-        TypeDTO typeb1b = new TypeDTO("M", 10004.00, 3, "https://example.com/cotton-burberry-trench.jpg", null);
-        TypeDTO typeb1c = new TypeDTO("L", 10000.00, 3, "https://example.com/cotton-burberry-trench.jpg", null);
-        TypeDTO typeb2a = new TypeDTO("S", 10001.00, 3, "https://example.com/burberry-trench.jpg", null);
-        TypeDTO typeb2b = new TypeDTO("M", 10003.00, 3, "https://example.com/burberry-trench.jpg", null);
-        TypeDTO typeb2c = new TypeDTO("L", 10004.00, 3, "https://example.com/burberry-trench.jpg", null);
-
-        typesDTO2b.add(typeb1a);
-        typesDTO2b.add(typeb1b);
-        typesDTO2b.add(typeb1c);
-        typesDTO2c.add(typeb2a);
-        typesDTO2c.add(typeb2b);
-        typesDTO2c.add(typeb2c);
-
-        ProductSpecificationsDTO trenchSizea = new ProductSpecificationsDTO("size", typesDTO2b);
-        ProductSpecificationsDTO trenchSizeb = new ProductSpecificationsDTO("size", typesDTO2c);
-
-
-        List<TypeDTO> typesDTO = new ArrayList<>();
-        List<TypeDTO> typesDTO2 = new ArrayList<>();
-
-
-        TypeDTO typea1 = new TypeDTO("18kt gold",55000.00 , 8, "https://i.ibb.co/Z170ptk/image-2024-05-21-081438902.png", null);
-        TypeDTO typea2 = new TypeDTO("silver", 55003.00, 8, "https://example.com/rolex-daytona.jpg", null);
-        TypeDTO typeb1 = new TypeDTO("Waterbestendig Katoen", null, 8, "https://example.com/cotton-burberry-trench.jpg", trenchSizea);
-        TypeDTO typeb2 = new TypeDTO("Polyester", null, 8, "https://example.com/burberry-trench.jpg", trenchSizeb);
-
-
-        typesDTO.add(typea1);
-        typesDTO.add(typea2);
-        typesDTO2.add(typeb1);
-        typesDTO2.add(typeb2);
-
-        ProductSpecificationsDTO specificationsDTO = new ProductSpecificationsDTO("materiaal", typesDTO);
-        ProductSpecificationsDTO specificationsDTO2 = new ProductSpecificationsDTO("materiaal", typesDTO2);
-
-        ProductDTO productDTO1 = new ProductDTO(
-                "Rolex Cosmograph Daytona", "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.",
-                null, 1,  specificationsDTO);
-
-        ProductDTO productDTO2 = new ProductDTO(
-                "Burberry Bespoke Trench Coat", "Handgemaakt in Engeland met exclusieve materialen, deze Burberry trenchcoat biedt tijdloze elegantie en luxe.",
-                categoryDTO2,0, specificationsDTO2);
-
-
-        this.productDAO.createProduct(productDTO1);
-        this.productDAO.createProduct(productDTO2);
+        Product product1 = new Product("Rolex Cosmograph Daytona", 55000.00, "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.", "https://example.com/rolex-daytona.jpg", 8, "18kt goud", "N/A", "N/A");
+        Product product2 = new Product("Burberry Bespoke Trench Coat", 10000.00, "Handgemaakt in Engeland met exclusieve materialen, deze Burberry trenchcoat biedt tijdloze elegantie en luxe.", "https://example.com/burberry-trench.jpg", 8, "Waterbestendige katoen", "N/A", "N/A");
+        Product product3 = new Product("Chanel Classic Flap Bag", 8000.00, "Deze Chanel tas, met zijn iconische quiltdesign en kettingschouderband, is een symbool van luxueuze mode.", "https://example.com/chanel-flap-bag.jpg", 8, "Lamshuid leder",  "N/A", "N/A");
+        Product product4 = new Product("Audemars Piguet Royal Oak Offshore", 40000.00, "De Royal Oak Offshore, met zijn gedurfde, innovatieve design, vertegenwoordigt de hoogste standaard van luxueuze horlogerie.", "https://example.com/ap-royal-oak.jpg", 8, "Roestvrijstaal", "N/A", "N/A");
+        Product product5 = new Product("Hermès Silk Scarf", 1200.00, "Deze Hermès sjaal, vervaardigd uit de fijnste zijde, toont een kunstzinnig ontwerp dat elegantie en cultuur uitstraalt.", "https://example.com/hermes-scarf.jpg",8, "100% zijde", "N/A", "N/A");
+        Product product6 = new Product("Tesla Model S Plaid", 130000.00, "De Tesla Model S Plaid, een topmodel in elektrische luxeauto's, biedt ongeëvenaarde prestaties en toonaangevende technologie.", "https://example.com/tesla-model-s.jpg", 8, "Elektrisch", "N/A", "N/A");
+        Product product7 = new Product("Cartier Love Bracelet", 6500.00, "De Cartier Love Bracelet, versierd met diamanten, is een teken van tijdloze toewijding en luxe.", "https://example.com/cartier-love.jpg", 8,"18kt goud", "N/A", "N/A");
+        Product product8 = new Product("Louis Vuitton Keepall Bandoulière 55", 4500.00, "De Keepall Bandoulière 55 van Louis Vuitton, perfect voor de wereldreiziger, combineert luxe met functionaliteit.", "https://example.com/lv-keepall.jpg", 8, "Monogram canvas", "N/A", "N/A");
+        Product product9 = new Product("Giorgio Armani Black Label Suit", 3500.00, "Deze Giorgio Armani pak, uit de Black Label collectie, biedt ongeëvenaarde Italiaanse vakmanschap en stijl.", "https://example.com/armani-suit.jpg", 8, "Wol", "N/A", "N/A");
+        this.productDAO.createProduct(product1);
+        this.productDAO.createProduct(product2);
+        this.productDAO.createProduct(product3);
+        this.productDAO.createProduct(product4);
+        this.productDAO.createProduct(product5);
+        this.productDAO.createProduct(product6);
+        this.productDAO.createProduct(product7);
+        this.productDAO.createProduct(product8);
+        this.productDAO.createProduct(product9);
     }
 
-//    private void seedProducts(){
-//        Product product1 = new Product("Rolex Cosmograph Daytona", 55000.00, "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.", "https://example.com/rolex-daytona.jpg", 8, "18kt goud",  "N/A");
-//        Product product2 = new Product("Burberry Bespoke Trench Coat", 10000.00, "Handgemaakt in Engeland met exclusieve materialen, deze Burberry trenchcoat biedt tijdloze elegantie en luxe.", "https://example.com/burberry-trench.jpg", 8, "Waterbestendige katoen",  "N/A");
-//        Product product3 = new Product("Chanel Classic Flap Bag", 8000.00, "Deze Chanel tas, met zijn iconische quiltdesign en kettingschouderband, is een symbool van luxueuze mode.", "https://example.com/chanel-flap-bag.jpg", 8, "Lamshuid leder",   "N/A");
-//        Product product4 = new Product("Audemars Piguet Royal Oak Offshore", 40000.00, "De Royal Oak Offshore, met zijn gedurfde, innovatieve design, vertegenwoordigt de hoogste standaard van luxueuze horlogerie.", "https://example.com/ap-royal-oak.jpg", 8, "Roestvrijstaal",  "N/A");
-//        Product product5 = new Product("Hermès Silk Scarf", 1200.00, "Deze Hermès sjaal, vervaardigd uit de fijnste zijde, toont een kunstzinnig ontwerp dat elegantie en cultuur uitstraalt.", "https://example.com/hermes-scarf.jpg",8, "100% zijde",  "N/A");
-//        Product product6 = new Product("Tesla Model S Plaid", 130000.00, "De Tesla Model S Plaid, een topmodel in elektrische luxeauto's, biedt ongeëvenaarde prestaties en toonaangevende technologie.", "https://example.com/tesla-model-s.jpg", 8, "Elektrisch",  "4");
-//        Product product7 = new Product("Cartier Love Bracelet", 6500.00, "De Cartier Love Bracelet, versierd met diamanten, is een teken van tijdloze toewijding en luxe.", "https://example.com/cartier-love.jpg", 8,"18kt goud",  "N/A");
-//        Product product8 = new Product("Louis Vuitton Keepall Bandoulière 55", 4500.00, "De Keepall Bandoulière 55 van Louis Vuitton, perfect voor de wereldreiziger, combineert luxe met functionaliteit.", "https://example.com/lv-keepall.jpg", 8, "Monogram canvas",  "N/A");
-//        Product product9 = new Product("Giorgio Armani Black Label Suit", 3500.00, "Deze Giorgio Armani pak, uit de Black Label collectie, biedt ongeëvenaarde Italiaanse vakmanschap en stijl.", "https://example.com/armani-suit.jpg", 8, "Wol", "N/A");
-//        this.productDAO.createProduct(product1);
-//        this.productDAO.createProduct(product2);
-//        this.productDAO.createProduct(product3);
-//        this.productDAO.createProduct(product4);
-//        this.productDAO.createProduct(product5);
-//        this.productDAO.createProduct(product6);
-//        this.productDAO.createProduct(product7);
-//        this.productDAO.createProduct(product8);
-//        this.productDAO.createProduct(product9);
-//    }
 
     private void seedUser(){
         CustomUser customUser = new CustomUser();
@@ -136,7 +65,6 @@ public class Seeder {
         customUser.setLastName("Webshop");
         customUser.setEmail("bob@bobsluxuryenterprise.com");
         customUser.setPassword(new BCryptPasswordEncoder().encode("Test123!"));
-        customUser.setRole("ADMIN");
         userRepository.save(customUser);
     }
 }
