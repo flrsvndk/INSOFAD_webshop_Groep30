@@ -1,63 +1,71 @@
 package com.example.todoappdeel3.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class PlacedOrder {
     @Id
-    @GeneratedValue
-    private long id;
+    @UuidGenerator
+    private UUID id;
 
     @Column(nullable = true)
-    private String name;
-    @Column(nullable = true)
     private String infix;
-    @Column(nullable = true)
+
+    private String name;
     private String last_name;
-    @Column(nullable = true)
     private String zipcode;
-    @Column(nullable = true)
     private int houseNumber;
+    private String houseNumberAddition;
+    private Double totalProductsPrice;
+    private LocalDateTime orderDate;
+
     @Column(nullable = true)
     private String notes;
-    @Column(nullable = true)
-    private int totalProducts;
-    @Column(nullable = true)
-    private LocalDateTime orderDate;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private CustomUser user;
 
-    @ManyToMany
-    @JoinTable(name = "product_order",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(name = "product_order",
+//            joinColumns = @JoinColumn(name = "order_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    private Set<Product> products = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JsonManagedReference
+    private List<OrderItem> orderItems;
 
     public PlacedOrder() {
     }
 
-    public PlacedOrder(String name, String infix, String last_name, String zipcode, int houseNumber, String notes, CustomUser user, Set<Product> products) {
-        this.name = name;
+    public PlacedOrder(String infix, String name, String last_name, String zipcode, int houseNumber, String houseNumberAddition, Double totalProductsPrice, LocalDateTime orderDate, String notes, CustomUser user) {
         this.infix = infix;
+        this.name = name;
         this.last_name = last_name;
         this.zipcode = zipcode;
         this.houseNumber = houseNumber;
+        this.houseNumberAddition = houseNumberAddition;
+        this.totalProductsPrice = totalProductsPrice;
+        this.orderDate = orderDate;
         this.notes = notes;
         this.user = user;
-        this.products = products;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -93,7 +101,6 @@ public class PlacedOrder {
         this.zipcode = zipcode;
     }
 
-
     public Number getHouseNumber() {
         return houseNumber;
     }
@@ -108,14 +115,6 @@ public class PlacedOrder {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public int getTotalProducts() {
-        return totalProducts;
-    }
-
-    public void setTotalProducts(int totalProducts) {
-        this.totalProducts = totalProducts;
     }
 
     public LocalDateTime getOrderDate() {
@@ -134,13 +133,27 @@ public class PlacedOrder {
         this.user = user;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Double getTotalProductsPrice() {
+        return totalProductsPrice;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setTotalProductsPrice(Double totalProductsPrice) {
+        this.totalProductsPrice = totalProductsPrice;
     }
 
+    public String getHouseNumberAddition() {
+        return houseNumberAddition;
+    }
 
+    public void setHouseNumberAddition(String houseNumberAddition) {
+        this.houseNumberAddition = houseNumberAddition;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

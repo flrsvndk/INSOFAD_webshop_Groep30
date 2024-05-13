@@ -2,22 +2,26 @@ package com.example.todoappdeel3.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
-    private long id;
+    @UuidGenerator
+    private UUID id;
     private String name;
-    private Number price;
+    private Double price;
     private String description;
     private String imgURL;
+    private int stock;
     private String groupset;
     private String material;
     private String wheels;
+
 
 
 
@@ -25,11 +29,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, Number price, String description, String imgURL, String groupset, String material, String wheels) {
+    public Product(String name, Double price, String description, String imgURL, int stock, String groupset, String material, String wheels) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.imgURL = imgURL;
+        this.stock = stock;
         this.groupset = groupset;
         this.material = material;
         this.wheels = wheels;
@@ -38,11 +43,20 @@ public class Product {
     //getters and setters are needed to map all the properties to the database by JPA, could
     //also be solved by making the properties public but gives less control over the properties.
 
-    public long getId() {
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -54,9 +68,9 @@ public class Product {
         this.name = name;
     }
 
-    public Number getPrice() { return price; }
+    public Double getPrice() { return price; }
 
-    public void setPrice(Number price) { this.price = price; }
+    public void setPrice(Double price) { this.price = price; }
 
     public String getDescription() {
         return description;

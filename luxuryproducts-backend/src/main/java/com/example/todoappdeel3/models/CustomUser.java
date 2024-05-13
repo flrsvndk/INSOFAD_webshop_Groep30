@@ -6,14 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Users")
 public class CustomUser {
     @Id
-    @GeneratedValue
-    private Long id;
+    @UuidGenerator
+    private UUID id;
 
     private String name;
     private String infix;
@@ -86,11 +88,11 @@ public class CustomUser {
         this.password = password;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 }
