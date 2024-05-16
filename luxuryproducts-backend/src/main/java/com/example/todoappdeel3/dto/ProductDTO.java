@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 public class ProductDTO {
     public String name;
     public String description;
-    public Number price;
+    public Double price;
     public String imgURL;
+    public int stock;
     public String groupset;
     public String material;
     public String wheels;
 
-    public ProductDTO(String name, String description, Number price, String imgURL, String groupset, String material, String wheels) {
+    public ProductDTO(String name, String description, Double price, String imgURL, String groupset, String material, String wheels, int stock) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -19,5 +20,6 @@ public class ProductDTO {
         this.groupset = groupset;
         this.material = material;
         this.wheels = wheels;
+        this.stock = stock;
     }
 }

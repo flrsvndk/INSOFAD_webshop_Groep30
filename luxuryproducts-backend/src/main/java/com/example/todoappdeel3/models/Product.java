@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ public class Product {
     @Id
     @UuidGenerator
     private UUID id;
+
     private String name;
     private Double price;
     private String description;
@@ -23,7 +25,9 @@ public class Product {
     private String wheels;
 
 
-
+    @OneToMany(mappedBy = "product")
+    @JsonBackReference
+    private List<OrderItem> orderItemList;
 
     //needed by JPA to create the entity must be present no arg constructor
     public Product() {

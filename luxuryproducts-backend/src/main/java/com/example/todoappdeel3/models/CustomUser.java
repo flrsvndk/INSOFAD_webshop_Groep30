@@ -2,12 +2,10 @@ package com.example.todoappdeel3.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +24,11 @@ public class CustomUser {
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private Set<PlacedOrder> placedOrders;
+    private List<PlacedOrder> placedOrders;
+
+    @OneToOne
+    @JsonManagedReference
+    private Adress adress;
 
     public CustomUser() {
     }
@@ -39,11 +41,27 @@ public class CustomUser {
         this.password = password;
     }
 
-    public Set<PlacedOrder> getOrders() {
+    public List<PlacedOrder> getPlacedOrders() {
         return placedOrders;
     }
 
-    public void setOrders(Set<PlacedOrder> placedOrders) {
+    public void setPlacedOrders(List<PlacedOrder> placedOrders) {
+        this.placedOrders = placedOrders;
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public List<PlacedOrder> getOrders() {
+        return placedOrders;
+    }
+
+    public void setOrders(List<PlacedOrder> placedOrders) {
         this.placedOrders = placedOrders;
     }
 

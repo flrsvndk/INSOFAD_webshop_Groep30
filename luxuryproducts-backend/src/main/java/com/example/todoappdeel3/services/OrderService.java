@@ -1,17 +1,17 @@
 package com.example.todoappdeel3.services;
 
+import com.example.todoappdeel3.dao.AdressDAO;
+import com.example.todoappdeel3.dao.OrderDAO;
 import com.example.todoappdeel3.dao.OrderItemDAO;
 import com.example.todoappdeel3.dao.ProductRepository;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.dto.OrderItemDTO;
-import com.example.todoappdeel3.models.CustomUser;
-import com.example.todoappdeel3.models.OrderItem;
-import com.example.todoappdeel3.models.PlacedOrder;
-import com.example.todoappdeel3.models.Product;
+import com.example.todoappdeel3.models.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +19,26 @@ import java.util.UUID;
 
 @Service
 public class OrderService {
-    private OrderItemDAO orderItemDAO;
-    private ProductRepository productRepository;
+    private final OrderItemDAO orderItemDAO;
+    private final ProductRepository productRepository;
+    private final AdressDAO adressDAO;
+
+    public OrderService(OrderItemDAO orderItemDAO, ProductRepository productRepository, AdressDAO adressDAO) {
+        this.orderItemDAO = orderItemDAO;
+        this.productRepository = productRepository;
+        this.adressDAO = adressDAO;
+    }
 
     public PlacedOrder createOrder(OrderDTO orderDTO, CustomUser user){
         double totalOrderSum = 0.00;
 
         List<OrderItem> orderItems = new ArrayList<>();
 
+        LocalDateTime orderDate = LocalDateTime.now();
+        Adress adress = adressDAO.createAdress(orderDTO.adressDTO);
+
         PlacedOrder customerOrder = new PlacedOrder(
+            0.00, orderDate, orderDTO.notes, user, adress
         );
 
         for (OrderItemDTO orderItemDTO : orderDTO.orderItems) {

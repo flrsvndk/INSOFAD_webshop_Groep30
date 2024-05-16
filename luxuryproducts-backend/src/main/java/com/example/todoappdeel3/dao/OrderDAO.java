@@ -42,15 +42,16 @@ public class OrderDAO {
         return  this.orderRepository.findAll();
     }
 
+    public PlacedOrder getOrderById(UUID orderId){
+        Optional<PlacedOrder> optionalOrder = this.orderRepository.findById(orderId);
 
-//    @Transactional
-//    public void createOrder(PlacedOrder placedOrder){
-//        this.userRepository.save(placedOrder.getUser() );
-//
-//        this.orderRepository.save(placedOrder);
-//
-//    }
-
+        if (optionalOrder.isPresent()){
+            return optionalOrder.get();
+        }
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No Order found with that Id"
+        );
+    }
 
     @Transactional
     public UUID saveOrderWithProducts(OrderDTO orderDTO) {
@@ -71,15 +72,15 @@ public class OrderDAO {
 
 
 
-    public List<PlacedOrder> getOrdersByUserId(long userId){
-        Optional<List<PlacedOrder>> orderList = this.orderRepository.findByUserId(userId);
-        if (orderList.isEmpty()){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No products found with that category id"
-            );
-        }
-        return orderList.get(); // return the list of orders
-    }
+//    public List<PlacedOrder> getOrdersByUserId(long userId){
+//        Optional<List<PlacedOrder>> orderList = this.orderRepository.findByUserId(userId);
+//        if (orderList.isEmpty()){
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, "No products found with that category id"
+//            );
+//        }
+//        return orderList.get(); // return the list of orders
+//    }
 
 
 

@@ -27,4 +27,10 @@ public class CredentialValidator {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.find();
     }
+
+    public boolean isValidZipCode(String zipCode){
+        final Pattern VALID_ZIP_CODE_REGEX = Pattern.compile("^[0-9]+[A-Z]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_ZIP_CODE_REGEX.matcher(zipCode);
+        return matcher.find();
+    }
 }
