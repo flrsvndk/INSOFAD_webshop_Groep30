@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -35,7 +32,10 @@ public class OrderService {
         List<OrderItem> orderItems = new ArrayList<>();
 
         LocalDateTime orderDate = LocalDateTime.now();
+
+
         Adress adress = adressDAO.createAdress(orderDTO.adressDTO);
+
 
         PlacedOrder customerOrder = new PlacedOrder(
             0.00, orderDate, orderDTO.notes, user, adress

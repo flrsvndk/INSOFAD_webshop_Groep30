@@ -36,4 +36,52 @@ public class Adress {
 
     public Adress() {
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(int houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getHouseNumberAddition() {
+        return houseNumberAddition;
+    }
+
+    public void setHouseNumberAddition(String houseNumberAddition) {
+        this.houseNumberAddition = houseNumberAddition;
+    }
+
+    public CustomUser getCustomUser() {
+        return customUser;
+    }
+
+    public void setCustomUser(CustomUser customUser) {
+        this.customUser = customUser;
+    }
+
+    public List<PlacedOrder> getPlacedOrder() {
+        return placedOrder;
+    }
+
+    public void setPlacedOrder(List<PlacedOrder> placedOrder) {
+        this.placedOrder = placedOrder;
+    }
 }

@@ -44,4 +44,13 @@ public class UserService implements UserDetailsService {
         CustomUser user = userRepository.findByEmail(userEmail);
         return user;
     }
+
+    public CustomUser getUserByJWT(){
+        String authHeader = request.getHeader("Authorization");
+        String jwt = authHeader.substring(7);
+        String userEmail = this.jwtUtil.validateTokenAndRetrieveSubject(jwt);
+
+        CustomUser user = userRepository.findByEmail(userEmail);
+        return user;
+    }
 }
