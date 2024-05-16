@@ -27,7 +27,7 @@ public class AdressDAO {
     }
 
     public Adress createAdress(AdressDTO adressDTO){
-        CustomUser user = userService.getUserByJWT();
+        CustomUser user = userService.getUser();
 
         if(adressDTO == null){
             if (!user.getAdress().getZipcode().isEmpty()) {

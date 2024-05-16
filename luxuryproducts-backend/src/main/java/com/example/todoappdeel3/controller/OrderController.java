@@ -5,7 +5,11 @@ import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.PlacedOrder;
+import com.example.todoappdeel3.services.UserService;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -18,14 +22,18 @@ public class OrderController {
 
     private final OrderDAO orderDAO;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public OrderController(OrderDAO orderDAO, UserRepository userRepository) {
+    public OrderController(OrderDAO orderDAO, UserRepository userRepository, UserService userService) {
         this.orderDAO = orderDAO;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    @GetMapping
+    @Secured({"ADMIN"})
+    @GetMapping("/all")
     public ResponseEntity<List<PlacedOrder>> getAllOrders(){
+        System.out.println(userService.getUser().getRole());
         return ResponseEntity.ok(this.orderDAO.getAllOrders());
     }
 

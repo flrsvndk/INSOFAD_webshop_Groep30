@@ -33,10 +33,10 @@ public class UserService implements UserDetailsService {
         return new User(
                 email,
                 customUser.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                Collections.singletonList(new SimpleGrantedAuthority(customUser.getRole())));
     }
 
-    public CustomUser getUserByJWT(){
+    public CustomUser getUser(){
         String authHeader = request.getHeader("Authorization");
         String jwt = authHeader.substring(7);
         String userEmail = this.jwtUtil.validateTokenAndRetrieveSubject(jwt);

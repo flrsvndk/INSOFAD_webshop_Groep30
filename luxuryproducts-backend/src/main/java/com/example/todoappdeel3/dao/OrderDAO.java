@@ -63,7 +63,7 @@ public class OrderDAO {
 //        String userEmail = this.jwtUtil.validateTokenAndRetrieveSubject(jwt);
 //
 //        CustomUser user = userRepository.findByEmail(userEmail);
-        CustomUser user = userService.getUserByJWT();
+        CustomUser user = userService.getUser();
 
         PlacedOrder placedOrder = orderService.createOrder(orderDTO, user);
 

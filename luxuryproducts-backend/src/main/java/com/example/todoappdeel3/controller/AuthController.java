@@ -1,9 +1,11 @@
 package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.config.JWTUtil;
+import com.example.todoappdeel3.dao.AuthenticationDAO;
 import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.dto.AuthenticationDTO;
 import com.example.todoappdeel3.dto.LoginResponse;
+import com.example.todoappdeel3.dto.RoleUpgradeDTO;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.services.CredentialValidator;
 import org.springframework.http.HttpStatus;
@@ -27,47 +29,23 @@ public class AuthController {
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authManager;
     private final PasswordEncoder passwordEncoder;
-    private CredentialValidator validator;
+    private final CredentialValidator validator;
+    private final AuthenticationDAO authenticationDAO;
 
-    public AuthController(UserRepository userDAO, JWTUtil jwtUtil, AuthenticationManager authManager,
-                          PasswordEncoder passwordEncoder, CredentialValidator validator) {
+    public AuthController(UserRepository userDAO, JWTUtil jwtUtil, AuthenticationManager authManager, PasswordEncoder passwordEncoder, CredentialValidator validator, AuthenticationDAO authenticationDAO) {
         this.userDAO = userDAO;
         this.jwtUtil = jwtUtil;
         this.authManager = authManager;
         this.passwordEncoder = passwordEncoder;
         this.validator = validator;
+        this.authenticationDAO = authenticationDAO;
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<LoginResponse> register(@RequestBody AuthenticationDTO authenticationDTO) {
-//        if (!validator.isValidEmail(authenticationDTO.email)) {
-//            throw new ResponseStatusException(
-//                    HttpStatus.BAD_REQUEST, "No valid email provided"
-//            );
-//        }
-//
-//        if (!validator.isValidPassword(authenticationDTO.password)) {
-//            throw new ResponseStatusException(
-//                    HttpStatus.BAD_REQUEST, "No valid password provided"
-//            );
-//        }
-//
-//        CustomUser customUser = userDAO.findByEmail(authenticationDTO.email);
-//
-//        if (customUser != null){
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "Can not register with this email"
-//            );
-//        }
-//        String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
-//
-//        CustomUser registerdCustomUser = new CustomUser(authenticationDTO.name, authenticationDTO.infix, authenticationDTO.lastName, authenticationDTO.email, encodedPassword);
-//        userDAO.save(registerdCustomUser);
-//        String token = jwtUtil.generateToken(registerdCustomUser.getEmail());
-//        LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token);
-//        return ResponseEntity.ok(loginResponse);
-//    }
-
+    @PostMapping("/admin")
+    public ResponseEntity<String> addNewRole(@RequestBody RoleUpgradeDTO roleUpgradeDTO) {
+        String message = this.authenticationDAO.newRole(roleUpgradeDTO);
+        return ResponseEntity.ok(message);
+    }
 
 
     @PostMapping("/register")

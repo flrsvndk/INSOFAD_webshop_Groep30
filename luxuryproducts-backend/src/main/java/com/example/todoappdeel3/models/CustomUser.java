@@ -20,6 +20,7 @@ public class CustomUser {
     private String lastName;
     private String email;
     private String password;
+    private String role = "USER";
 
 
     @OneToMany(mappedBy = "user")
@@ -39,6 +40,14 @@ public class CustomUser {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<PlacedOrder> getPlacedOrders() {
