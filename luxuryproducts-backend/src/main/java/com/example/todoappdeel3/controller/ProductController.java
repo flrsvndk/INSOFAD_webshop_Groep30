@@ -28,7 +28,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable UUID id){
-
         return ResponseEntity.ok(this.productDAO.getProductById(id));
     }
 

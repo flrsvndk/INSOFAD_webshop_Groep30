@@ -5,15 +5,11 @@ import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dao.ProductRepository;
 import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.models.CustomUser;
-import com.example.todoappdeel3.models.PlacedOrder;
 import com.example.todoappdeel3.models.Product;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class Seeder {
@@ -57,7 +53,6 @@ public class Seeder {
         this.productDAO.createProduct(product9);
     }
 
-
     private void seedUser(){
         CustomUser customUser = new CustomUser();
         customUser.setName("Bob");
@@ -65,6 +60,7 @@ public class Seeder {
         customUser.setLastName("Webshop");
         customUser.setEmail("bob@bobsluxuryenterprise.com");
         customUser.setPassword(new BCryptPasswordEncoder().encode("Test123!"));
+        customUser.setRole("ADMIN");
         userRepository.save(customUser);
     }
 }

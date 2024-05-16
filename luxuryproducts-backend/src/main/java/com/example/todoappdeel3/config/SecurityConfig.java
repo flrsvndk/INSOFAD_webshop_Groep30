@@ -7,8 +7,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,16 +37,12 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .userDetailsService(userService)
-
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.GET,"/products/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/products").hasAnyAuthority("ADMIN", "STAFF")
-                        .requestMatchers(HttpMethod.GET, "/category").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/category").hasAnyAuthority("ADMIN")
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/auth/admin").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/auth/userRoles").hasAuthority("ADMIN")
                         .requestMatchers("/orders/all").hasAnyAuthority("ADMIN", "STAFF")
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated()
