@@ -28,12 +28,13 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable UUID id){
+
         return ResponseEntity.ok(this.productDAO.getProductById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
-        this.productDAO.createProduct(productDTO);
-        return ResponseEntity.ok("Created a product");
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
+//        this.productDAO.createProduct(productDTO);
+//        return ResponseEntity.ok("Created a product");
+//    }
 }

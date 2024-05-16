@@ -1,9 +1,7 @@
 package com.example.todoappdeel3.dao;
 
 import com.example.todoappdeel3.dto.ProductDTO;
-import com.example.todoappdeel3.models.Category;
 import com.example.todoappdeel3.models.Product;
-import com.example.todoappdeel3.models.ProductSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,13 +15,9 @@ import java.util.UUID;
 public class ProductDAO {
 
     private final ProductRepository productRepository;
-    private final CategoryDAO categoryDAO;
-    private final ProductSpecificationDAO productSpecificationDAO;
 
-    public ProductDAO(ProductRepository productRepository, CategoryDAO categoryDAO, ProductSpecificationDAO productSpecificationDAO) {
+    public ProductDAO(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.categoryDAO = categoryDAO;
-        this.productSpecificationDAO = productSpecificationDAO;
     }
 
     public List<Product> getAllProducts() {
@@ -45,24 +39,9 @@ public class ProductDAO {
 
     @Transactional
     public void createProduct(ProductDTO productDTO){
-         Category category;
-
-         if(productDTO.categoryDTO == null){
-             category = this.categoryDAO.getById(productDTO.categoryId);
-         } else {
-             category = this.categoryDAO.createCategory(productDTO.categoryDTO);
-         }
-
-        Product product = new Product(
-            productDTO.name,
-            productDTO.description,
-            category
-        );
-        this.productRepository.save(product);
-
-        ProductSpecification productSpecification = this.productSpecificationDAO.createSpecification(product, productDTO.productSpecificationsDTO);
-        product.setProductSpecification(productSpecification);
-        this.productRepository.save(product);
+            Product product = new Product(productDTO.name, productDTO.price,  productDTO.description,productDTO.imgURL, productDTO.stock, productDTO.groupset, productDTO.material, productDTO.wheels);
+            this.productRepository.save(product);
+            return;
     }
 
 }

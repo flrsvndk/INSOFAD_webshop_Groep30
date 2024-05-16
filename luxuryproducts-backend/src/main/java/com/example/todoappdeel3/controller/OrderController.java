@@ -5,11 +5,7 @@ import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.PlacedOrder;
-import com.example.todoappdeel3.services.UserService;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,37 +18,39 @@ public class OrderController {
 
     private final OrderDAO orderDAO;
     private final UserRepository userRepository;
-    private final UserService userService;
 
-    public OrderController(OrderDAO orderDAO, UserRepository userRepository, UserService userService) {
+    public OrderController(OrderDAO orderDAO, UserRepository userRepository) {
         this.orderDAO = orderDAO;
         this.userRepository = userRepository;
-        this.userService = userService;
     }
 
-    @Secured({"ADMIN"})
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<PlacedOrder>> getAllOrders(){
-        System.out.println(userService.getUser().getRole());
         return ResponseEntity.ok(this.orderDAO.getAllOrders());
     }
 
 
-    @GetMapping("/myOrders")
-    public ResponseEntity<List<PlacedOrder>> getOrdersByUserPrincipal(Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        String userEmail = principal.getName();
-        CustomUser user = userRepository.findByEmail(userEmail);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<PlacedOrder> orders = user.getOrders();
-
-        return ResponseEntity.ok(orders);
-    }
+//    @GetMapping("/myOrders")
+//    public ResponseEntity<List<PlacedOrder>> getOrdersByUserPrincipal(Principal principal) {
+//        if (principal == null) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//        String userEmail = principal.getName();
+//        CustomUser user = userRepository.findByEmail(userEmail);
+//        if (user == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        List<PlacedOrder> orders = user.getOrders();
+////                this.orderDAO.getOrdersByUserId(user.getId());
+//
+//        // Voorbeeld: Stel dat je 'totalProducts' al hebt ingesteld in je OrderDAO of ergens anders
+//        // Anders, hier zou je logica toevoegen om 'totalProducts' te berekenen voor elke bestelling.
+//        // Bijvoorbeeld, voor elke bestelling, tel het aantal producten en stel 'totalProducts' in.
+//        // Dit is een eenvoudige demonstratie die ervan uitgaat dat de totalen al berekend zijn.
+//
+//        return ResponseEntity.ok(orders);
+//    }
 
 
 

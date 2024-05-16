@@ -20,6 +20,15 @@ public class OrderItem {
     @JsonManagedReference
     private Product product;
 
+    public OrderItem() {
+    }
+
+    public OrderItem(int quantity, PlacedOrder placedOrder, Product product) {
+        this.quantity = quantity;
+        this.placedOrder = placedOrder;
+        this.product = product;
+    }
+
     public long getId() {
         return id;
     }

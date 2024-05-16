@@ -17,96 +17,39 @@ public class PlacedOrder {
     @UuidGenerator
     private UUID id;
 
-    @Column(nullable = true)
-    private String infix;
-
-    private String name;
-    private String last_name;
-    private String zipcode;
-    private int houseNumber;
-    private String houseNumberAddition;
     private Double totalProductsPrice;
     private LocalDateTime orderDate;
-
-    @Column(nullable = true)
     private String notes;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private CustomUser user;
 
-//    @ManyToMany
-//    @JoinTable(name = "product_order",
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    private Set<Product> products = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "placedOrder")
     @JsonManagedReference
     private List<OrderItem> orderItems;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonManagedReference
+    private Adress adress;
 
     public PlacedOrder() {
     }
 
-    public PlacedOrder(String infix, String name, String last_name, String zipcode, int houseNumber, String houseNumberAddition, Double totalProductsPrice, LocalDateTime orderDate, String notes, CustomUser user) {
-        this.infix = infix;
-        this.name = name;
-        this.last_name = last_name;
-        this.zipcode = zipcode;
-        this.houseNumber = houseNumber;
-        this.houseNumberAddition = houseNumberAddition;
+    public PlacedOrder(Double totalProductsPrice, LocalDateTime orderDate, String notes, CustomUser user, Adress adress) {
         this.totalProductsPrice = totalProductsPrice;
         this.orderDate = orderDate;
         this.notes = notes;
         this.user = user;
+        this.adress = adress;
     }
 
-    public UUID getId() {
-        return id;
+    public Adress getAdress() {
+        return adress;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getInfix() {
-        return infix;
-    }
-
-    public void setInfix(String infix) {
-        this.infix = infix;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public Number getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
+    public void setAdress(Adress adress) {
+        this.adress = adress;
     }
 
     public String getNotes() {
@@ -133,20 +76,20 @@ public class PlacedOrder {
         this.user = user;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public Double getTotalProductsPrice() {
         return totalProductsPrice;
     }
 
     public void setTotalProductsPrice(Double totalProductsPrice) {
         this.totalProductsPrice = totalProductsPrice;
-    }
-
-    public String getHouseNumberAddition() {
-        return houseNumberAddition;
-    }
-
-    public void setHouseNumberAddition(String houseNumberAddition) {
-        this.houseNumberAddition = houseNumberAddition;
     }
 
     public List<OrderItem> getOrderItems() {
