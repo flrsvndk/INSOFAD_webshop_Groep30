@@ -22,6 +22,6 @@ public class AdressController {
     @PostMapping
     public ResponseEntity<String> createAdress(@RequestBody AdressDTO adressDTO){
         this.adressDAO.createAdress(adressDTO);
-        return ResponseEntity.ok("Created a product");
+        return ResponseEntity.ok("Created an Adress");
     }
 }

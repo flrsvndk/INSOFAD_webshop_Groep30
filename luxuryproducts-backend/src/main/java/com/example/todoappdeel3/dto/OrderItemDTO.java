@@ -4,10 +4,10 @@ import java.util.UUID;
 
 public class OrderItemDTO {
     public int quantity;
-    public UUID productId;
+    public UUID typeId;
 
-    public OrderItemDTO(int quantity, UUID productId) {
+    public OrderItemDTO(int quantity, UUID typeId) {
         this.quantity = quantity;
-        this.productId = productId;
+        this.typeId = typeId;
     }
 }
