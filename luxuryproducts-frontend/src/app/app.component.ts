@@ -8,7 +8,7 @@ import {ProductsModule} from "./products/products.module";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AuthModule, CoreModule, ProductsModule],
+  imports: [CommonModule, RouterOutlet, AuthModule, CoreModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

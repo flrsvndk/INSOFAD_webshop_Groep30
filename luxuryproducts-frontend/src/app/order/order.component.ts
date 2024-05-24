@@ -4,6 +4,12 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import { Router } from "@angular/router";
 import { Product } from '../models/product.model';
 import { Order } from '../models/order.model';
+import {User} from "../models/user.model";
+import {Adress} from "../models/adress.model";
+import {OrderItem} from "../models/order-item.model";
+import {OrderService} from "../services/order.service";
+import {UserService} from "../services/user.service";
+import {ProductType} from "../models/product-type.model";
 
 @Component({
   selector: 'app-order',
@@ -16,20 +22,22 @@ import { Order } from '../models/order.model';
 })
 export class OrderComponent implements OnInit {
   public bestelForm: FormGroup;
-  public products_in_cart: Product[];
+  public products_in_cart: ProductType[];
   public order: Order;
+  public adress: Adress;
+  public orderItems: OrderItem[]
 
-  constructor(private cartService: CartService, private router: Router, private fb: FormBuilder) {}
+  constructor(private userService: UserService,private cartService: CartService, private router: Router, private fb: FormBuilder, private orderServive: OrderService) {}
 
   ngOnInit(): void {
     this.products_in_cart = this.cartService.allProductsInCart();
+    // this.currentLoggedInUser = this.userService.getUserFromBearer(localStorage.getItem());
     this.bestelForm = this.fb.group({
-      Voornaam: ['', [Validators.required]],
-      Tussenvoegsel: [''],
-      Achternaam: ['', [Validators.required]],
-      Postcode: ['', [Validators.required]],
-      Huisnummer: ['', [Validators.required, Validators.maxLength(5)]],
-      Opmerkingen: ['']
+      Postcode: [''],
+      Huisnummer: ['', [Validators.maxLength(5)]],
+      Opmerkingen: [''],
+      HouseNummerAddition: [''],
+      Opslaan: ['']
     });
   }
 
@@ -40,16 +48,18 @@ export class OrderComponent implements OnInit {
   public onSubmit() {
       const formData = this.bestelForm.value;
 
+      this.orderItems = this.orderServive.createOrderItems(this.products_in_cart);
+
       this.order = {
-        id: formData.id,
-        name: formData.Voornaam,
-        infix: formData.Tussenvoegsel,
-        last_name: formData.Achternaam,
-        zipcode: formData.Postcode,
-        houseNumber: formData.Huisnummer,
         notes: formData.Opmerkingen,
-        orderDate: formData.orderDatum,
-        products: this.products_in_cart
+
+        adressDTO : this.adress = {
+          zipcode: formData.Postcode,
+          houseNumber: formData.Huisnummer,
+          houseNumberAddition: formData.HouseNummerAddition,
+          save: formData.Opslaan
+        },
+        orderItems: this.orderItems
       };
 
       this.cartService.addOrder(this.order).subscribe(

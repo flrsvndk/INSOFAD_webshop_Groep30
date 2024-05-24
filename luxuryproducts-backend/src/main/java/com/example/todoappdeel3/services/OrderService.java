@@ -1,9 +1,6 @@
 package com.example.todoappdeel3.services;
 
-import com.example.todoappdeel3.dao.AdressDAO;
-import com.example.todoappdeel3.dao.OrderDAO;
-import com.example.todoappdeel3.dao.OrderItemDAO;
-import com.example.todoappdeel3.dao.ProductRepository;
+import com.example.todoappdeel3.dao.*;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.dto.OrderItemDTO;
 import com.example.todoappdeel3.models.*;
@@ -17,13 +14,13 @@ import java.util.*;
 @Service
 public class OrderService {
     private final OrderItemDAO orderItemDAO;
-    private final ProductRepository productRepository;
     private final AdressDAO adressDAO;
+    private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
 
-    public OrderService(OrderItemDAO orderItemDAO, ProductRepository productRepository, AdressDAO adressDAO) {
+    public OrderService(OrderItemDAO orderItemDAO, AdressDAO adressDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
         this.orderItemDAO = orderItemDAO;
-        this.productRepository = productRepository;
         this.adressDAO = adressDAO;
+        this.productSpecificationTypesRepository = productSpecificationTypesRepository;
     }
 
     public PlacedOrder createOrder(OrderDTO orderDTO, CustomUser user){
@@ -43,8 +40,9 @@ public class OrderService {
 
         for (OrderItemDTO orderItemDTO : orderDTO.orderItems) {
             OrderItem orderItem = orderItemDAO.createOrderItem(orderItemDTO, customerOrder);
-            orderItem.setQuantity(this.checkProductQuanity(orderItem.getProduct().getId(), orderItem.getQuantity()));
-            totalOrderSum += orderItem.getProduct().getPrice() * orderItem.getQuantity();
+            orderItem.setQuantity(this.checkProductQuanity(orderItem.getProductType().getId(), orderItem.getQuantity()));
+
+            totalOrderSum +=  orderItem.getProductType().getPrice() * orderItem.getQuantity();
             orderItems.add(orderItem);
         }
         customerOrder.setOrderItems(orderItems);
@@ -54,15 +52,14 @@ public class OrderService {
     }
 
     private int checkProductQuanity(UUID productId, int quanity) {
-        Optional<Product> orderedProduct = this.productRepository.findById(productId);
+        Optional<ProductSpecificationType> orderedProduct = this.productSpecificationTypesRepository.findById(productId);
         if (orderedProduct.isPresent()){
-            Product product = orderedProduct.get();
+            ProductSpecificationType product = orderedProduct.get();
             if (quanity < product.getStock()) {
                 product.setStock(product.getStock() - quanity);
             } else {
                 quanity = product.getStock();
                 product.setStock(0);
-//                product.setAvailable(false);
             }
             return quanity;
         }

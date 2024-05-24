@@ -20,6 +20,7 @@ public class CustomUser {
     private String lastName;
     private String email;
     private String password;
+    private String imgUrl = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
     private String role = "USER";
 
 
@@ -40,6 +41,24 @@ public class CustomUser {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public CustomUser(String name, String infix, String lastName, String email, String password, String imgUrl) {
+        this.name = name;
+        this.infix = infix;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.imgUrl = imgUrl;
+    }
+
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getRole() {

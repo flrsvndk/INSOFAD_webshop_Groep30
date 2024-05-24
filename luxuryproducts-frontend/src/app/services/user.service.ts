@@ -1,8 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
+import {AuthResponse} from "../auth/auth-response.model";
+import {TokenService} from "../auth/token.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,24 @@ import {User} from "../models/user.model";
 export class UserService {
   private baseUrl: string = environment.base_url + "/auth/user";
 
-  constructor(private http: HttpClient) {
+  public $userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor(private http: HttpClient, private tokenService: TokenService) {
   }
 
   public getUserByEmail(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}`);
   }
 
-  public updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}`, user);
+  public updateUser(user: User): Observable<AuthResponse> {
+    return this.http
+        .put<AuthResponse>(`${this.baseUrl}`, user)
+        .pipe(
+            tap((authResponse: AuthResponse) => {
+              this.tokenService.storeToken(authResponse.token);
+              this.$userIsLoggedIn.next(true);
+            })
+        );
   }
 
   public deleteUser(email: string): Observable<void> {

@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Order } from '../models/order.model'; // Pas dit pad aan naar waar je model zich bevindt
 import { environment } from '../../environments/environment';
+import {ExistingOrder} from "../models/existing-order.model";
+import {Product} from "../models/product.model";
+import {OrderItem} from "../models/order-item.model";
+import {ProductType} from "../models/product-type.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private baseUrl: string = environment.base_url + "/orders/myOrders";
+  private baseUrl: string = environment.base_url + "/orders";
 
   constructor(private http: HttpClient) { }
 
-  getOrdersByCurrentUser(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl);
+  // createOrderItems(products: )
+
+  getOrdersByCurrentUser(): Observable<ExistingOrder[]> {
+    return this.http.get<ExistingOrder[]>(this.baseUrl + "/myOrders");
+  }
+
+  createOrderItems(products_in_cart: ProductType[]) {
+    let orderItems: OrderItem[] = [];
+    for (let product  of products_in_cart){
+      let orderItem : OrderItem = new OrderItem(product.amount, product.id, product);
+      orderItems.push(orderItem);
+    }
+    return orderItems;
   }
 }

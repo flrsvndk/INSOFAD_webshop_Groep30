@@ -26,4 +26,12 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  public userAdressSaved(user: User): boolean {
+    if(user.adress == null){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }

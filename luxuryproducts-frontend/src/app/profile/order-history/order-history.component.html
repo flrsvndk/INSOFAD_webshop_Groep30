@@ -1,29 +1,37 @@
 <div class="container mt-5">
   <div class="orders-container">
-    <div *ngFor="let order of orders" class="mb-4">
-      <div class="order-header">
-        <p>Order ID: {{order.id}}</p>
-        <p>Order Date: {{order.orderDate | date: 'medium'}}</p>
+      <div>
+          <h1>Order History</h1>
       </div>
-      <div class="customer-info">
-        <p class="customer-name">{{order.name}} {{order.infix}} {{order.last_name}}</p>
-        <p class="customer-address">{{order.zipcode}}, {{order.houseNumber}}</p>
-        <p class="customer-notes">{{order.notes}}</p>
-      </div>
-      <ul class="products-list">
-        <li *ngFor="let product of order.products" class="d-flex justify-content-between align-items-center mb-2">
-          <div class="product-details">
-            <p class="product-name">{{product.name}}</p>
-            <p class="product-price">Price: {{product.price | currency: 'EUR'}}</p>
+    <div class="mb-4">
+        @for(order of orders; track $index){
+          <div class="order-header">
+            <p>Order ID: {{order.id}}</p>
+            <p>Order Date: {{order.orderDate | date: 'medium'}}</p>
           </div>
-          <div class="product-image">
-            <img src="{{product.imgURL}}" alt="{{product.name}}">
+          <div class="customer-info">
+    <!--        <p class="customer-name">{{order.user.name}} {{order.user.infix}} {{order.user.lastName}}</p>-->
+            <p class="customer-address">{{order.adress.zipcode}}, {{order.adress.houseNumber + " " + order.adress.houseNumberAddition}}</p>
+            <p class="customer-notes">{{order.notes}}</p>
           </div>
-        </li>
-        <li class="d-flex justify-content-between align-items-center fw-bold">Total: €{{calculateTotal(order.products)}}</li>
-      </ul>
-      <hr>
+          <ul class="products-list">
+            <li class="d-flex justify-content-between align-items-center mb-2">
+                @for(orderItem of order.orderItems; track $index){
+                  <div class="product-details">
+                    <p class="product-name">{{orderItem.product.stock}}</p>
+                      <p class="product-amount">{{orderItem.quantity}}</p>
+        <!--            <p class="product-price">Price: {{orderItem.product.price | currency: 'EUR'}}</p>-->
+
+                  </div>
+    <!--          <div class="product-image">-->
+    <!--            <img src="{{orderItem.product.imgUrl}}" alt="{{orderItem.product.name}}">-->
+    <!--          </div>-->
+                }
+            </li>
+            <li class="d-flex justify-content-between align-items-center fw-bold">Total: {{order.totalProductsPrice | currency: "EUR"}}</li>
+          </ul>
+          <hr>
+        }
     </div>
   </div>
-
 </div>

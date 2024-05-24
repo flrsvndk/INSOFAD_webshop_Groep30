@@ -1,10 +1,10 @@
 <h3>Our Collection!</h3>
 
 @if (loadingProducts) {
-  <p>Loading products...</p>
+  <h4>Loading products...</h4>
 } @else {
   @for (product of products; track $index) {
-    <app-product-thumbnail [product]="product" (onBuyProduct)="onBuyProduct(product)"></app-product-thumbnail>
+    <app-product-thumbnail [product]="product"></app-product-thumbnail>
     
   }
 }

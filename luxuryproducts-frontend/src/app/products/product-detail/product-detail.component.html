@@ -1,41 +1,45 @@
 <section class="py-5">
-  <div class="container px-4 px-lg-5 my-5">
-    <div class="row gx-4 gx-lg-5 align-items-center">
-      <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{product.imgURL}}" alt="..."
-                                 style="width: 500px;"/></div>
-      <div class="col-md-6">
-        <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
-        <span>€{{ product.price }}</span>
-        <p class="lead">{{ product.description }}</p>
-
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Specificaties</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Groepset</th>
-              <td>{{ product.groupset }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Materiaal</th>
-              <td>{{product.material}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Wielen</th>
-              <td colspan="2">{{product.wheels}}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <button (click)="onBuyProduct(product)" class="btn btn-primary float-right text-center" style="width: 300px;">
-          Voeg toe aan winkelmand</button>
-      </div>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <img class="img-fluid rounded" src="{{ product.productSpecification.types.at(type1Index)?.imgUrl }}" alt="Product Image" />
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                <div class="fs-5 mb-4">
+                    <span>{{ productsService.calculatePrice(product, type1Index, type2Index) | currency: 'EUR' }}</span>
+                </div>
+                <p class="lead">{{ product.description }}</p>
+                <div class="mt-4">
+                    <h4>{{ product.productSpecification.name }}</h4>
+                    <div class="btn-group" role="group" aria-label="Product Types">
+                        <button *ngFor="let productType of product.productSpecification.types; let i = index"
+                                (click)="selectType(productType, i)"
+                                [class.btn-primary]="i === type1Index"
+                                class="btn"
+                                [ngClass]="{'btn-outline-primary': i !== type1Index}">
+                            {{ productType.name }}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="productsService.subSpecificationExist(chosenType)" class="mt-4">
+                    <h4>{{ chosenType.subSpecification.name }}</h4>
+                    <div class="btn-group" role="group" aria-label="Sub Types">
+                        <button *ngFor="let subType of chosenType.subSpecification.types; let i = index"
+                                (click)="selectSubType(subType, i)"
+                                [class.btn-secondary]="i === type2Index"
+                                class="btn"
+                                [ngClass]="{'btn-outline-secondary': i !== type2Index}">
+                            {{ subType.name }}
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button (click)="onBuyProduct(product)" [disabled]="!canOrder()" class="btn btn-primary btn-lg w-100">
+                        Voeg toe aan winkelmand
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
-

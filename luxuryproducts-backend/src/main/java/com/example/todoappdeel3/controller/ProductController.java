@@ -31,9 +31,9 @@ public class ProductController {
         return ResponseEntity.ok(this.productDAO.getProductById(id));
     }
 
-//    @PostMapping
-//    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
-//        this.productDAO.createProduct(productDTO);
-//        return ResponseEntity.ok("Created a product");
-//    }
+    @PostMapping
+    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
+        this.productDAO.createProduct(productDTO);
+        return ResponseEntity.ok("Created a product");
+    }
 }

@@ -20,23 +20,11 @@ import java.util.*;
 @Component
 public class OrderDAO {
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
-    private final ProductRepository productRepository;
-    private final UserRepository customUserRepository;
-    private final OrderItemDAO orderItemDAO;
-    private final JWTUtil jwtUtil;
-    private final HttpServletRequest request;
     private final OrderService orderService;
     private final UserService userService;
 
-    public OrderDAO(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository, UserRepository customUserRepository, OrderItemDAO orderItemDAO, JWTUtil jwtUtil, HttpServletRequest request, OrderService orderService, UserService userService) {
+    public OrderDAO(OrderRepository orderRepository, OrderService orderService, UserService userService) {
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
-        this.productRepository = productRepository;
-        this.customUserRepository = customUserRepository;
-        this.orderItemDAO = orderItemDAO;
-        this.jwtUtil = jwtUtil;
-        this.request = request;
         this.orderService = orderService;
         this.userService = userService;
     }
@@ -58,11 +46,6 @@ public class OrderDAO {
 
     @Transactional
     public UUID saveOrderWithProducts(OrderDTO orderDTO) {
-//        String authHeader = request.getHeader("Authorization");
-//        String jwt = authHeader.substring(7);
-//        String userEmail = this.jwtUtil.validateTokenAndRetrieveSubject(jwt);
-//
-//        CustomUser user = userRepository.findByEmail(userEmail);
         CustomUser user = userService.getUser();
 
         PlacedOrder placedOrder = orderService.createOrder(orderDTO, user);
@@ -71,22 +54,4 @@ public class OrderDAO {
 
         return placedOrder.getId();
     }
-
-
-
-
-
-//    public List<PlacedOrder> getOrdersByUserId(long userId){
-//        Optional<List<PlacedOrder>> orderList = this.orderRepository.findByUserId(userId);
-//        if (orderList.isEmpty()){
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "No products found with that category id"
-//            );
-//        }
-//        return orderList.get(); // return the list of orders
-//    }
-
-
-
-
 }

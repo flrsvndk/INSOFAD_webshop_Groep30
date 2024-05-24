@@ -1,29 +1,56 @@
-<div class="card col-9 align-items-center justify-content-center">
-  <div *ngIf="user" class="d-flex mt-5 mb-5 align-items-center justify-content-center">
+<div class="card col-7 align-items-center justify-content-center">
+  <div *ngIf="user" class="d-flex mt-5 mb-5 align-items-center justify-content-start">
+
     <div class="col-6">
       <img
         src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
         class="img-fluid" style="width: 20vw">
     </div>
-    <div class="col-6 justify-content-end">
-      <p>
-        <label for="name">Name:</label>
-        <input type="text" id="name" class="form-control" [(ngModel)]="user.name">
-      </p>
-      <p>
-        <label for="infix">TussenVoegsel:</label>
-        <input type="text" id="infix" class="form-control" [(ngModel)]="user.infix">
-      </p>
-      <p>
-        <label for="lastName">Achternaam:</label>
-        <input type="text" id="lastName" class="form-control" [(ngModel)]="user.lastName">
-      </p>
-      <p>
-        <label for="email">Email:</label>
-        <input type="text" id="email" class="form-control" [(ngModel)]="user.email">
-      </p>
-      <button class="btn btn-primary" [routerLink]="['/profile']" (click)="updateUser()">Opslaan</button>
-      <button class="btn btn-danger" [routerLink]="['/logout']" (click)="deleteAccount()">Verwijder Account</button>
+      <div class="col-1"></div>
+        <div class="col-6 justify-content-end">
+            <form [formGroup]="updateUserForm">
+            <div data-mdb-input-init class="form-outline">
+                <p>
+                    <label for="form1.1">Name:</label>
+                    <input type="text" id="form1.1" class="form-control" [placeholder]=" user.name" formControlName="name"/>
+                </p>
+                <p>
+                    <label for="form1.2">Tussenvoegsel:</label>
+                    <input type="text" id="form1.2" class="form-control" placeholder="{{ user.infix }}" formControlName="tussenvoegsel"/>
+                </p>
+                <p>
+                    <label for="form1.3">Achternaam:</label>
+                    <input type="text" id="form1.3" class="form-control" placeholder="{{ user.lastName }}" formControlName="achternaam"/>
+                </p>
+                <p>
+                    <label for="form1.4">E-mail:</label>
+                    <input type="email" id="form1.4" class="form-control" placeholder="{{ user.email }}" formControlName="email"/>
+                </p>
+                <p>
+                    <label for="form1.5">image Url </label>
+                    <input type="imgUrl" id="form1.5" class="form-control" placeholder="{{ user.imgUrl }}" formControlName="imgUrl"/>
+                </p>
+
+                <div formGroupName="adress">
+                    <p>
+                        <label for="form2.1">Postcode:</label>
+                        <input type="text" id="form2.1" class="form-control" placeholder="{{ user.adress.zipcode }}" formControlName="zipcode"/>
+                    </p>
+                    <p>
+                        <label for="form2.2">Huisnummer:</label>
+                        <input type="number" id="form2.2" class="form-control" placeholder="{{ user.adress.houseNumber }}" formControlName="houseNumber"/>
+                    </p>
+                    <p>
+                        <label for="form2.3">Huisnummer toevoeging:</label>
+                        <input type="text" id="form2.3" class="form-control" placeholder="{{ user.adress.houseNumberAddition }}" formControlName="houseNumberAddition"/>
+                    </p>
+                </div>
+
+
+              <button class="btn btn-primary" [routerLink]="['/profile']" (click)="updateUser()">Opslaan</button>
+              <button class="btn btn-danger" [routerLink]="['/logout']" (click)="deleteAccount()">Verwijder Account</button>
+            </div>
+        </form>
+      </div>
     </div>
-  </div>
 </div>

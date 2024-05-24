@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Form, FormGroup } from '@angular/forms';
 import { Order } from '../models/order.model';
+import {ProductType} from "../models/product-type.model";
 
 
 const localStorageKey: string = "products-in-cart";
@@ -14,22 +15,22 @@ const localStorageKey: string = "products-in-cart";
   providedIn: 'root'
 })
 export class CartService {
-  private productsInCart: Product[] = [];
-  public $productInCart: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private productsInCart: ProductType[] = [];
+  public $productInCart: BehaviorSubject<ProductType[]> = new BehaviorSubject<ProductType[]>([]);
   private baseUrl: string = environment.base_url + "/orders";
 
   constructor(private http: HttpClient) {
     this.loadProductsFromLocalStorage();
   }
 
-  public addProductToCart(productToAdd: Product) {
-    let existingProductIndex: number = this.productsInCart.findIndex(product => product.name === productToAdd.name);
+  public addProductToCart(productType: ProductType) {
+    let existingProductIndex: number = this.productsInCart.findIndex(product => product.id === productType.id);
 
     if (existingProductIndex !== -1) {
       this.productsInCart[existingProductIndex].amount += 1;
     } else {
-      productToAdd.amount = 1;
-      this.productsInCart.push(productToAdd);
+      productType.amount = 1;
+      this.productsInCart.push(productType);
     }
 
     this.saveProductsAndNotifyChange();
@@ -50,7 +51,7 @@ export class CartService {
     this.saveProductsAndNotifyChange();
   }
 
-  public allProductsInCart(): Product[] {
+  public allProductsInCart(): ProductType[] {
     return this.productsInCart.slice();
   }
 
@@ -73,14 +74,14 @@ export class CartService {
     this.$productInCart.next(this.productsInCart.slice());
   }
 
-  private saveProductsToLocalStorage(products: Product[]): void {
+  private saveProductsToLocalStorage(products: ProductType[]): void {
     localStorage.setItem(localStorageKey, JSON.stringify(products));
   }
 
   private loadProductsFromLocalStorage(): void {
     let productsOrNull = localStorage.getItem(localStorageKey);
     if (productsOrNull != null) {
-      let products: Product[] = JSON.parse(productsOrNull);
+      let products: ProductType[] = JSON.parse(productsOrNull);
       this.productsInCart = products;
       this.$productInCart.next(this.productsInCart.slice());
     }

@@ -1,13 +1,17 @@
 package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.config.JWTUtil;
+import com.example.todoappdeel3.dao.AdressDAO;
 import com.example.todoappdeel3.dao.AuthenticationDAO;
 import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.dto.AuthenticationDTO;
+import com.example.todoappdeel3.dto.CustomUserDTO;
 import com.example.todoappdeel3.dto.LoginResponse;
 import com.example.todoappdeel3.dto.RoleUpgradeDTO;
+import com.example.todoappdeel3.models.Adress;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.services.CredentialValidator;
+import com.example.todoappdeel3.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +24,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -39,6 +45,11 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
         this.validator = validator;
         this.authenticationDAO = authenticationDAO;
+    }
+
+    @GetMapping("/userRoles")
+    public ResponseEntity<List<CustomUser>> getStaffAndAdministrators(){
+        return ResponseEntity.ok(this.authenticationDAO.getStaff());
     }
 
     @PostMapping("/admin")
@@ -114,21 +125,11 @@ public class AuthController {
 
 
     @PutMapping("/user")
-    public ResponseEntity<CustomUser> updateUser(@RequestBody CustomUser updatedUser) {
-        CustomUser existingUser = userDAO.findByEmail(updatedUser.getEmail());
-
-        if (existingUser == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Gebruiker niet gevonden");
-        }
-
-        existingUser.setName(updatedUser.getName());
-        existingUser.setInfix(updatedUser.getInfix());
-        existingUser.setLastName(updatedUser.getLastName());
-        existingUser.setEmail(updatedUser.getEmail());
-
-
-        CustomUser savedUser = userDAO.save(existingUser);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<LoginResponse> updateUser(@RequestBody CustomUserDTO updatedUser) {
+        CustomUser savedUser = this.authenticationDAO.updatedUser(updatedUser);
+        String token = jwtUtil.generateToken(savedUser.getEmail());
+        LoginResponse loginResponse = new LoginResponse(savedUser.getEmail(), token);
+        return ResponseEntity.ok(loginResponse);
     }
 
 

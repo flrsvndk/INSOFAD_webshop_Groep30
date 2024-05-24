@@ -38,27 +38,21 @@ public class OrderController {
     }
 
 
-//    @GetMapping("/myOrders")
-//    public ResponseEntity<List<PlacedOrder>> getOrdersByUserPrincipal(Principal principal) {
-//        if (principal == null) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//        String userEmail = principal.getName();
-//        CustomUser user = userRepository.findByEmail(userEmail);
-//        if (user == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        List<PlacedOrder> orders = user.getOrders();
-////                this.orderDAO.getOrdersByUserId(user.getId());
-//
-//        // Voorbeeld: Stel dat je 'totalProducts' al hebt ingesteld in je OrderDAO of ergens anders
-//        // Anders, hier zou je logica toevoegen om 'totalProducts' te berekenen voor elke bestelling.
-//        // Bijvoorbeeld, voor elke bestelling, tel het aantal producten en stel 'totalProducts' in.
-//        // Dit is een eenvoudige demonstratie die ervan uitgaat dat de totalen al berekend zijn.
-//
-//        return ResponseEntity.ok(orders);
-//    }
+    @GetMapping("/myOrders")
+    public ResponseEntity<List<PlacedOrder>> getOrdersByUserPrincipal(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        String userEmail = principal.getName();
+        CustomUser user = userRepository.findByEmail(userEmail);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<PlacedOrder> orders = user.getOrders();
+
+        return ResponseEntity.ok(orders);
+    }
 
 
 

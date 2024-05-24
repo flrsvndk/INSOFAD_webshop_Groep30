@@ -1,12 +1,8 @@
+import {ProductSpecification} from "./product-specification.model";
+
 export class Product {
-  public id: number;
+  public id: string;
   public name: string;
   public description: string;
-  public price: number;
-  public imgURL: string;
-  public amount: number;
-  public groupset: string;
-  public material: string;
-  public wheels: string;
-  // public category: Category;
+  public productSpecification: ProductSpecification;
 }

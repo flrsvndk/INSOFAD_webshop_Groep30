@@ -1,22 +1,45 @@
-<div class="d-flex">
-
-  <div class="col-md-4">
-    <img src="{{ product.imgURL }}" class="img-fluid rounded-start img-responsive rounded-end"
-         style="max-height: 150px;" alt="...">
-  </div>
-  <div class="p-2 w-100">
-    <h5>{{ product.name }}</h5>
-    <p>€{{ product.price}}</p>
-    <p>
-      <small>{{ product.description }}</small>
-    </p>
-  </div>
-  <div class="p-2 flex-shrink-1">
-    <a [routerLinkActive]="['active']" routerLink="/products/{{product.id}}" class="btn btn-secondary">
-      Show detail</a>
-    <button (click)="buyProduct(product)" class="btn btn-primary float-right">
-      Buy
-    </button>
-  </div>
+<div class="container my-4">
+    <div class="card mb-3">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-4">
+                <img src="{{ product.productSpecification.types.at(0)?.imgUrl }}" class="img-fluid rounded-start" alt="Product Image" style="max-height: 150px;">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        <span class="text-muted">From: </span>{{ productsService.calculatePrice(product, 0,0) | currency: 'EUR' }}
+                    </p>
+                    <p class="card-text"><small class="text-muted">{{ product.description }}</small></p>
+                </div>
+            </div>
+            <div class="col-md-2 text-end">
+                <a [routerLinkActive]="['active']" routerLink="/products/{{ product.id }}" class="btn btn-secondary m-2">
+                    Show Detail
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr>
 </div>
-<hr>
+
+
+
+<!--<div class="d-flex">-->
+<!--  <div class="col-md-4">-->
+<!--    <img src="{{ product.productSpecification.types.at(0)?.imgUrl }}" class="img-fluid rounded-start img-responsive rounded-end"-->
+<!--         style="max-height: 150px; max-width: 150px" alt="...">-->
+<!--  </div>-->
+<!--  <div class="p-2 w-100">-->
+<!--    <h5>{{ product.name }}</h5>-->
+<!--    <p>from:  {{ product.productSpecification.types.at(0)?.price | currency: "EUR"}}</p>-->
+<!--    <p>-->
+<!--      <small>{{ product.description }}</small>-->
+<!--    </p>-->
+<!--  </div>-->
+<!--  <div class="p-2 flex-shrink-1">-->
+<!--    <a [routerLinkActive]="['active']" routerLink="/products/{{ product.id }}" class="btn btn-secondary">-->
+<!--      Show detail</a>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<hr>-->

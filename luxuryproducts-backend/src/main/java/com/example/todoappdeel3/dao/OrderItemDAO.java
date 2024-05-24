@@ -4,6 +4,7 @@ import com.example.todoappdeel3.dto.OrderItemDTO;
 import com.example.todoappdeel3.models.OrderItem;
 import com.example.todoappdeel3.models.PlacedOrder;
 import com.example.todoappdeel3.models.Product;
+import com.example.todoappdeel3.models.ProductSpecificationType;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,19 +14,18 @@ import java.util.Optional;
 @Component
 public class OrderItemDAO {
     private final OrderItemRepository orderItemRepository;
-    private final ProductRepository productRepository;
+    private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
 
-    public OrderItemDAO(OrderItemRepository orderItemRepository, ProductRepository isbnRepository) {
+    public OrderItemDAO(OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
         this.orderItemRepository = orderItemRepository;
-        this.productRepository = isbnRepository;
+        this.productSpecificationTypesRepository = productSpecificationTypesRepository;
     }
 
-
     public OrderItem createOrderItem(OrderItemDTO orderItemDTO, PlacedOrder order){
-        Optional<Product> isbnOptional = this.productRepository.findById(orderItemDTO.productId);
-        if (isbnOptional.isPresent()) {
+        Optional<ProductSpecificationType> typeOptional = this.productSpecificationTypesRepository.findById(orderItemDTO.typeId);
+        if (typeOptional.isPresent()) {
             if (orderItemDTO.quantity > 0) {
-                OrderItem orderItem = new OrderItem(orderItemDTO.quantity, order, isbnOptional.get());
+                OrderItem orderItem = new OrderItem(orderItemDTO.quantity, order, typeOptional.get());
                 this.orderItemRepository.save(orderItem);
                 return orderItem;
             }

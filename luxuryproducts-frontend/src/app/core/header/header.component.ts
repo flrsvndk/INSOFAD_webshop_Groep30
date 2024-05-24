@@ -3,6 +3,7 @@ import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
 import {CartService} from "../../services/cart.service";
 import {Product} from "../../models/product.model";
+import {ProductType} from "../../models/product-type.model";
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   public ngOnInit(): void {
     this.checkLoginState();
-    this.cartService.$productInCart.subscribe((products: Product[]) => {
+    this.cartService.$productInCart.subscribe((products: ProductType[]) => {
       this.amountOfProducts = products.reduce((total, product) => total + product.amount, 0);
 
     })

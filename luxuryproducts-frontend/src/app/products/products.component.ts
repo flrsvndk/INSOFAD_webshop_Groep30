@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {CartService} from '../services/cart.service';
 import {Product} from '../models/product.model';
 import {ProductsService} from '../services/products.service';
+import {ProductType} from "../models/product-type.model";
 
 @Component({
   selector: 'app-products',
@@ -23,9 +24,5 @@ export class ProductsComponent {
         this.loadingProducts = false;
         this.products = products;
       });
-  }
-
-  public onBuyProduct(product: Product) {
-    this.cartService.addProductToCart(product)
   }
 }

@@ -5,6 +5,7 @@ import {Product} from '../models/product.model';
 import {Router} from '@angular/router';
 import {AuthService} from "../auth/auth.service";
 import { HttpClient } from '@angular/common/http';
+import {ProductType} from "../models/product-type.model";
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
-  public products_in_cart: Product[];
+  public products_in_cart: ProductType[];
   public userIsLoggedIn: boolean = false;
   public amountOfProducts: number = 0;
 
@@ -25,11 +26,10 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.products_in_cart = this.cartService.allProductsInCart();
-    this.cartService.$productInCart.subscribe((products: Product[]) => {
+    this.cartService.$productInCart.subscribe((products: ProductType[]) => {
       this.products_in_cart = products;
       this.amountOfProducts = products.length;
       this.checkLoginState();
-
     });
   }
 
@@ -41,9 +41,9 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductFromCart(product_index);
   }
 
-  public getTotalPrice(): number {
-    return this.products_in_cart.reduce((total, product) => total + product.price * product.amount, 0);
-  }
+  // public getTotalPrice(): number {
+  //   return this.products_in_cart.reduce((total, type: ProductType) => total + (product.priceAdjustment + type.priceAdjustment) * product.amount, 0);
+  // }
 
   onInvalidOrder(){
     return this.amountOfProducts === 0;

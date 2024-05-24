@@ -3,15 +3,23 @@
     <div *ngIf="user" class="d-flex mt-5 mb-5 align-items-center justify-content-center">
       <div class="row">
         <div class="col-lg-6">
-          <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" class="img-fluid" style="max-width: 100%;" alt="User Profile Image">
+          <img src="{{ user.imgUrl }}" class="img-fluid" style="max-width: 100%;" alt="User Profile Image">
         </div>
         <div class="col-lg-6">
           <div class="card-body">
-            <h5 class="card-title">User Information</h5>
+            <h4 class="card-title">User Information</h4>
             <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
             <p class="card-text"><strong>Tussenvoegsel:</strong> {{ user.infix }}</p>
             <p class="card-text"><strong>Achternaam:</strong> {{ user.lastName }}</p>
             <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+
+              @if(userAdressSaved(user)){
+                  <h4 class="card-title">Adress: </h4>
+                  <p class="card-text"><strong>Postcode: </strong> {{ user.adress.zipcode }}</p>
+                  <p class="card-text"><strong>Huisnummer:</strong> {{ user.adress.houseNumber }}</p>
+                  <p class="card-text"><strong>Huisnummer Toevoeging:</strong> {{ user.adress.houseNumberAddition }}</p>
+
+              }
             <a href="/profile-update" class="btn btn-primary">Wijzigen</a>
           </div>
         </div>
