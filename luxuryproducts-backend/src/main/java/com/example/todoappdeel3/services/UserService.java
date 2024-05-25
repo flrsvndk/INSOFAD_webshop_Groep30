@@ -5,12 +5,15 @@ import com.example.todoappdeel3.config.JWTUtil;
 import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.models.CustomUser;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Collections;
 
 @Service
@@ -29,6 +32,12 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         CustomUser customUser = userRepository.findByEmail(email);
+
+        if(customUser == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not a user logged in"
+            );
+        }
 
         return new User(
                 email,

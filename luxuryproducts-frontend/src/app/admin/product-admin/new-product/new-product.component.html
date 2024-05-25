@@ -1,0 +1,101 @@
+<!--<div class="container-fluid mt-5">-->
+<!--    <div class="row">-->
+<!--        <aside class="col-md-3 col-lg-2 d-md-block sidebar">-->
+<!--            <div class="list-group">-->
+<!--                <a href="/admin/AllOrders" class="list-group-item list-group-item-action">Placed Orders</a>-->
+<!--                <a href="/admin/Products" class="list-group-item list-group-item-action">Products Dashboard</a>-->
+<!--                @if(isAdmin()){-->
+<!--                    <a href="/admin/Categories" class="list-group-item list-group-item-action">Categories</a>-->
+<!--                    <a href="/admin/allUsers" class="list-group-item list-group-item-action">User Overview</a>-->
+<!--                }-->
+<!--            </div>-->
+<!--        </aside>-->
+<!--        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">-->
+<!--            <div class="text-center mb-4">-->
+<!--                <h1 class="h3">New Product Panel</h1>-->
+<!--            </div>-->
+<!--            <div class="col-md-7">-->
+
+<!--                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">-->
+<!--                    <label>Name:</label>-->
+<!--                    <input type="text" formControlName="name">-->
+<!--                    &lt;!&ndash; Similar fields for description and price &ndash;&gt;-->
+
+<!--                    <div formArrayName="specifications">-->
+<!--                        @for(specification of specifications; track $index){-->
+<!--                            <div>-->
+<!--                                <div [formGroupName]="$index">-->
+<!--                                    <label>Specification Type:</label>-->
+<!--                                    <input type="text" formControlName="type">-->
+<!--                                    &lt;!&ndash; Similar fields for specification details &ndash;&gt;-->
+
+<!--                                    <button type="button" (click)="removeSpecification($index)">Remove</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        }-->
+<!--                    </div>-->
+
+<!--                    <button type="button" (click)="addSpecification()">Add Specification</button>-->
+
+<!--                    <button type="submit">Submit</button>-->
+<!--                </form>-->
+
+
+<!--                &lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h2>New Product</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form1.1" class="form-label">naam:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form1.1" class="form-control" [(ngModel)]="product.name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form1.2" class="form-label">omschrijving:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form1.2" class="form-control" [(ngModel)]="product.description"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <p></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <h5>Product Specification:</h5>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form2.1" class="form-label">Product Specification name:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form2.1" class="form-control" [(ngModel)]="product.productSpecification.name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form2.2" class="form-label">Product Specification Types:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form2.2" class="form-control" [(ngModel)]="product.productSpecification.name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form1.3" class="form-label">Achternaam:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form1.3" class="form-control" [(ngModel)]="user.lastName"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form1.4" class="form-label">E-mail:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="email" id="form1.4" class="form-control" [(ngModel)]="user.email"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="form1.5" class="form-label">Image URL:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" id="form1.5" class="form-control" [(ngModel)]="user.imgUrl"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div formGroupName="adress">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="form2.1" class="form-label">Postcode:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" id="form2.1" class="form-control" [(ngModel)]="user.adress.zipcode"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="form2.2" class="form-label">Huisnummer:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="number" id="form2.2" class="form-control" [(ngModel)]="user.adress.houseNumber"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="form2.3" class="form-label">Huisnummer toevoeging:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" id="form2.3" class="form-control" [(ngModel)]="user.adress.houseNumberAddition"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="d-flex justify-content-between mt-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn btn-primary" (click)="createProduct()">Opslaan</button>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <button class="btn btn-danger" (click)="deleteProduct()">Verwijder Account</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </main>-->
+<!--    </div>-->
+<!--</div>-->

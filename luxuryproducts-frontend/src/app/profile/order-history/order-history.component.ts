@@ -9,7 +9,7 @@ import {ExistingOrder} from "../../models/existing-order.model";
   templateUrl: './order-history.component.html',
   standalone: true,
   imports: [
-      CommonModule,
+    CommonModule,
     DatePipe,
     CurrencyPipe
   ],

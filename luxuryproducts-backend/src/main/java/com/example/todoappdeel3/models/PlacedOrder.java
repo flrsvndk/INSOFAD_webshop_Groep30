@@ -44,6 +44,11 @@ public class PlacedOrder {
         this.adress = adress;
     }
 
+    public UUID getUserId() {
+        return this.user.getId();
+    }
+
+
     public Adress getAdress() {
         return adress;
     }

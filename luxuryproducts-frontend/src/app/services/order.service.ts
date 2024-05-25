@@ -21,6 +21,10 @@ export class OrderService {
     return this.http.get<ExistingOrder[]>(this.baseUrl + "/myOrders");
   }
 
+  getAllOrders(): Observable<ExistingOrder[]> {
+    return this.http.get<ExistingOrder[]>(this.baseUrl + "/all")
+  }
+
   createOrderItems(products_in_cart: ProductType[]) {
     let orderItems: OrderItem[] = [];
     for (let product  of products_in_cart){
