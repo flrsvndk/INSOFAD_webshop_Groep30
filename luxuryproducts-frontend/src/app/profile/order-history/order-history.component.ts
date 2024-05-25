@@ -1,42 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../services/order.service'; // Pas dit pad aan naar waar je service zich bevindt
-import { Order } from '../../models/order.model'; // Pas dit pad aan naar waar je model zich bevindt
-import { CommonModule } from '@angular/common';
-import {ExistingOrder} from "../../models/existing-order.model";
-import {of} from "rxjs";
-import {OrderItem} from "../../models/order-item.model";
 
+import {CommonModule, CurrencyPipe, DatePipe} from "@angular/common";
+import {OrderService} from "../../services/order.service";
+import {ExistingOrder} from "../../models/existing-order.model";
 
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  imports: [CommonModule],
   standalone: true,
+  imports: [
+      CommonModule,
+    DatePipe,
+    CurrencyPipe
+  ],
   styleUrls: ['./order-history.component.scss']
 })
 export class OrderHistoryComponent implements OnInit {
-  orders: ExistingOrder[] = [];
+  orders: ExistingOrder[];
 
-  constructor(private orderService: OrderService) { }
-
-  ngOnInit() {
-    this.loadOrders();
+  constructor(private orderService: OrderService) {
   }
 
-  loadOrders() {
-    this.orderService
-        .getOrdersByCurrentUser()
-        .subscribe(orders => {
-          this.orders = orders;
-        });
+  ngOnInit(): void {
+    this.orderService.getOrdersByCurrentUser().subscribe((orders: ExistingOrder[]) => {
+      this.orders = orders;
+    });
   }
-
-  // calculateTotal(products: any[]): number {
-  //   let total = 0;
-  //   for (const product of products) {
-  //     total += product.price;
-  //   }
-  //   return Number(total.toFixed(2));
-  // }
-    protected readonly OrderItem = OrderItem;
 }
+
+// import { Component, OnInit } from '@angular/core';
+// import { OrderService } from '../../services/order.service'; // Pas dit pad aan naar waar je service zich bevindt
+// import { Order } from '../../models/order.model'; // Pas dit pad aan naar waar je model zich bevindt
+// import { CommonModule } from '@angular/common';
+// import {ExistingOrder} from "../../models/existing-order.model";
+// import {of} from "rxjs";
+// import {OrderItem} from "../../models/order-item.model";
+//
+//
+// @Component({
+//   selector: 'app-order-history',
+//   templateUrl: './order-history.component.html',
+//   imports: [CommonModule],
+//   standalone: true,
+//   styleUrls: ['./order-history.component.scss']
+// })
+// export class OrderHistoryComponent implements OnInit {
+//   orders: ExistingOrder[] = [];
+//
+//   constructor(private orderService: OrderService) { }
+//
+//   ngOnInit() {
+//     this.loadOrders();
+//   }
+//
+//   loadOrders() {
+//     this.orderService
+//         .getOrdersByCurrentUser()
+//         .subscribe(orders => {
+//           this.orders = orders;
+//         });
+//   }
+//
+//   // calculateTotal(products: any[]): number {
+//   //   let total = 0;
+//   //   for (const product of products) {
+//   //     total += product.price;
+//   //   }
+//   //   return Number(total.toFixed(2));
+//   // }
+//     protected readonly OrderItem = OrderItem;
+// }

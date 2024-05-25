@@ -7,5 +7,6 @@ export class User {
   public email: string;
   public imgUrl: string;
   public adress: Adress;
+  public role: string;
   //public token: string;
 }

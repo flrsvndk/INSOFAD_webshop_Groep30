@@ -16,7 +16,6 @@ import {Adress} from "../../models/adress.model";
     FormsModule,
     CommonModule,
     RouterLink,
-    ReactiveFormsModule
   ],
   styleUrls: ['./profile-update.component.scss']
 })
@@ -26,55 +25,26 @@ export class ProfileUpdateComponent implements OnInit {
 
   public updateUserForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.userService.getUserByEmail().subscribe((user: User) => {
       this.user = user;
     });
-    this.updateUserForm = this.fb.group({
-      name: [''],
-      tussenvoegsel: [''],
-      achternaam: [''],
-      email: ['', [Validators.email]],
-      imgUrl: [''],
-      adress : this.fb.group ({
-        zipcode: [''],
-        houseNumber: ['', [Validators.maxLength(5)]],
-        houseNumberAddition: ['', [ Validators.maxLength(5)]]
-      })
-    });
   }
 
   updateUser(): void {
-    const formData = this.updateUserForm.value;
-
-    this.user  = {
-      name: formData.name,
-      infix: formData.tussenvoegsel,
-      lastName: formData.achternaam,
-      email: formData.email,
-      imgUrl: formData.imgUrl,
-      adress : this.adress = {
-        zipcode: formData.zipcode,
-        houseNumber: formData.houseNumber,
-        houseNumberAddition: formData.houseNumberAddition,
-        save: true
-      }
-    }
-
     this.userService
         .updateUser(this.user)
         .subscribe((authResponse: AuthResponse) => {
-          console.log('Gebruikersgegevens succesvol bijgewerkt AuthResponse: ', authResponse);
+          console.log('Gebruikersgegevens succesvol bijgewerkt:', authResponse);
           alert('Gebruikersgegevens bijgewerk')
           this.router.navigate(['/profile']);
-
-    }, (error) => {
-      console.error('Fout bij het bijwerken van de gebruikersgegevens:', error);
-      alert('Gebruikersgegevens niet bijgewerkt, probeer later opnieuw')
-    });
+        }, (error) => {
+          console.error('Fout bij het bijwerken van de gebruikersgegevens:', error);
+          alert('Gebruikersgegevens niet bijgewerkt, probeer later opnieuw')
+        });
   }
 
   deleteAccount(): void {

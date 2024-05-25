@@ -12,6 +12,8 @@ import {OrderComponent} from "./order/order.component";
 import {PaymentSuccessfulComponent} from "./payment-successful/payment-successful.component";
 import { OrderHistoryComponent } from './profile/order-history/order-history.component';
 import {OrderReceiptComponent} from "./profile/order-receipt/order-receipt.component";
+import {AdminComponent} from "./admin/admin.component";
+import {adminGuard} from "./admin/admin.guard";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +29,8 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
-  {path: 'orderReceipt', component: OrderReceiptComponent}
+  {path: 'orderReceipt', component: OrderReceiptComponent},
+  {path: 'adminDashboard', component: AdminComponent}
 ];
 
 

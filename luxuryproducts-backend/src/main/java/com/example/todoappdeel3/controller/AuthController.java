@@ -120,8 +120,18 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
         CustomUser customUser = userDAO.findByEmail(userEmail);
+        System.out.println("oeps");
         return ResponseEntity.ok(customUser);
     }
+
+    @GetMapping("/user/role")
+    public ResponseEntity<String> getUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        CustomUser customUser = userDAO.findByEmail(userEmail);
+        return ResponseEntity.ok(customUser.getRole());
+    }
+
 
 
     @PutMapping("/user")

@@ -1,29 +1,34 @@
 <div class="container mt-5">
-  <div class="card col-9 mx-auto align-items-center justify-content-center">
-    <div *ngIf="user" class="d-flex mt-5 mb-5 align-items-center justify-content-center">
-      <div class="row">
-        <div class="col-lg-6">
-          <img src="{{ user.imgUrl }}" class="img-fluid" style="max-width: 100%;" alt="User Profile Image">
-        </div>
-        <div class="col-lg-6">
-          <div class="card-body">
-            <h4 class="card-title">User Information</h4>
-            <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
-            <p class="card-text"><strong>Tussenvoegsel:</strong> {{ user.infix }}</p>
-            <p class="card-text"><strong>Achternaam:</strong> {{ user.lastName }}</p>
-            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+    <div class="card col-md-8 mx-auto align-items-center justify-content-center">
+        <div *ngIf="user" class="d-flex flex-column mt-5 mb-5 align-items-center justify-content-center">
+            <div class="row">
+                <div class="col-lg-6 text-center mb-3">
+                    <img [src]="user.imgUrl" class="img-fluid rounded-circle" style="max-width: 100%;" alt="User Profile Image">
+                    <p class="card-text mt-2"><strong>{{user.role}}</strong></p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">User Information</h4>
+                        <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
+                        <p class="card-text" *ngIf="user.infix"><strong>Tussenvoegsel:</strong> {{ user.infix }}</p>
+                        <p class="card-text"><strong>Achternaam:</strong> {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
 
-              @if(userAdressSaved(user)){
-                  <h4 class="card-title">Adress: </h4>
-                  <p class="card-text"><strong>Postcode: </strong> {{ user.adress.zipcode }}</p>
-                  <p class="card-text"><strong>Huisnummer:</strong> {{ user.adress.houseNumber }}</p>
-                  <p class="card-text"><strong>Huisnummer Toevoeging:</strong> {{ user.adress.houseNumberAddition }}</p>
+                        <div *ngIf="userAdressSaved(user)">
+                            <h4 class="card-title">Address</h4>
+                            <p class="card-text"><strong>Postcode:</strong> {{ user.adress.zipcode }}</p>
+                            <p class="card-text"><strong>Huisnummer:</strong> {{ user.adress.houseNumber }}</p>
+                            <p class="card-text" *ngIf="user.adress.houseNumberAddition"><strong>Huisnummer Toevoeging:</strong> {{ user.adress.houseNumberAddition }}</p>
+                        </div>
 
-              }
-            <a href="/profile-update" class="btn btn-primary">Wijzigen</a>
-          </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <a href="/profile-update" class="btn btn-primary mr-2">Wijzigen</a>
+                            <a href="/order-history" class="btn btn-secondary mr-2">Bestel geschiedenis</a>
+                            <a *ngIf="isStaff(user)" href="/adminDashboard" class="btn btn-warning">Admin Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

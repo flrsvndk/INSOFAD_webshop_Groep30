@@ -34,4 +34,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+
+  public isStaff(user: User){
+      if(user.role == "ADMIN" || user.role == "STAFF"){
+        return true;
+      }
+      return false;
+  }
+
 }

@@ -136,6 +136,7 @@ public class Seeder {
         customUser.setLastName("Webshop");
         customUser.setEmail("bob@bobsluxuryenterprise.com");
         customUser.setPassword(new BCryptPasswordEncoder().encode("Test123!"));
+        customUser.setImgUrl("https://www.motortrend.com/uploads/2023/12/000-2024-mercedes-maybach-gls-600-front-three-quarter-view.jpg");
         customUser.setRole("ADMIN");
         userRepository.save(customUser);
     }

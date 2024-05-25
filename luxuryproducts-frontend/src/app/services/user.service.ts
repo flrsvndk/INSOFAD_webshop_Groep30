@@ -11,15 +11,33 @@ import {TokenService} from "../auth/token.service";
 })
 export class UserService {
   private baseUrl: string = environment.base_url + "/auth/user";
-
+  private role: String;
   public $userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private tokenService: TokenService) {
   }
 
+    public isAdmin(role: String): boolean {
+        return role == "ADMIN";
+    }
+    public isStaff(role: String): boolean {
+        return role == "STAFF";
+    }
+
+
   public getUserByEmail(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}`);
   }
+
+  public getUserRole() {
+      this.http.get<String>(`${this.baseUrl}/role`).subscribe((role: String) =>{
+          this.role = role;
+      });
+      return this.role;
+  }
+    public isStaffMember(): boolean {
+        return this.isAdmin(this.role) || this.isStaff(this.role);
+    }
 
   public updateUser(user: User): Observable<AuthResponse> {
     return this.http

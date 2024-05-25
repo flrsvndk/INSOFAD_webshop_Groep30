@@ -1,0 +1,27 @@
+.container {
+  padding-top: 50px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+.img-fluid {
+  border: 2px solid #ddd;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.btn-primary, .btn-secondary, .btn-warning {
+  margin: 5px;
+}

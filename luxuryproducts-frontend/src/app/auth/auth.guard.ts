@@ -7,9 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const tokenService: TokenService = inject(TokenService);
 
-  if (tokenService.isValid()) {
-    return true;
-  }
+  return tokenService.isValid();
 
-  return false;
+
 };
