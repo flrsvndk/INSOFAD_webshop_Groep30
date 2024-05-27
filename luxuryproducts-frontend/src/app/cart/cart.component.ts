@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
 import {CartService} from '../services/cart.service';
-import {Product} from '../models/product.model';
 import {Router} from '@angular/router';
 import {AuthService} from "../auth/auth.service";
 import { HttpClient } from '@angular/common/http';

@@ -1,0 +1,33 @@
+services:
+    frontend:
+        build:
+            context: ./luxuryproducts-frontend
+        ports:
+            - "4200:80"
+        depends_on:
+            - backend
+            - postgres
+
+    postgres:
+        image: postgres:16
+        environment:
+            POSTGRES_DB: luxuryproductsbob
+            POSTGRES_USER: bobwebshop
+            POSTGRES_PASSWORD: ilovepuppies
+        ports:
+            - "5432:5432"
+
+
+    backend:
+        build: 
+            context: ./luxuryproducts-backend
+        ports:
+            - "8080:8080"
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/luxuryproductsbob
+            - SPRING_DATASOURCE_USERNAME=bobwebshop
+            - SPRING_DATASOURCE_PASSWORD=ilovepuppies
+        depends_on:
+            - postgres
+    
+    
