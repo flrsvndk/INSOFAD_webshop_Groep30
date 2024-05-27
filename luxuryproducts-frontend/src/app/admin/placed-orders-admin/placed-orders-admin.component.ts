@@ -16,7 +16,7 @@ import {UserService} from "../../services/user.service";
   styleUrl: './placed-orders-admin.component.scss'
 })
 export class PlacedOrdersAdminComponent {
-    orders: ExistingOrder[];
+    public orders: ExistingOrder[];
     private role: String = this.userService.getUserRole();
 
     constructor(private orderService: OrderService, private userService: UserService) {
