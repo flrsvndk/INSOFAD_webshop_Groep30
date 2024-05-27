@@ -11,7 +11,6 @@ import {ProfileUpdateComponent} from "./profile/profile-update/profile-update.co
 import {OrderComponent} from "./order/order.component";
 import {PaymentSuccessfulComponent} from "./payment-successful/payment-successful.component";
 import { OrderHistoryComponent } from './profile/order-history/order-history.component';
-import {OrderReceiptComponent} from "./profile/order-receipt/order-receipt.component";
 import {AdminComponent} from "./admin/admin.component";
 import {adminGuard} from "./admin/admin.guard";
 import {ProductAdminComponent} from "./admin/product-admin/product-admin.component";
@@ -33,7 +32,6 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
-  {path: 'orderReceipt', component: OrderReceiptComponent},
 
   {path: 'admin/Dashboard', component: AdminComponent, canActivate: [adminGuard]},
   {path: 'admin/Products', component: ProductAdminComponent, canActivate: [adminGuard]},
