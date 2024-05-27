@@ -120,7 +120,6 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
         CustomUser customUser = userDAO.findByEmail(userEmail);
-        System.out.println("oeps");
         return ResponseEntity.ok(customUser);
     }
 
