@@ -9,11 +9,10 @@ import {UserService} from "../../services/user.service";
   styleUrl: './product-admin.component.scss'
 })
 export class ProductAdminComponent {
-  private role: String = this.userService.getUserRole();
 
   constructor(private userService: UserService){}
   public isAdmin(): boolean {
-    console.log(this.userService.isAdmin(this.role));
-    return !this.userService.isAdmin(this.role);
+    console.log(this.userService.isAdmin());
+    return !this.userService.isAdmin();
   }
 }

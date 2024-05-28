@@ -17,12 +17,11 @@ import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
-  private role: String = this.userService.getUserRole();
 
   constructor(private userService: UserService){}
   public isAdmin(): boolean {
-    console.log(this.userService.isAdmin(this.role));
-    return !this.userService.isAdmin(this.role);
+    console.log(this.userService.isAdmin());
+    return !this.userService.isAdmin();
   }
 }
 

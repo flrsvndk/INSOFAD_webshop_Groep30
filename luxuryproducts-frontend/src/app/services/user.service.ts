@@ -17,12 +17,6 @@ export class UserService {
   constructor(private http: HttpClient, private tokenService: TokenService) {
   }
 
-    public isAdmin(role: String): boolean {
-        return role == "ADMIN";
-    }
-    public isStaff(role: String): boolean {
-        return role == "STAFF";
-    }
 
 
   public getUserByEmail(): Observable<User> {
@@ -35,8 +29,22 @@ export class UserService {
       });
       return this.role;
   }
+  public isAdmin(){
+      if (this.getUserRole() == "ADMIN"){
+          return true;
+      } else{
+          return false;
+      }
+  }
     public isStaffMember(): boolean {
-        return this.isAdmin(this.role) || this.isStaff(this.role);
+        let userRole = this.getUserRole();
+        if (userRole == "ADMIN"){
+            return true;
+        } else if (userRole == "STAFF"){
+            return true;
+        }else {
+            return false
+        }
     }
 
   public updateUser(user: User): Observable<AuthResponse> {

@@ -6,11 +6,16 @@ import {TokenService} from "../auth/token.service";
 export const adminGuard: CanActivateFn = (route, state) => {
     // heeft iemand een geldige token?
     const tokenService: TokenService = inject(TokenService);
-
-    if(tokenService.isValid()){
-        const userService: UserService = inject(UserService);
-        return !userService.isStaffMember();
+    try {
+        if (tokenService.isValid()) {
+            const userService: UserService = inject(UserService);
+            return !userService.isStaffMember();
+        }
+        else {
+            return false;
+        }
     }
-    return false;
-
-};
+    catch {
+        return false;
+    }
+}

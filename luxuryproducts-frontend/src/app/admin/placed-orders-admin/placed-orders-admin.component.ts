@@ -17,7 +17,6 @@ import {UserService} from "../../services/user.service";
 })
 export class PlacedOrdersAdminComponent {
     public orders: ExistingOrder[];
-    private role: String = this.userService.getUserRole();
 
     constructor(private orderService: OrderService, private userService: UserService) {
     }
@@ -29,8 +28,8 @@ export class PlacedOrdersAdminComponent {
     }
 
     public isAdmin(): boolean {
-        console.log(this.userService.isAdmin(this.role));
-        return !this.userService.isAdmin(this.role);
+        console.log(this.userService.isAdmin());
+        return !this.userService.isAdmin();
     }
 
 }
