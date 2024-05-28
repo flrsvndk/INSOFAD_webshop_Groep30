@@ -39,18 +39,17 @@ public class ProductDAO {
     }
 
     @Transactional
-    public void createProduct(Product product){
-        this.productRepository.save(product);
-    }
-
-    @Transactional
     public void createProduct(ProductDTO productDTO){
          Category category;
 
-         if(productDTO.categoryDTO == null){
+         if(productDTO.categoryDTO == null && productDTO.categoryId != 0){
              category = this.categoryDAO.getById(productDTO.categoryId);
-         } else {
+         } else if (productDTO.categoryDTO != null) {
              category = this.categoryDAO.createCategory(productDTO.categoryDTO);
+         } else {
+             throw new ResponseStatusException(
+                     HttpStatus.NOT_FOUND, "No correct category was given"
+             );
          }
 
         Product product = new Product(

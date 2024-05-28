@@ -45,6 +45,7 @@ public class CategoryDAO {
                 if (product.isPresent()) {
                     products.add(product.get());
                     product.get().setCategory(category);
+                    this.productRepository.save(product.get());
                 }
             }
         }
