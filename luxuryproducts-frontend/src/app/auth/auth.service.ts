@@ -4,7 +4,6 @@ import {AuthResponse} from './auth-response.model';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {AuthRequest} from './auth-request.model';
 import {TokenService} from './token.service';
-import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'

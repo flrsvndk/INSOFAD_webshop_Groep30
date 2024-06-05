@@ -1,0 +1,17 @@
+{
+  "name" : "Vlieger",
+  "description": "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.",
+  "category": {
+    "name" : "speelgoed"
+  },
+  "categoryId": 0,
+  "productSpecificationsDTO": {
+    "name": "materiaal",
+    "typesDTO" : [{
+      "name": "18kt gold",
+      "price": 55000.00,
+      "imgUrl": "https://i.ibb.co/Z170ptk/image-2024-05-21-081438902.png",
+      "subSpecification": null
+    }]
+  }
+}

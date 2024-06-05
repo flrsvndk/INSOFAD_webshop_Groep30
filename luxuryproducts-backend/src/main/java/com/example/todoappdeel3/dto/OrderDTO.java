@@ -1,7 +1,5 @@
 package com.example.todoappdeel3.dto;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-
 import java.util.List;
 
 public class OrderDTO{

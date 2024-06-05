@@ -1,21 +1,23 @@
 <div class="container-fluid mt-5">
     <div class="row">
-        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="list-group">
-                <a href="/admin/AllOrders" class="list-group-item list-group-item-action">Placed Orders</a>
-                <a href="/admin/Products" class="list-group-item list-group-item-action">Products Dashboard</a>
-                @if(isAdmin()){
-                    <a href="/admin/Categories" class="list-group-item list-group-item-action">Categories</a>
-                    <a href="/admin/allUsers" class="list-group-item list-group-item-action">User Overview</a>
-                }
-            </div>
-        </aside>
-        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="text-center mb-4">
-                <h1 class="h3">Admin Panel</h1>
-            </div>
-
-        </main>
+        @if(this.loadedAdmin){
+            <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+                <app-sidepanel></app-sidepanel>
+            </aside>
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="text-center mb-4">
+                    <h1 class="h3">Admin Panel</h1>
+                </div>
+                <router-outlet name="admin"></router-outlet>
+            </main>
+        } @else {
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="text-center mb-4">
+                    <h1 class="h3">Admin Panel</h1>
+                    <h2>Your role has not been certified yet, wait a moment</h2>
+                </div>
+            </main>
+        }
     </div>
 </div>
 

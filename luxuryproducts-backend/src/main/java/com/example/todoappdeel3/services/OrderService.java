@@ -16,11 +16,13 @@ public class OrderService {
     private final OrderItemDAO orderItemDAO;
     private final AdressDAO adressDAO;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
+    private final OrderItemRepository orderItemRepository;
 
-    public OrderService(OrderItemDAO orderItemDAO, AdressDAO adressDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
+    public OrderService(OrderItemDAO orderItemDAO, AdressDAO adressDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository, OrderItemRepository orderItemRepository) {
         this.orderItemDAO = orderItemDAO;
         this.adressDAO = adressDAO;
         this.productSpecificationTypesRepository = productSpecificationTypesRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     public PlacedOrder createOrder(OrderDTO orderDTO, CustomUser user){
@@ -33,7 +35,6 @@ public class OrderService {
 
         Adress adress = adressDAO.createAdress(orderDTO.adressDTO);
 
-
         PlacedOrder customerOrder = new PlacedOrder(
             0.00, orderDate, orderDTO.notes, user, adress
         );
@@ -44,6 +45,7 @@ public class OrderService {
 
             totalOrderSum +=  orderItem.getProductType().getPrice() * orderItem.getQuantity();
             orderItems.add(orderItem);
+            this.orderItemRepository.save(orderItem);
         }
         customerOrder.setOrderItems(orderItems);
         customerOrder.setTotalProductsPrice(totalOrderSum);
@@ -51,7 +53,7 @@ public class OrderService {
         return customerOrder;
     }
 
-    private int checkProductQuanity(UUID productId, int quanity) {
+    public int checkProductQuanity(UUID productId, int quanity) {
         Optional<ProductSpecificationType> orderedProduct = this.productSpecificationTypesRepository.findById(productId);
         if (orderedProduct.isPresent()){
             ProductSpecificationType product = orderedProduct.get();

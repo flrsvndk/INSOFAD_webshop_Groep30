@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Product} from '../models/product.model';
 import {ProductType} from "../models/product-type.model";
+import {Category} from "../models/category.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import {ProductType} from "../models/product-type.model";
 export class ProductsService {
 
   private baseUrl: string = environment.base_url + "/products";
+
 
   constructor(private http: HttpClient) {
   }
@@ -40,8 +42,8 @@ export class ProductsService {
     }
   }
 
-  createProduct(productData: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl, productData);
+  public createProduct(productData: Product): Observable<any> {
+    return this.http.post<Product>(this.baseUrl, productData);
   }
 
   public getProductByIndex(id: number): Observable<Product> {
@@ -55,5 +57,6 @@ export class ProductsService {
   public updateProductByIndex(id: Product, product: number): Observable<Product> {
     return this.http.put<Product>(`${this.baseUrl}/${id}`, product);
   }
+
 
 }

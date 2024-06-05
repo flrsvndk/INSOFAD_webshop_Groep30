@@ -26,11 +26,17 @@ public class Product {
     private ProductSpecification productSpecification;
 
 
-
     public Product(String name, String description, Category category) {
         this.name = name;
         this.description = description;
         this.category = category;
+    }
+
+    public Product(String name, String description, Category category, ProductSpecification productSpecification) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.productSpecification = productSpecification;
     }
 
     //needed by JPA to create the entity must be present no arg constructor

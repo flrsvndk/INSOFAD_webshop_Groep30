@@ -28,8 +28,6 @@ public class ProductSpecificationDAO {
 
         this.repository.save(productSpecification);
 
-        //
-
         for(TypeDTO typeDTO : productSpecificationsDTO.typesDTO){
             if(typeDTO.productSpecificationsDTO == null){
 
@@ -51,10 +49,8 @@ public class ProductSpecificationDAO {
 
                 ProductSpecification subProductSpecification = this.createSpecification(product, typeDTO.productSpecificationsDTO);
 
-
                 ProductSpecificationType type = new ProductSpecificationType(
                         typeDTO.name, productSpecification, subProductSpecification, product.getId());
-
 
                 this.typesRepository.save(type);
                 types.add(type);
@@ -62,7 +58,6 @@ public class ProductSpecificationDAO {
         }
 
         productSpecification.setTypes(types);
-
         this.repository.save(productSpecification);
 
         return productSpecification;

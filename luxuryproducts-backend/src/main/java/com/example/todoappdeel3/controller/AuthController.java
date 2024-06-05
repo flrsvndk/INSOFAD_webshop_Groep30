@@ -52,7 +52,7 @@ public class AuthController {
         return ResponseEntity.ok(this.authenticationDAO.getStaff());
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/admin/new/role")
     public ResponseEntity<String> addNewRole(@RequestBody RoleUpgradeDTO roleUpgradeDTO) {
         String message = this.authenticationDAO.newRole(roleUpgradeDTO);
         return ResponseEntity.ok(message);
@@ -123,6 +123,12 @@ public class AuthController {
         return ResponseEntity.ok(customUser);
     }
 
+    @GetMapping("/user/all")
+    public ResponseEntity<List<CustomUser>> getAllUsers() {
+        return ResponseEntity.ok(userDAO.findAll());
+    }
+    
+
     @GetMapping("/user/role")
     public ResponseEntity<String> getUserRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -130,7 +136,6 @@ public class AuthController {
         CustomUser customUser = userDAO.findByEmail(userEmail);
         return ResponseEntity.ok(customUser.getRole());
     }
-
 
 
     @PutMapping("/user")

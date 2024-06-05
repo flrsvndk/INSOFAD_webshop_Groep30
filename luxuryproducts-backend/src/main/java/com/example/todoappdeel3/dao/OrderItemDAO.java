@@ -25,16 +25,22 @@ public class OrderItemDAO {
         Optional<ProductSpecificationType> typeOptional = this.productSpecificationTypesRepository.findById(orderItemDTO.typeId);
         if (typeOptional.isPresent()) {
             if (orderItemDTO.quantity > 0) {
-                OrderItem orderItem = new OrderItem(orderItemDTO.quantity, order, typeOptional.get());
-                this.orderItemRepository.save(orderItem);
-                return orderItem;
+                if(typeOptional.get().getSubSpecification() == null) {
+                    OrderItem orderItem = new OrderItem(orderItemDTO.quantity, order, typeOptional.get());
+//                this.orderItemRepository.save(orderItem);
+                    return orderItem;
+                }
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Not the correct specification specified"
+                );
+
             }
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "no amount specified"
             );
         }
         throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Isbn was not found"
+                HttpStatus.NOT_FOUND, "Product was not found"
         );
     }
 }

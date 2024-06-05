@@ -31,8 +31,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCategory(@RequestBody CategoryDTO categoryDTO){
-        Long categoryId = this.categoryDAO.createCategory(categoryDTO).getId();
+    public ResponseEntity<Long> createCategory(@RequestBody String categoryName){
+        Long categoryId = this.categoryDAO.createCategory(categoryName).getId();
         return ResponseEntity.ok(categoryId);
     }
 }

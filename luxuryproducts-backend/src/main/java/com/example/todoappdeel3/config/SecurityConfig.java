@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/auth/admin").hasAnyAuthority("ADMIN")
                         .requestMatchers("/auth/userRoles").hasAuthority("ADMIN")
+                        .requestMatchers("/auth/user/all").hasAuthority("ADMIN")
                         .requestMatchers("/orders/all").hasAnyAuthority("ADMIN", "STAFF")
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated()

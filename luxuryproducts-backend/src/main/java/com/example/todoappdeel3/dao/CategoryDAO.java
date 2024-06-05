@@ -35,22 +35,23 @@ public class CategoryDAO {
         );
     }
 
-    public Category createCategory(CategoryDTO categoryDTO){
-        List<Product> products = new ArrayList<>();
-        Category category = new Category(categoryDTO.name);
-
-        if (categoryDTO.productIds != null) {
-            for (UUID productId : categoryDTO.productIds) {
-                Optional<Product> product = this.productRepository.findById(productId);
-                if (product.isPresent()) {
-                    products.add(product.get());
-                    product.get().setCategory(category);
-                    this.productRepository.save(product.get());
-                }
-            }
-        }
-
+    public Category createCategory(String categoryName){
+//        List<Product> products = new ArrayList<>();
+        Category category = new Category(categoryName);
         this.categoryRepository.save(category);
         return category;
+
+//        if (categoryDTO.productIds != null) {
+//            for (UUID productId : categoryDTO.productIds) {
+//                Optional<Product> product = this.productRepository.findById(productId);
+//                if (product.isPresent()) {
+//                    products.add(product.get());
+//                    product.get().setCategory(category);
+//                    this.productRepository.save(product.get());
+//                }
+//            }
+//        }
+
+
     }
 }

@@ -1,20 +1,29 @@
 <div class="container-fluid mt-5">
     <div class="row">
         <aside class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="list-group">
-                <a href="/admin/AllOrders" class="list-group-item list-group-item-action">Placed Orders</a>
-                <a href="/admin/Products" class="list-group-item list-group-item-action">Products Dashboard</a>
-                @if(isAdmin()){
-                    <a href="/admin/Categories" class="list-group-item list-group-item-action">Categories</a>
-                    <a href="/admin/allUsers" class="list-group-item list-group-item-action">User Overview</a>
-                }
-            </div>
+            <app-sidepanel></app-sidepanel>
+
         </aside>
         <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="text-center mb-4">
-                <h1 class="h3">Products Panel</h1>
+            <div class="container mt-5">
+                <div class="text-center mb-4">
+                    <h1 class="h3">Products Panel</h1>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                    <a routerLink="admin/Products/newProduct" class="btn btn-primary">Create New Product</a>
+                    <a routerLink="admin/Products/updateProduct" class="btn btn-secondary">Update Products and Stock</a>
+                </div>
+                <h1>Product Statistics</h1>
+<!--                <app-product-statistics></app-product-statistics>-->
             </div>
-            <a href="admin/Products/newProduct">Create new Product</a>
+
+            <!--            <div class="text-center mb-4">-->
+<!--                <h1 class="h3">Products Panel</h1>-->
+<!--            </div>-->
+<!--            <a href="admin/Products/newProduct">Create new Product</a>-->
+<!--            <a href="admin/Products/updateProduct">Update products and stock</a>-->
+<!--            <h1>Product Statistics</h1>-->
+<!--            <p>Current amount of Products:</p>-->
         </main>
     </div>
 </div>

@@ -3,6 +3,7 @@ package com.example.todoappdeel3.controller;
 import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.models.Product;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class ProductController {
         return ResponseEntity.ok(this.productDAO.getProductById(id));
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
         this.productDAO.createProduct(productDTO);
         return ResponseEntity.ok("Created a product");

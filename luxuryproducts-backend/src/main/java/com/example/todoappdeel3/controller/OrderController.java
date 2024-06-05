@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,6 +53,11 @@ public class OrderController {
         List<PlacedOrder> orders = user.getOrders();
 
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlacedOrder> getOrderById(@RequestHeader UUID orderId){
+        return ResponseEntity.ok(this.orderDAO.getOrderById(orderId));
     }
 
 

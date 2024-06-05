@@ -1,18 +1,27 @@
 import { Component } from '@angular/core';
 import {UserService} from "../../services/user.service";
+import {RouterLink} from "@angular/router";
+import {SidepanelComponent} from "../sidepanel/sidepanel.component";
 
 @Component({
   selector: 'app-product-admin',
   standalone: true,
-  imports: [],
+    imports: [
+        RouterLink,
+        SidepanelComponent
+    ],
   templateUrl: './product-admin.component.html',
   styleUrl: './product-admin.component.scss'
 })
 export class ProductAdminComponent {
 
-  constructor(private userService: UserService){}
-  public isAdmin(): boolean {
-    console.log(this.userService.isAdmin());
-    return !this.userService.isAdmin();
-  }
+    protected admin: boolean;
+    public loadedAdmin: boolean = false;
+    constructor(private userService: UserService) {
+        this.userService.giveAuthentication("ADMIN").then((value: boolean) => {
+            this.admin = value;
+            this.loadedAdmin = true;
+        });
+        console.log(this.admin);
+    }
 }

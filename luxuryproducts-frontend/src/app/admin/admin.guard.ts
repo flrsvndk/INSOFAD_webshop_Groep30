@@ -3,19 +3,13 @@ import {UserService} from "../services/user.service";
 import {inject} from "@angular/core";
 import {TokenService} from "../auth/token.service";
 
-export const adminGuard: CanActivateFn = (route, state) => {
-    // heeft iemand een geldige token?
+
+export const AdminGuard: CanActivateFn = () => {
     const tokenService: TokenService = inject(TokenService);
-    try {
         if (tokenService.isValid()) {
-            const userService: UserService = inject(UserService);
-            return !userService.isStaffMember();
-        }
-        else {
+            const userService : UserService= inject(UserService);
+            return userService.giveAuthentication("STAFF");
+        } else {
             return false;
         }
-    }
-    catch {
-        return false;
-    }
 }

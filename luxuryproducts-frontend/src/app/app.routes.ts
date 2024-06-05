@@ -12,11 +12,14 @@ import {OrderComponent} from "./order/order.component";
 import {PaymentSuccessfulComponent} from "./payment-successful/payment-successful.component";
 import { OrderHistoryComponent } from './profile/order-history/order-history.component';
 import {AdminComponent} from "./admin/admin.component";
-import {adminGuard} from "./admin/admin.guard";
+import {AdminGuard} from "./admin/admin.guard";
 import {ProductAdminComponent} from "./admin/product-admin/product-admin.component";
+import {NewProductComponent} from "./admin/product-admin/new-product/new-product.component";
 import {PlacedOrdersAdminComponent} from "./admin/placed-orders-admin/placed-orders-admin.component";
 import {UsersComponent} from "./admin/users/users.component";
-import {AdminCategoriesComponent} from "./admin/admin-categories/admin-categories.component";
+import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
+import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
+import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,12 +36,15 @@ export const routes: Routes = [
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
 
-  {path: 'admin/Dashboard', component: AdminComponent, canActivate: [adminGuard]},
-  {path: 'admin/Products', component: ProductAdminComponent, canActivate: [adminGuard]},
-  {path:'admin/AllOrders', component: PlacedOrdersAdminComponent, canActivate: [adminGuard]},
-  {path:'admin/allUsers', component: UsersComponent, canActivate: [adminGuard]},
-  {path:'admin/Categories', component: AdminCategoriesComponent, canActivate: [adminGuard]},
-  // {path:'admin/Products/newProduct', component: NewProductComponent, canActivate: [adminGuard]}
+  {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},
+  {path:'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
+  {path:'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
+  {path:'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
+  {path:'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
+  {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
+  {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];
