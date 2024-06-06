@@ -1,5 +1,6 @@
 package com.example.todoappdeel3.models;
 
+import com.example.todoappdeel3.utils.StaticDetails;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -33,6 +34,8 @@ public class PlacedOrder {
     @JsonManagedReference
     private Adress adress;
 
+    private String status;
+
     public PlacedOrder() {
     }
 
@@ -42,6 +45,7 @@ public class PlacedOrder {
         this.notes = notes;
         this.user = user;
         this.adress = adress;
+        this.status = StaticDetails.ORDER_PENDING;
     }
 
     public UUID getUserId() {
