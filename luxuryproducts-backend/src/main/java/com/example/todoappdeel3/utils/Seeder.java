@@ -196,6 +196,7 @@ public class Seeder {
         order.setUser(user);
         order.setOrderDate(LocalDateTime.now());
         order.setAdress(address);
+        order.setStatus(StaticDetails.ORDER_PENDING);
 
         OrderItem orderItem = new OrderItem();
         orderItem.setQuantity(1);

@@ -11,4 +11,5 @@ export class ExistingOrder {
     public user: User;
     public userId: string;
     public orderItems: PlacedOrderItem[];
+    public status: string;
 }

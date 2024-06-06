@@ -4,16 +4,18 @@ import {ExistingOrder} from "../../models/existing-order.model";
 import {OrderService} from "../../services/order.service";
 import {UserService} from "../../services/user.service";
 import {SidepanelComponent} from "../sidepanel/sidepanel.component";
+import {AdminOrderThumbnailComponent} from "./admin-order-thumbnail/admin-order-thumbnail.component";
 
 @Component({
   selector: 'app-placed-orders-admin',
   standalone: true,
-    imports: [
-        CurrencyPipe,
-        DatePipe,
-        NgIf,
-        SidepanelComponent
-    ],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    NgIf,
+    SidepanelComponent,
+    AdminOrderThumbnailComponent
+  ],
   templateUrl: './placed-orders-admin.component.html',
   styleUrl: './placed-orders-admin.component.scss'
 })
