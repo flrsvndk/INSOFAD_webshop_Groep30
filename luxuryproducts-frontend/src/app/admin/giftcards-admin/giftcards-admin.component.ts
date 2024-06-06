@@ -46,12 +46,4 @@ export class GiftcardsAdminComponent {
       this.giftcards = giftcards;
     });
   }
-
-  calculateTotal(products: any[]): number {
-    let total = 0;
-    for (const product of products) {
-      total += product.price;
-    }
-    return total;
-  }
 }

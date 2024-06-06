@@ -24,9 +24,14 @@ public class GiftcardDAO {
 
     public List<GiftcardOwnerDTO> getAllGiftcards(String email) {
         if (userRepository.findByEmail(email).getRole().equals("ADMIN")) {
+            System.out.println("getAllGiftcards");
             List<GiftcardOwnerDTO> adminDTOs = new ArrayList<>();
             giftcardRepository.findAll().forEach((n) -> adminDTOs.add(new GiftcardOwnerDTO(n.getId(), n.getMessage(), n.getPrice(), n.getValue(), n.getBuyer().getEmail(), n.getOwner().getEmail())));
+            System.out.println(adminDTOs.isEmpty());
             return adminDTOs;
+        }
+        else {
+            return new ArrayList<>();
         }
     }
 
