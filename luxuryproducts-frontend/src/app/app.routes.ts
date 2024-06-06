@@ -20,6 +20,7 @@ import {UsersComponent} from "./admin/users/users.component";
 import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
 import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
+import {RetourPageComponent} from "./retour-page/retour-page.component";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -35,6 +36,7 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
+  {path: 'retour-page/:id', component: RetourPageComponent, canActivate: [authGuard]},
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},

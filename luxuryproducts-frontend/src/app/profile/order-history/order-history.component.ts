@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {CommonModule, CurrencyPipe, DatePipe} from "@angular/common";
 import {OrderService} from "../../services/order.service";
 import {ExistingOrder} from "../../models/existing-order.model";
+import {UserOrderThumbnailComponent} from "./user-order-thumbnail/user-order-thumbnail.component";
 
 @Component({
   selector: 'app-order-history',
@@ -11,7 +12,8 @@ import {ExistingOrder} from "../../models/existing-order.model";
   imports: [
     CommonModule,
     DatePipe,
-    CurrencyPipe
+    CurrencyPipe,
+    UserOrderThumbnailComponent
   ],
   styleUrls: ['./order-history.component.scss']
 })
