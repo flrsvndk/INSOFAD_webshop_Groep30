@@ -35,4 +35,19 @@ public class RetourController {
         return ResponseEntity.ok(this.retourDAO.createRetourRequest(retourRequestDTO));
     }
 
+    @PutMapping("accept")
+    public ResponseEntity<RetourRequest> acceptRequest(@RequestBody RetourRequestDTO retourRequestDTO) {
+        return ResponseEntity.ok(this.retourDAO.acceptRetourRequest(retourRequestDTO));
+    }
+
+    @PutMapping("decline")
+    public ResponseEntity<RetourRequest> declineRequest(@RequestBody RetourRequestDTO retourRequestDTO) {
+        return ResponseEntity.ok(this.retourDAO.declineRetourRequest(retourRequestDTO));
+    }
+
+    @PutMapping("refund")
+    public ResponseEntity<RetourRequest> refundRequest(@RequestBody RetourRequestDTO retourRequestDTO) {
+        return ResponseEntity.ok(this.retourDAO.refundRetourRequest(retourRequestDTO));
+    }
+
 }

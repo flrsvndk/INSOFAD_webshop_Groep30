@@ -4,7 +4,7 @@ import {OrderItem} from "./order-item.model";
 import {ProductType} from "./product-type.model";
 
 export class RetourRequest {
-  public id?: string;
+  public id: string;
   public user?: User;
   public order?: ExistingOrder;
   public retouredProducts?: OrderItem[];

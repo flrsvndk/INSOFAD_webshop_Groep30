@@ -4,6 +4,7 @@ import com.example.todoappdeel3.dto.RetourRequestDTO;
 import com.example.todoappdeel3.models.*;
 import com.example.todoappdeel3.repositories.*;
 import com.example.todoappdeel3.utils.StaticDetails;
+import org.hibernate.query.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,15 @@ public class RetourDAO {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final ProductDAO productDAO;
 
-    public RetourDAO(RetourReasonRepository retourReasonRepository, RetourRequestRepository retourRequestRepository, UserRepository userRepository, OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
+    public RetourDAO(RetourReasonRepository retourReasonRepository, RetourRequestRepository retourRequestRepository, UserRepository userRepository, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductDAO productDAO) {
         this.retourReasonRepository = retourReasonRepository;
         this.retourRequestRepository = retourRequestRepository;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
+        this.productDAO = productDAO;
     }
 
     public List<RetourReason> getAllReasons() {
@@ -54,6 +57,31 @@ public class RetourDAO {
         RetourRequest retourRequest = buildRetourRequest(user, retourRequestDTO, order, retourReason, retouredProducts);
 
         retourRequestRepository.save(retourRequest);
+
+        return retourRequest;
+    }
+
+    public RetourRequest acceptRetourRequest(RetourRequestDTO retourRequestDTO) {
+        RetourRequest retourRequest = this.updateRequestStatus(retourRequestDTO, StaticDetails.RETOUR_ACCEPTED);
+
+        for (OrderItem orderItem : retourRequest.getRetouredProducts()) {
+            orderItem.setReturned(true);
+            productDAO.incrementProductStock(orderItem.getProductType().getId());
+        }
+
+        orderItemRepository.saveAll(retourRequest.getRetouredProducts());
+        return retourRequest;
+    }
+
+    public RetourRequest declineRetourRequest(RetourRequestDTO retourRequestDTO) {
+        return this.updateRequestStatus(retourRequestDTO, StaticDetails.RETOUR_DECLINED);
+    }
+
+    public RetourRequest refundRetourRequest(RetourRequestDTO retourRequestDTO) {
+        RetourRequest retourRequest = this.updateRequestStatus(retourRequestDTO, StaticDetails.RETOUR_REFUNDED);
+        PlacedOrder order = retourRequest.getOrder();
+
+        updateOrderStatusAfterRefund(order);
 
         return retourRequest;
     }
@@ -101,5 +129,26 @@ public class RetourDAO {
         return retourRequest;
     }
 
+    private PlacedOrder updateOrderStatusAfterRefund(PlacedOrder order) {
+        List<OrderItem> orderItems = order.getOrderItems();
+        for (OrderItem orderProduct : orderItems) {
+            if (!orderProduct.isReturned()) {
+                order.setStatus(StaticDetails.ORDER_PARTIALLY_RETURNED);
+                this.orderRepository.save(order);
+                return order;
+            }
+        }
+        order.setStatus(StaticDetails.ORDER_RETURNED);
+        this.orderRepository.save(order);
+        return order;
+    }
+
+    private RetourRequest updateRequestStatus(RetourRequestDTO retourRequestDTO, String status) {
+        RetourRequest retourRequest = retourRequestRepository.findById(retourRequestDTO.id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found"));
+        retourRequest.setState(status);
+        retourRequestRepository.save(retourRequest);
+        return retourRequest;
+    }
 
 }
