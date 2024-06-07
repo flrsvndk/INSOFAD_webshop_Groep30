@@ -1,16 +1,14 @@
 package com.example.todoappdeel3.dao;
 
-import com.example.todoappdeel3.dto.CategoryDTO;
 import com.example.todoappdeel3.models.Category;
-import com.example.todoappdeel3.models.Product;
+import com.example.todoappdeel3.repositories.CategoryRepository;
+import com.example.todoappdeel3.repositories.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class CategoryDAO {

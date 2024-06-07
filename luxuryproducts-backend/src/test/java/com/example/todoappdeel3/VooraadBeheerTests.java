@@ -2,8 +2,8 @@ package com.example.todoappdeel3;
 
 import com.example.todoappdeel3.dao.AdressDAO;
 import com.example.todoappdeel3.dao.OrderItemDAO;
-import com.example.todoappdeel3.dao.OrderItemRepository;
-import com.example.todoappdeel3.dao.ProductSpecificationTypesRepository;
+import com.example.todoappdeel3.repositories.OrderItemRepository;
+import com.example.todoappdeel3.repositories.ProductSpecificationTypesRepository;
 import com.example.todoappdeel3.dto.AdressDTO;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.dto.OrderItemDTO;

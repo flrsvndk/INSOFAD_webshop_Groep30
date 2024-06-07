@@ -1,21 +1,17 @@
 package com.example.todoappdeel3.dao;
 
-import com.example.todoappdeel3.config.JWTUtil;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.PlacedOrder;
-import com.example.todoappdeel3.models.Product;
+import com.example.todoappdeel3.repositories.OrderRepository;
 import com.example.todoappdeel3.services.OrderService;
 import com.example.todoappdeel3.services.UserService;
 import com.example.todoappdeel3.utils.StaticDetails;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
-import org.hibernate.query.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Component

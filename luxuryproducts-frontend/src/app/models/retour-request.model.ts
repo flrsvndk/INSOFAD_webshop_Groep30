@@ -3,8 +3,8 @@ import {ExistingOrder} from "./existing-order.model";
 import {OrderItem} from "./order-item.model";
 
 export class RetourRequest {
-  public orderProductIds: number[];
-  public reasonId: number;
+  public orderItemIds: number[];
+  public reasonId: string;
   public comment: string;
   public orderId: string;
 

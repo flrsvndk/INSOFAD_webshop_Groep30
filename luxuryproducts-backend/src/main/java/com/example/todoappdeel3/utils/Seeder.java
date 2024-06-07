@@ -1,11 +1,11 @@
 package com.example.todoappdeel3.utils;
 
 import com.example.todoappdeel3.dao.*;
-import com.example.todoappdeel3.dto.CategoryDTO;
 import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
 import com.example.todoappdeel3.dto.TypeDTO;
 import com.example.todoappdeel3.models.*;
+import com.example.todoappdeel3.repositories.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class Seeder {

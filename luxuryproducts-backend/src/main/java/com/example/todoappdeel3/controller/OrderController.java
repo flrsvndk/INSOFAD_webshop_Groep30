@@ -1,15 +1,13 @@
 package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.dao.OrderDAO;
-import com.example.todoappdeel3.dao.UserRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.PlacedOrder;
 import com.example.todoappdeel3.services.UserService;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;

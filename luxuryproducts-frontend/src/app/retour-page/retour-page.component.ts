@@ -54,6 +54,9 @@ export class RetourPageComponent implements OnInit, OnDestroy {
       for (let order of res) {
         if (order.id == this.id) {
           this.order = order;
+
+          console.log(this.order)
+          console.log(this.order.orderItems)
         }
       }
     });
@@ -68,6 +71,9 @@ export class RetourPageComponent implements OnInit, OnDestroy {
 
   public onSubmit(form: NgForm): void {
     if (form.valid) {
+
+      console.log(form)
+
       this.retour$ = this.retourService.createRetourRequest(form, this.id).subscribe((res: RetourRequest) => {
         this.router.navigate(['/']);
       });

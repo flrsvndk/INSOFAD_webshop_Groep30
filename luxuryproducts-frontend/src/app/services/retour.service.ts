@@ -29,7 +29,7 @@ export class RetourService {
         if (key === 'comment' && typeof value === 'string') {
           retourRequest.comment = value;
         } else if (key === 'reason' && typeof value === 'string') {
-          retourRequest.reasonId = +value;
+          retourRequest.reasonId = value;
         } else {
           if (typeof value === 'boolean' && value) {
             orderProductIds.push(+key);
@@ -39,7 +39,7 @@ export class RetourService {
     }
 
     retourRequest.orderId = orderId;
-    retourRequest.orderProductIds = orderProductIds;
+    retourRequest.orderItemIds = orderProductIds;
 
     return this.http.post<RetourRequest>(this.baseUrl, retourRequest);
   }
