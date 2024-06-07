@@ -37,6 +37,10 @@ public class RetourDAO {
         return this.retourReasonRepository.findAll();
     }
 
+    public List<RetourRequest> getAllRequests() {
+        return this.retourRequestRepository.findAll();
+    }
+
     public RetourRequest createRetourRequest(RetourRequestDTO retourRequestDTO) {
         CustomUser user = getCurrentUser();
 
@@ -96,4 +100,6 @@ public class RetourDAO {
         retourRequest.setRetouredProducts(retouredProducts);
         return retourRequest;
     }
+
+
 }

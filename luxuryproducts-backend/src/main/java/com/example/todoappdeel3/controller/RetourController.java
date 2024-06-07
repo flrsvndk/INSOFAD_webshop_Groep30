@@ -25,6 +25,11 @@ public class RetourController {
         return ResponseEntity.ok(this.retourDAO.getAllReasons());
     }
 
+    @GetMapping("requests")
+    public ResponseEntity<List<RetourRequest>> getAllRequests() {
+        return ResponseEntity.ok(this.retourDAO.getAllRequests());
+    }
+
     @PostMapping
     public ResponseEntity<RetourRequest> createRequest(@RequestBody RetourRequestDTO retourRequestDTO) {
         return ResponseEntity.ok(this.retourDAO.createRetourRequest(retourRequestDTO));
