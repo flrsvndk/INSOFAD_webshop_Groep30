@@ -1,0 +1,15 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+            <app-sidepanel></app-sidepanel>
+        </aside>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="text-center mb-4">
+                <h1 class="h3">Retour Requests</h1>
+            </div>
+
+            <app-admin-request-thumbnail *ngFor="let request of requests" [request]="request"></app-admin-request-thumbnail>
+
+        </main>
+    </div>
+</div>

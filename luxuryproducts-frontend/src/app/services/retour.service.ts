@@ -18,6 +18,10 @@ export class RetourService {
     return this.http.get<RetourReason[]>(this.baseUrl + "/reasons");
   }
 
+  public getRequests(): Observable<RetourRequest[]> {
+    return this.http.get<RetourRequest[]>(this.baseUrl + "/requests");
+  }
+
   public createRetourRequest(form: NgForm, orderId: string): Observable<RetourRequest> {
     var retourRequest: RetourRequest = new RetourRequest();
     retourRequest = this.readFormValues(form, retourRequest);
