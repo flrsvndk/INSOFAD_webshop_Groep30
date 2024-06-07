@@ -19,28 +19,9 @@ export class RetourService {
   }
 
   public createRetourRequest(form: NgForm, orderId: string): Observable<RetourRequest> {
-
-    const retourRequest: RetourRequest = new RetourRequest();
-    const orderProductIds: number[] = [];
-
-    for (const key in form.form.value) {
-      if (form.form.value.hasOwnProperty(key)) {
-        const value = form.form.value[key];
-        if (key === 'comment' && typeof value === 'string') {
-          retourRequest.comment = value;
-        } else if (key === 'reason' && typeof value === 'string') {
-          retourRequest.reasonId = value;
-        } else {
-          if (typeof value === 'boolean' && value) {
-            orderProductIds.push(+key);
-          }
-        }
-      }
-    }
-
+    var retourRequest: RetourRequest = new RetourRequest();
+    retourRequest = this.readFormValues(form, retourRequest);
     retourRequest.orderId = orderId;
-    retourRequest.orderItemIds = orderProductIds;
-
     return this.http.post<RetourRequest>(this.baseUrl, retourRequest);
   }
 
@@ -68,5 +49,25 @@ export class RetourService {
     return this.http.put<RetourRequest>(this.baseUrl + "/refund", {
       "id": id,
     });
+  }
+
+  private readFormValues(form: NgForm, retourRequest: RetourRequest): RetourRequest {
+    const orderItemIds: number[] = [];
+    for (const key in form.form.value) {
+      if (form.form.value.hasOwnProperty(key)) {
+        const value = form.form.value[key];
+        if (key === 'comment' && typeof value === 'string') {
+          retourRequest.comment = value;
+        } else if (key === 'reason' && typeof value === 'string') {
+          retourRequest.reasonId = value;
+        } else {
+          if (typeof value === 'boolean' && value) {
+            orderItemIds.push(+key);
+          }
+        }
+      }
+    }
+    retourRequest.orderItemIds = orderItemIds;
+    return retourRequest;
   }
 }

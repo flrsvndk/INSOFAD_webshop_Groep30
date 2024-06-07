@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {NgForOf, NgIf} from "@angular/common";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormsModule, NgForm} from "@angular/forms";
 import {ExistingOrder} from "../models/existing-order.model";
 import {OrderService} from "../services/order.service";
-import {RetourRequest} from "../models/retour-request.model";
 import {RetourReason} from "../models/retour-reason.model";
 import {RetourService} from "../services/retour.service";
 
@@ -42,7 +41,7 @@ export class RetourPageComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
-    this.route$ = this.route.params.subscribe(params => {
+    this.route$ = this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
     })
 
@@ -54,9 +53,6 @@ export class RetourPageComponent implements OnInit, OnDestroy {
       for (let order of res) {
         if (order.id == this.id) {
           this.order = order;
-
-          console.log(this.order)
-          console.log(this.order.orderItems)
         }
       }
     });
@@ -71,10 +67,7 @@ export class RetourPageComponent implements OnInit, OnDestroy {
 
   public onSubmit(form: NgForm): void {
     if (form.valid) {
-
-      console.log(form)
-
-      this.retour$ = this.retourService.createRetourRequest(form, this.id).subscribe((res: RetourRequest) => {
+      this.retour$ = this.retourService.createRetourRequest(form, this.id).subscribe(() => {
         this.router.navigate(['/']);
       });
     }
