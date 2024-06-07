@@ -25,8 +25,9 @@ public class Seeder {
     private final OrderItemRepository orderItemRepository;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
     private final AdressRepository adressRepository;
+    private final RetourReasonRepository retourReasonRepository;
 
-    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository, AdressRepository adressRepository) {
+    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository, AdressRepository adressRepository, RetourReasonRepository retourReasonRepository) {
         this.productDAO = productDAO;
         this.userRepository = userRepository;
         this.categoryDAO = categoryDAO;
@@ -34,6 +35,7 @@ public class Seeder {
         this.orderItemRepository = orderItemRepository;
         this.productSpecificationTypesRepository = productSpecificationTypesRepository;
         this.adressRepository = adressRepository;
+        this.retourReasonRepository = retourReasonRepository;
     }
 
     @EventListener
@@ -41,6 +43,7 @@ public class Seeder {
         this.seedProducts();
         this.seedUser();
         this.seedOrder();
+        this.seedRetourReasons();
     }
 
     private void seedProducts(){
@@ -196,7 +199,7 @@ public class Seeder {
         order.setUser(user);
         order.setOrderDate(LocalDateTime.now());
         order.setAdress(address);
-        order.setStatus(StaticDetails.ORDER_PENDING);
+        order.setStatus(StaticDetails.ORDER_DELIVERED);
 
         OrderItem orderItem = new OrderItem();
         orderItem.setQuantity(1);
@@ -211,6 +214,15 @@ public class Seeder {
         adressRepository.save(address);
         orderRepository.save(order);
         orderItemRepository.save(orderItem);
+    }
+
+    private void seedRetourReasons() {
+        List<RetourReason> retourReasons = new ArrayList<>();
+        retourReasons.add(new RetourReason("Defect bij ontvangst"));
+        retourReasons.add(new RetourReason("Komt niet overeen met beschrijving"));
+        retourReasons.add(new RetourReason("Verkeerd geleverd"));
+        retourReasons.add(new RetourReason("Van gedachten veranderd"));
+        retourReasonRepository.saveAll(retourReasons);
     }
 
 }
