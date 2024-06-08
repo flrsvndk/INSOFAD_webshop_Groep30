@@ -60,13 +60,29 @@ public class OrderController {
         return ResponseEntity.ok(this.orderDAO.getOrderById(orderId));
     }
 
-
-
-
     @PostMapping
     public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
         this.orderDAO.saveOrderWithProducts(orderDTO);
         return ResponseEntity.ok().body("{\"message\": \"Order created successfully\"}");
+    }
+    @PutMapping("processing")
+    public ResponseEntity<PlacedOrder> setProcessing(@RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(this.orderDAO.setProcessing(orderDTO));
+    }
+
+    @PutMapping("confirmed")
+    public ResponseEntity<PlacedOrder> setConfirmed(@RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(this.orderDAO.setConfirmed(orderDTO));
+    }
+
+    @PutMapping("out-for-delivery")
+    public ResponseEntity<PlacedOrder> setOutForDelivery(@RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(this.orderDAO.setOutForDelivery(orderDTO));
+    }
+
+    @PutMapping("delivered")
+    public ResponseEntity<PlacedOrder> setDelivered(@RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(this.orderDAO.setDelivered(orderDTO));
     }
 
 }

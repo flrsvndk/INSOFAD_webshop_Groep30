@@ -1,39 +1,46 @@
 package com.example.todoappdeel3.utils;
 
-import com.example.todoappdeel3.dao.CategoryDAO;
-import com.example.todoappdeel3.dao.ProductDAO;
-import com.example.todoappdeel3.dao.UserRepository;
+import com.example.todoappdeel3.dao.*;
 import com.example.todoappdeel3.dto.CategoryDTO;
 import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
 import com.example.todoappdeel3.dto.TypeDTO;
-import com.example.todoappdeel3.models.Category;
-import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.models.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class Seeder {
     private final CategoryDAO categoryDAO;
     private ProductDAO productDAO;
     private UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
+    private final AdressRepository adressRepository;
 
-
-    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO) {
+    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository, AdressRepository adressRepository) {
         this.productDAO = productDAO;
         this.userRepository = userRepository;
         this.categoryDAO = categoryDAO;
+        this.orderRepository = orderRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.productSpecificationTypesRepository = productSpecificationTypesRepository;
+        this.adressRepository = adressRepository;
     }
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
         this.seedProducts();
         this.seedUser();
+        this.seedOrder();
     }
 
     private void seedProducts(){
@@ -179,4 +186,31 @@ public class Seeder {
         customUser.setRole("ADMIN");
         userRepository.save(customUser);
     }
+
+    private void seedOrder() {
+        CustomUser user = userRepository.findByEmail("bob@bobsluxuryenterprise.com");
+
+        Adress address = new Adress("0000XX", 99, "");
+
+        PlacedOrder order = new PlacedOrder();
+        order.setUser(user);
+        order.setOrderDate(LocalDateTime.now());
+        order.setAdress(address);
+        order.setStatus(StaticDetails.ORDER_PENDING);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(1);
+        orderItem.setPlacedOrder(order);
+        orderItem.setProductType(productSpecificationTypesRepository.findByName("silver"));
+
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(orderItem);
+
+        order.setOrderItems(orderItems);
+
+        adressRepository.save(address);
+        orderRepository.save(order);
+        orderItemRepository.save(orderItem);
+    }
+
 }

@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ProductSpecificationTypesRepository extends JpaRepository<ProductSpecificationType, UUID> {
+    ProductSpecificationType findByName(String name);
 }
