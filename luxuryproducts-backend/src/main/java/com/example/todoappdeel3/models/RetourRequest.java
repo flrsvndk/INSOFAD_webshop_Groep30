@@ -36,6 +36,16 @@ public class RetourRequest {
     public RetourRequest() {
     }
 
+    public RetourRequest(CustomUser user, PlacedOrder order, Set<OrderItem> retouredProducts, LocalDateTime dateTime, String reason, String note, String state) {
+        this.user = user;
+        this.order = order;
+        this.retouredProducts = retouredProducts;
+        this.dateTime = dateTime;
+        this.reason = reason;
+        this.note = note;
+        this.state = state;
+    }
+
     public UUID getId() {
         return id;
     }
