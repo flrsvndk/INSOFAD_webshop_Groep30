@@ -47,7 +47,7 @@ public class RetourDAO {
 
         Set<OrderItem> retouredProducts = findOrderItemsByIds(retourRequestDTO.orderItemIds);
 
-        RetourRequest retourRequest = buildRetourRequest(user, retourRequestDTO, order, retourReason, retouredProducts);
+        RetourRequest retourRequest = new RetourRequest(user, order, retouredProducts, LocalDateTime.now(), retourReason.getReason(), retourRequestDTO.comment, StaticDetails.RETOUR_PENDING);
 
         retourRequestRepository.save(retourRequest);
 
@@ -83,17 +83,5 @@ public class RetourDAO {
             retouredProducts.add(orderProduct);
         }
         return retouredProducts;
-    }
-
-    private RetourRequest buildRetourRequest(CustomUser user, RetourRequestDTO retourRequestDTO, PlacedOrder order, RetourReason retourReason, Set<OrderItem> retouredProducts) {
-        RetourRequest retourRequest = new RetourRequest();
-        retourRequest.setUser(user);
-        retourRequest.setDateTime(LocalDateTime.now());
-        retourRequest.setNote(retourRequestDTO.comment);
-        retourRequest.setState(StaticDetails.RETOUR_PENDING);
-        retourRequest.setOrder(order);
-        retourRequest.setReason(retourReason.getReason());
-        retourRequest.setRetouredProducts(retouredProducts);
-        return retourRequest;
     }
 }
