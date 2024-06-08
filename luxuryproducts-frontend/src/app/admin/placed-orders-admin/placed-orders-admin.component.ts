@@ -14,7 +14,7 @@ import {AdminOrderThumbnailComponent} from "./admin-order-thumbnail/admin-order-
     DatePipe,
     NgIf,
     SidepanelComponent,
-    AdminOrderThumbnailComponent
+    AdminOrderThumbnailComponent,
   ],
   templateUrl: './placed-orders-admin.component.html',
   styleUrl: './placed-orders-admin.component.scss'
