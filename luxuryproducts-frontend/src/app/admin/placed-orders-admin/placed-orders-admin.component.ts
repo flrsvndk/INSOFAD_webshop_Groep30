@@ -7,6 +7,7 @@ import {SidepanelComponent} from "../sidepanel/sidepanel.component";
 import {AdminOrderThumbnailComponent} from "./admin-order-thumbnail/admin-order-thumbnail.component";
 import {FormsModule} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {SortingFilteringService} from "../../services/sorting-filtering.service";
 
 @Component({
   selector: 'app-placed-orders-admin',
@@ -37,7 +38,10 @@ export class PlacedOrdersAdminComponent implements OnInit, OnDestroy {
     protected admin: boolean;
 
 
-    constructor(private orderService: OrderService, private userService: UserService) {
+    constructor(private orderService: OrderService,
+                private userService: UserService,
+                private sortFilterService: SortingFilteringService) {
+
          this.userService.giveAuthentication("ADMIN").then((value: boolean) => {
             this.admin = value;
             this.loadedAdmin = true;
@@ -61,28 +65,6 @@ export class PlacedOrdersAdminComponent implements OnInit, OnDestroy {
     }
 
     public alterOrders() {
-
-      // filter on order id
-      this.alteredOrders = this.searchFilter ? this.orders.filter(order => order.id == this.searchFilter) : this.orders.slice();
-
-      // Sort by age
-      this.alteredOrders = this.alteredOrders
-        .filter(order => order.orderDate !== undefined)
-        .sort((a, b) => {
-          const dateA = new Date(a.orderDate!);
-          const dateB = new Date(b.orderDate!);
-
-          if (this.sortNewestFirst) {
-            return dateB.getTime() - dateA.getTime();
-          } else {
-            return dateA.getTime() - dateB.getTime();
-          }
-        });
+      this.alteredOrders = this.sortFilterService.alterOrders(this.orders, this.searchFilter, this.sortNewestFirst);
     }
-
-  // Deze method is unused.
-
-    // public isAdmin(): boolean {
-    //     return this.admin;
-    // }
 }
