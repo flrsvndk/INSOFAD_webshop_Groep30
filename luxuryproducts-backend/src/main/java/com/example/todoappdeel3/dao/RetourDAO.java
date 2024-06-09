@@ -54,7 +54,7 @@ public class RetourDAO {
 
         Set<OrderItem> retouredProducts = findOrderItemsByIds(retourRequestDTO.orderItemIds);
 
-        RetourRequest retourRequest = new RetourRequest(user, order, retouredProducts, LocalDateTime.now(), retourReason.getReason(), retourRequestDTO.comment, StaticDetails.RETOUR_PENDING);
+        RetourRequest retourRequest = new RetourRequest(user, order, retouredProducts, LocalDateTime.now(), retourReason, retourRequestDTO.comment, StaticDetails.RETOUR_PENDING);
 
         retourRequestRepository.save(retourRequest);
 
