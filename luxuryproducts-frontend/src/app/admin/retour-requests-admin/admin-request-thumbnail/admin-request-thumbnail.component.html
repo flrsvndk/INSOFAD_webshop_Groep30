@@ -9,7 +9,7 @@
                 <p><b>Request Data</b></p>
                 <p>Request Date: {{ request.dateTime | date: 'medium' }}</p>
                 <p>Request Status: {{ request.state }}</p>
-                <p>Request Reason: {{ request.reason }}</p>
+                <p>Request Reason: {{ request.reason?.reason }}</p>
                 <p>Request Comment: {{ request.note || "No Comment" }}</p>
 
                 <div class="float-end" *ngIf="request.state == StaticDetails.RETOUR_PENDING">
