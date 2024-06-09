@@ -7,7 +7,19 @@
             <div class="text-center mb-4">
                 <h1 class="h3">Order History</h1>
             </div>
-            @for(order of orders; track $index){
+            <div class="row">
+                <div class="col-6 float-start">
+                    <button class="btn btn-light" (click)="toggleSort()"><i class="{{ sortNewestFirst ? 'bi bi-sort-down' : 'bi bi-sort-down-alt' }}"></i> {{ sortNewestFirst ? 'Oldest First' : 'Newest First' }}</button>
+                </div>
+                <div class="col-6 float-start">
+                    <form (ngSubmit)="alterOrders()">
+                        <input class="form-control" placeholder="Search by order id..." [(ngModel)]="searchFilter" name="filter">
+                        <button class="btn btn-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            @for(order of alteredOrders; track $index){
                 <app-admin-order-thumbnail [order]="order"></app-admin-order-thumbnail>
             }
         </main>
