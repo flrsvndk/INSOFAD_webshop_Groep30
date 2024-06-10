@@ -4,12 +4,15 @@ import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.models.Category;
 import com.example.todoappdeel3.models.Product;
 import com.example.todoappdeel3.models.ProductSpecification;
+import com.example.todoappdeel3.models.ProductSpecificationType;
 import com.example.todoappdeel3.repositories.ProductRepository;
+import com.example.todoappdeel3.repositories.ProductSpecificationTypesRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,11 +23,12 @@ public class ProductDAO {
     private final ProductRepository productRepository;
     private final CategoryDAO categoryDAO;
     private final ProductSpecificationDAO productSpecificationDAO;
-
-    public ProductDAO(ProductRepository productRepository, CategoryDAO categoryDAO, ProductSpecificationDAO productSpecificationDAO) {
+    private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
+    public ProductDAO(ProductRepository productRepository, CategoryDAO categoryDAO, ProductSpecificationDAO productSpecificationDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
         this.productRepository = productRepository;
         this.categoryDAO = categoryDAO;
         this.productSpecificationDAO = productSpecificationDAO;
+        this.productSpecificationTypesRepository = productSpecificationTypesRepository;
     }
 
     public List<Product> getAllProducts() {
@@ -64,6 +68,24 @@ public class ProductDAO {
         product.setProductSpecification(productSpecification);
         this.productRepository.save(product);
         return product;
+    }
+
+    public void incrementProductStock(UUID productId) {
+        this.updateProductStock(productId, 1);
+    }
+
+    public void decrementProductStock(UUID productId) {
+        this.updateProductStock(productId, -1);
+    }
+
+    private void updateProductStock(UUID productId, int amount) {
+        Optional<ProductSpecificationType> productOptional = productSpecificationTypesRepository.findById(productId);
+        if (productOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+        ProductSpecificationType product = productOptional.get();
+        product.setStock(product.getStock()+amount);
+        productSpecificationTypesRepository.save(product);
     }
 
 }

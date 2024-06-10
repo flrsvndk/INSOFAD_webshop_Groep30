@@ -18,6 +18,14 @@ export class RetourService {
     return this.http.get<RetourReason[]>(this.baseUrl + "/reasons");
   }
 
+  public getRequests(): Observable<RetourRequest[]> {
+    return this.http.get<RetourRequest[]>(this.baseUrl + "/requests");
+  }
+
+  public getUserRetourRequests(): Observable<RetourRequest[]> {
+    return this.http.get<RetourRequest[]>(this.baseUrl);
+  }
+
   public createRetourRequest(form: NgForm, orderId: string): Observable<RetourRequest> {
     var retourRequest: RetourRequest = new RetourRequest();
     retourRequest = this.readFormValues(form, retourRequest);
@@ -25,27 +33,19 @@ export class RetourService {
     return this.http.post<RetourRequest>(this.baseUrl, retourRequest);
   }
 
-  public getUserRetourRequests(): Observable<RetourRequest[]> {
-    return this.http.get<RetourRequest[]>(this.baseUrl);
-  }
-
-  public getAllRetourRequests(): Observable<RetourRequest[]> {
-    return this.http.get<RetourRequest[]>(this.baseUrl + "/all");
-  }
-
-  public acceptRetourRequest(id: number): Observable<RetourRequest> {
+  public acceptRetourRequest(id: string): Observable<RetourRequest> {
     return this.http.put<RetourRequest>(this.baseUrl + "/accept", {
       "id": id,
     });
   }
 
-  public declineRetourRequest(id: number): Observable<RetourRequest> {
+  public declineRetourRequest(id: string): Observable<RetourRequest> {
     return this.http.put<RetourRequest>(this.baseUrl + "/decline", {
       "id": id,
     });
   }
 
-  public refundRetourRequest(id: number): Observable<RetourRequest> {
+  public refundRetourRequest(id: string): Observable<RetourRequest> {
     return this.http.put<RetourRequest>(this.baseUrl + "/refund", {
       "id": id,
     });
