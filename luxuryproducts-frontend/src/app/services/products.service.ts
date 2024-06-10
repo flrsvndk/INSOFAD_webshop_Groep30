@@ -12,7 +12,7 @@ import {ProductType} from "../models/product-type.model";
 })
 export class ProductsService {
 
-  private baseUrl: string = environment.base_url + "/products";
+  private baseUrl: string = environment.BASE_URL + "/products";
 
 
   constructor(private http: HttpClient) {
