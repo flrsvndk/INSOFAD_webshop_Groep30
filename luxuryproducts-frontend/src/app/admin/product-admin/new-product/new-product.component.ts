@@ -24,11 +24,13 @@ import {CategoriesService} from "../../../services/categories.service";
 })
 export class NewProductComponent {
 
-  productForm: FormGroup;
-  categories: Category[];
+  public productForm: FormGroup;
+  // public typesForm: FormGroup;
+  public categories: Category[];
+  public types: number;
 
-    protected admin: boolean;
-    public loadedAdmin: boolean = false;
+  protected admin: boolean;
+   public loadedAdmin: boolean = false;
 
   constructor(private userService: UserService, private fb: FormBuilder, private productService: ProductsService, private categoryService: CategoriesService) {
       this.userService.giveAuthentication("ADMIN").then((value: boolean) => {
@@ -42,7 +44,7 @@ export class NewProductComponent {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
+      // price: ['', [Validators.required, Validators.min(0)]],
       category: ['']
     });
   }
@@ -54,6 +56,15 @@ export class NewProductComponent {
       this.productForm.reset();
     }
   }
+
+  public addSpecification(){
+
+  }
+
+  public addType(){
+
+  }
+
 }
 
 //   form: FormGroup;
