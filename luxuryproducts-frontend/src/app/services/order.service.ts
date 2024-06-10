@@ -33,4 +33,28 @@ export class OrderService {
     }
     return orderItems;
   }
+
+  public setProcessing(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/processing", {
+      id: id
+    });
+  }
+
+  public setConfirmed(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/confirmed", {
+      id: id
+    });
+  }
+
+  public setOutForDelivery(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/out-for-delivery", {
+      id: id
+    });
+  }
+
+  public setDelivered(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/delivered", {
+      id: id
+    });
+  }
 }

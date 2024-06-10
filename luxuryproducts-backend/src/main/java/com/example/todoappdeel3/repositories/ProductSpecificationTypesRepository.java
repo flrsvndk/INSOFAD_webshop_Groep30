@@ -1,4 +1,4 @@
-package com.example.todoappdeel3.dao;
+package com.example.todoappdeel3.repositories;
 
 import com.example.todoappdeel3.models.ProductSpecificationType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ProductSpecificationTypesRepository extends JpaRepository<ProductSpecificationType, UUID> {
+    ProductSpecificationType findByName(String name);
 }

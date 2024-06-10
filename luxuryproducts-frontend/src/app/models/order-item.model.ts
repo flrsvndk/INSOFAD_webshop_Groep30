@@ -5,7 +5,6 @@ export class OrderItem {
     public typeId: String;
     public product: ProductType;
 
-
     constructor(quantity: number, productId: String, product: ProductType) {
         this.quantity = quantity;
         this.typeId = productId;

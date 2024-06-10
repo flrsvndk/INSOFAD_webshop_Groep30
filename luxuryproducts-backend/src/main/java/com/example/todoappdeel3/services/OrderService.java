@@ -4,6 +4,8 @@ import com.example.todoappdeel3.dao.*;
 import com.example.todoappdeel3.dto.OrderDTO;
 import com.example.todoappdeel3.dto.OrderItemDTO;
 import com.example.todoappdeel3.models.*;
+import com.example.todoappdeel3.repositories.OrderItemRepository;
+import com.example.todoappdeel3.repositories.ProductSpecificationTypesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

@@ -5,6 +5,8 @@ import com.example.todoappdeel3.dto.TypeDTO;
 import com.example.todoappdeel3.models.Product;
 import com.example.todoappdeel3.models.ProductSpecification;
 import com.example.todoappdeel3.models.ProductSpecificationType;
+import com.example.todoappdeel3.repositories.ProductSpecificationRepository;
+import com.example.todoappdeel3.repositories.ProductSpecificationTypesRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
