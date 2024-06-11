@@ -10,6 +10,9 @@ import {OrderItem} from "../models/order-item.model";
 import {OrderService} from "../services/order.service";
 import {UserService} from "../services/user.service";
 import {ProductType} from "../models/product-type.model";
+import {GiftcardService} from "../services/giftcard.service";
+import {GiftcardOwned} from "../models/giftcard-owned.model";
+import {HttpResponse} from "../models/http-response.model";
 
 @Component({
   selector: 'app-order',
@@ -25,9 +28,10 @@ export class OrderComponent implements OnInit {
   public products_in_cart: ProductType[];
   public order: Order;
   public adress: Adress;
-  public orderItems: OrderItem[]
+  public orderItems: OrderItem[];
+  public totalPrice: number;
 
-  constructor(private userService: UserService,private cartService: CartService, private router: Router, private fb: FormBuilder, private orderServive: OrderService) {}
+  constructor(private giftcardService: GiftcardService, private userService: UserService,private cartService: CartService, private router: Router, private fb: FormBuilder, private orderServive: OrderService) {}
 
   ngOnInit(): void {
     this.products_in_cart = this.cartService.allProductsInCart();
@@ -39,6 +43,7 @@ export class OrderComponent implements OnInit {
       HouseNummerAddition: [''],
       Opslaan: ['']
     });
+    this.totalPrice = this.products_in_cart.reduce((total, product) => total + product.price * product.amount, 0);
   }
 
   public clearCart() {
@@ -73,5 +78,39 @@ export class OrderComponent implements OnInit {
         }
       );
 
+    if (formData.giftcards != "") {
+      this.useGiftcards(formData.giftcards);
+    }
+  }
+
+  public useGiftcards(giftcardsText: String) {
+    let unpaid = this.totalPrice;
+    let giftcardIds: String[] = giftcardsText.split(" ");
+    let giftcards: GiftcardOwned[] = this.giftcardService.ownedGiftcards;
+
+
+    for (let giftcard of giftcards) {
+      for (let id of giftcardIds) {
+        if (id == giftcard.id.toString()) {
+          console.log(giftcard);
+          let unpaidOld = unpaid;
+          unpaid -= Math.min(unpaid, giftcard.value);
+          giftcard.value -= Math.min(unpaidOld, giftcard.value);
+          this.giftcardService.lowerGiftcardValue(giftcard.value, giftcard.id).subscribe(
+              (result: HttpResponse) => {
+                console.log('Giftcard value updated successfully:', result);
+                this.router.navigateByUrl('/paymentsuccessful');
+              },
+              (error) => {
+                console.log(error);
+              }
+          );
+          break;
+        }
+      }
+      if (unpaid == 0) {
+        return;
+      }
+    }
   }
 }
