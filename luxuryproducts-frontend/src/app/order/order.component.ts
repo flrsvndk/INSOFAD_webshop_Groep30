@@ -72,6 +72,5 @@ export class OrderComponent implements OnInit {
           console.error('Failed to add order:', error);
         }
       );
-
   }
 }
