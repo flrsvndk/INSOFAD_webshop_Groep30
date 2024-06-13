@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://s1150264.student.inf-hsleiden.nl:10264"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/giftcards")
 public class GiftcardController {
 
