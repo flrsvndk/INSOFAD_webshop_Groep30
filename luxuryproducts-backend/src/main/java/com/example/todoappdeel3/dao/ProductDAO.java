@@ -4,6 +4,7 @@ import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.models.Category;
 import com.example.todoappdeel3.models.Product;
 import com.example.todoappdeel3.models.ProductSpecification;
+import com.example.todoappdeel3.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

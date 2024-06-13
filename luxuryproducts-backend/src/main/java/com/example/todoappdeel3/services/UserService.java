@@ -2,7 +2,7 @@ package com.example.todoappdeel3.services;
 
 
 import com.example.todoappdeel3.config.JWTUtil;
-import com.example.todoappdeel3.dao.UserRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.models.CustomUser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

@@ -4,6 +4,8 @@ import com.example.todoappdeel3.dto.CustomUserDTO;
 import com.example.todoappdeel3.dto.RoleUpgradeDTO;
 import com.example.todoappdeel3.models.Adress;
 import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.repositories.AdressRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
