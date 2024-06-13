@@ -11,7 +11,7 @@ import {ProductType} from "../models/product-type.model";
   providedIn: 'root'
 })
 export class OrderService {
-  private baseUrl: string = environment.base_url + "/orders";
+  private baseUrl: string = environment.BASE_URL + "/orders";
 
   constructor(private http: HttpClient) { }
 
