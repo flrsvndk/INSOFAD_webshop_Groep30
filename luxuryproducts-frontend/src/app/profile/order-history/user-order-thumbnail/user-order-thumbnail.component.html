@@ -29,6 +29,10 @@
             Total: {{order.totalProductsPrice | currency: 'EUR'}}
         </li>
     </ul>
-    <a *ngIf="order.status == StaticDetails.ORDER_DELIVERED && orderWithinReturnPeriod" [routerLink]="['/retour-page', order.id]" id="return-order-button" class="btn btn-danger float-end">Return product(s)</a>
-    <p *ngIf="order.status == StaticDetails.ORDER_DELIVERED && !orderWithinReturnPeriod" class="text-danger float-end">! Order is outside of return period</p>
+    @if(order.status == StaticDetails.ORDER_DELIVERED && orderWithinReturnPeriod){
+        <a [routerLink]="['/retour-page', order.id]" id="return-order-button" class="btn btn-danger float-end">Return product(s)</a>
+    }
+    @if(order.status == StaticDetails.ORDER_DELIVERED && !orderWithinReturnPeriod){
+        <p class="text-danger float-end">! Order is outside of return period</p>
+    }
 </div>

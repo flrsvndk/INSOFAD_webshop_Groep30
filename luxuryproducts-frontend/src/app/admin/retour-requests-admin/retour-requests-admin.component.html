@@ -22,7 +22,9 @@
                 </div>
             </div>
             <hr>
-            <app-admin-request-thumbnail *ngFor="let request of alteredRetourRequests" [request]="request"></app-admin-request-thumbnail>
+            @for(request of alteredRetourRequests; track $index){
+                <app-admin-request-thumbnail [request]="request"></app-admin-request-thumbnail>
+            }
         </main>
     </div>
 </div>
