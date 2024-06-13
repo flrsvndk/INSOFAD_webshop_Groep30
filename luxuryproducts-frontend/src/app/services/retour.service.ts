@@ -11,7 +11,7 @@ import {RetourRequest} from "../models/retour-request.model";
 })
 export class RetourService {
 
-  private baseUrl: string = environment.base_url + "/retour";
+  private baseUrl: string = environment.BASE_URL + "/retour";
   constructor(private http: HttpClient) { }
 
   public getReasons(): Observable<RetourReason[]> {
