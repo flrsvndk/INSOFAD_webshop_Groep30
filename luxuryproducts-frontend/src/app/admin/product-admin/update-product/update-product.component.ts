@@ -38,6 +38,7 @@ export class UpdateProductComponent {
 
   }
 
+
   // updateProduct(): void {
   //   this.productService
   //       .updateProductByIndex(this.product)
