@@ -43,13 +43,6 @@ public class GiftcardController {
         return this.giftcardDAO.createGiftcard(purchaseDTO, principal.getName());
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<String> updateGiftcard(@PathVariable Long id, @RequestBody GiftcardDTO giftcardDTO){
-//        this.giftcardDAO.updateGiftcard(giftcardDTO, id);
-//
-//        return ResponseEntity.ok("Updated giftcard with id" + id);
-//    }
-
     @PutMapping("/lowerValue")
     public ResponseEntity<String> lowerGiftcardValue(@RequestBody GiftcardValueDTO value){
 
