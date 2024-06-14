@@ -24,6 +24,7 @@ import {RetourPageComponent} from "./retour-page/retour-page.component";
 import {GiftcardsComponent} from "./giftcards/giftcards.component";
 import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
 import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
+import {RetourRequestsAdminComponent} from "./admin/retour-requests-admin/retour-requests-admin.component";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -39,8 +40,6 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
-  {path: 'giftcards', component: GiftcardsComponent},
-  {path: 'my-giftcards', component: MyGiftcardsComponent},
   {path: 'retour-page/:id', component: RetourPageComponent, canActivate: [authGuard]},
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
@@ -52,7 +51,6 @@ export const routes: Routes = [
   {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
   {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
   {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
-  {path: 'admin/giftcards', component: GiftcardsAdminComponent, canActivate:[AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];

@@ -20,6 +20,8 @@ public class OrderItem {
     @JsonManagedReference
     private ProductSpecificationType productType;
 
+    private boolean returned;
+
     public OrderItem() {
     }
 
@@ -27,6 +29,7 @@ public class OrderItem {
         this.quantity = quantity;
         this.placedOrder = placedOrder;
         this.productType = productType;
+        this.returned = false;
     }
 
     public long getId() {
@@ -59,5 +62,13 @@ public class OrderItem {
 
     public void setProductType(ProductSpecificationType productType) {
         this.productType = productType;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 }

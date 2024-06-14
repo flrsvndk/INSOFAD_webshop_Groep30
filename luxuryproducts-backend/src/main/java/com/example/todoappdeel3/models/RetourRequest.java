@@ -29,14 +29,15 @@ public class RetourRequest {
     private Set<OrderItem> retouredProducts;
     @JsonAlias("date_time")
     private LocalDateTime dateTime;
-    private String reason;
+    @ManyToOne
+    private RetourReason reason;
     private String note;
     private String state;
 
     public RetourRequest() {
     }
 
-    public RetourRequest(CustomUser user, PlacedOrder order, Set<OrderItem> retouredProducts, LocalDateTime dateTime, String reason, String note, String state) {
+    public RetourRequest(CustomUser user, PlacedOrder order, Set<OrderItem> retouredProducts, LocalDateTime dateTime, RetourReason reason, String note, String state) {
         this.user = user;
         this.order = order;
         this.retouredProducts = retouredProducts;
@@ -86,11 +87,11 @@ public class RetourRequest {
         this.dateTime = dateTime;
     }
 
-    public String getReason() {
+    public RetourReason getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
+    public void setReason(RetourReason reason) {
         this.reason = reason;
     }
 
