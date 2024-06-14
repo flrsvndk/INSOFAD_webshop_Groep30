@@ -15,7 +15,7 @@ import {waitForAsync} from "@angular/core/testing";
   providedIn: 'root'
 })
 export class UserService {
-    private baseUrl: string = environment.base_url + "/auth/user";
+    private baseUrl: string = environment.BASE_URL + "/auth/user";
     public $userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient, private tokenService: TokenService) {
