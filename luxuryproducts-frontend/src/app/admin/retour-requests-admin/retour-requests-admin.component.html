@@ -7,9 +7,22 @@
             <div class="text-center mb-4">
                 <h1 class="h3">Retour Requests</h1>
             </div>
-
-            <app-admin-request-thumbnail *ngFor="let request of requests" [request]="request"></app-admin-request-thumbnail>
-
+            <div class="row">
+                <div class="col-6 float-start">
+                    <button class="btn btn-light" (click)="toggleSort()"><i class="{{ sortNewestFirst ? 'bi bi-sort-down' : 'bi bi-sort-down-alt' }}"></i> {{ sortNewestFirst ? 'Oldest First' : 'Newest First' }}</button>
+                </div>
+                <div class="col-6 float-end">
+                    <select class="form-select" [(ngModel)]="filterStatus" (ngModelChange)="filterRetourRequests()">
+                        <option value="">All Statuses</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="ACCEPTED">ACCEPTED</option>
+                        <option value="DECLINED">DECLINED</option>
+                        <option value="REFUNDED">REFUNDED</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <app-admin-request-thumbnail *ngFor="let request of alteredRetourRequests" [request]="request"></app-admin-request-thumbnail>
         </main>
     </div>
 </div>
