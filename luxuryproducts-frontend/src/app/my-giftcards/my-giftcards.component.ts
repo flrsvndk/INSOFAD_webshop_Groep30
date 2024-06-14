@@ -7,6 +7,7 @@ import {GiftcardOwned} from "../models/giftcard-owned.model";
 import {HttpResponse} from "../models/http-response.model";
 import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-my-giftcards',
@@ -24,6 +25,10 @@ export class MyGiftcardsComponent {
     ownedGiftcards: GiftcardOwned[];
     boughtGiftcards: GiftcardBought[];
 
+    private ownedGiftcards$: Subscription;
+    private boughtGiftcards$: Subscription;
+    private charge$: Subscription;
+
     constructor(private giftcardService: GiftcardService, private router: Router) { }
 
     ngOnInit() {
@@ -31,8 +36,14 @@ export class MyGiftcardsComponent {
         this.loadBoughtGiftcards();
     }
 
+    ngOnDestory() {
+        this.ownedGiftcards$.unsubscribe();
+        this.boughtGiftcards$.unsubscribe();
+        this.charge$.unsubscribe();
+    }
+
     charge(value: number, id: number) {
-        this.giftcardService.chargeGiftcard(value, id).subscribe(
+        this.charge$ = this.giftcardService.chargeGiftcard(value, id).subscribe(
             (result: HttpResponse) => {
                 console.log('Giftcard value updated successfully:', result);
             },
@@ -43,26 +54,14 @@ export class MyGiftcardsComponent {
         window.location.reload();
     }
 
-    delete(id: number) {
-        this.giftcardService.deleteGiftcard(id).subscribe(
-            (result: HttpResponse) => {
-                console.log('Giftcard canceled successfully:', result);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-        window.location.reload();
-    }
-
     loadOwnedGiftcards() {
-        this.giftcardService.getGiftcardsByOwner().subscribe(giftcards => {
+        this.ownedGiftcards$ = this.giftcardService.getGiftcardsByOwner().subscribe(giftcards => {
             this.ownedGiftcards = giftcards;
         });
     }
 
     loadBoughtGiftcards() {
-        this.giftcardService.getGiftcardsByBuyer().subscribe(giftcards => {
+        this.boughtGiftcards$ = this.giftcardService.getGiftcardsByBuyer().subscribe(giftcards => {
             this.boughtGiftcards = giftcards;
         });
     }
