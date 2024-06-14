@@ -4,6 +4,7 @@ import com.example.todoappdeel3.dto.GiftcardBuyerDTO;
 import com.example.todoappdeel3.dto.GiftcardOwnerDTO;
 import com.example.todoappdeel3.dto.GiftcardPurchaseDTO;
 import com.example.todoappdeel3.models.Giftcard;
+import com.example.todoappdeel3.repositories.GiftcardRepository;
 import com.example.todoappdeel3.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
