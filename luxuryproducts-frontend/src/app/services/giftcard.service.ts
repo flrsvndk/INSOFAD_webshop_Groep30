@@ -11,7 +11,7 @@ import {GiftcardOwned} from "../models/giftcard-owned.model";
     providedIn: 'root'
 })
 export class GiftcardService {
-    private baseUrl: string = environment.base_url + "/giftcards";
+    private baseUrl: string = environment.BASE_URL + "/giftcards";
 
     ownedGiftcards: GiftcardOwned[] = [];
     ownedGiftcards$: Subscription;
