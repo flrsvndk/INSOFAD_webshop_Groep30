@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CategoriesService {
 
-  private baseUrl: string = environment.base_url + "/category";
+  private baseUrl: string = environment.BASE_URL + "/category";
 
   constructor(private http: HttpClient) { }
 
