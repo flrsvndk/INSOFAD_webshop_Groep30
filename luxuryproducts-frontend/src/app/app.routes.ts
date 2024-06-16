@@ -41,6 +41,8 @@ export const routes: Routes = [
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
   {path: 'retour-page/:id', component: RetourPageComponent, canActivate: [authGuard]},
+  {path: 'giftcards', component: GiftcardsComponent},
+  {path: 'my-giftcards', component: MyGiftcardsComponent, canActivate: [authGuard]},
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},

@@ -4,22 +4,17 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="mb-4 text-center">Giftcards</h1>
+                    <div class="mt-4">
+                    <h4>Price</h4>
+                    <div class="btn-group" role="group" aria-label="Product Types">
+                      <button (click)="selectPrice(10)" class="btn btn-outline-primary"> 10 </button>
+                      <button (click)="selectPrice(25)" class="btn btn-outline-primary"> 25 </button>
+                      <button (click)="selectPrice(50)" class="btn btn-outline-primary"> 50 </button>
+                      <button (click)="selectPrice(100)" class="btn btn-outline-primary"> 100 </button>
+                      <button (click)="selectPrice(250)" class="btn btn-outline-primary"> 250 </button>
+                    </div>
+                  </div>
                     <form [formGroup]="giftcardForm" (ngSubmit)="onSubmit()">
-                        <div class="mb-3">
-                            <label>Price</label>
-                            <fieldset>
-                                <input type="radio" id="a" name="price" value="10" checked>
-                                <label for="a">€10</label>
-                                <input type="radio" id="b" name="price" value="25">
-                                <label for="b">€25</label>
-                                <input type="radio" id="c" name="price" value="50">
-                                <label for="c">€50</label>
-                                <input type="radio" id="d" name="price" value="100">
-                                <label for="d">€100</label>
-                                <input type="radio" id="e" name="price" value="250">
-                                <label for="e">€250</label>
-                            </fieldset>
-                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Receiver (Email)</label>
                             <input type="email" class="form-control" formControlName="email" id="email">

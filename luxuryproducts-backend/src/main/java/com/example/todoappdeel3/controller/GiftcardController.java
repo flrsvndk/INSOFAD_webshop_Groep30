@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://s1150264.student.inf-hsleiden.nl:10264"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/giftcards")
 public class GiftcardController {
 
@@ -42,13 +42,6 @@ public class GiftcardController {
     public ResponseEntity<String> createGiftcard(@RequestBody GiftcardPurchaseDTO purchaseDTO, Principal principal){
         return this.giftcardDAO.createGiftcard(purchaseDTO, principal.getName());
     }
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity<String> updateGiftcard(@PathVariable Long id, @RequestBody GiftcardDTO giftcardDTO){
-//        this.giftcardDAO.updateGiftcard(giftcardDTO, id);
-//
-//        return ResponseEntity.ok("Updated giftcard with id" + id);
-//    }
 
     @PutMapping("/lowerValue")
     public ResponseEntity<String> lowerGiftcardValue(@RequestBody GiftcardValueDTO value){

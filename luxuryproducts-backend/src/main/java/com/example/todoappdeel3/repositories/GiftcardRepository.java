@@ -1,4 +1,4 @@
-package com.example.todoappdeel3.dao;
+package com.example.todoappdeel3.repositories;
 
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.Giftcard;

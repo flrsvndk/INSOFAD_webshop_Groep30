@@ -4,7 +4,11 @@ import com.example.todoappdeel3.dao.*;
 import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
 import com.example.todoappdeel3.dto.TypeDTO;
-import com.example.todoappdeel3.models.*;
+import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.models.PlacedOrder;
+import com.example.todoappdeel3.models.Adress;
+import com.example.todoappdeel3.models.OrderItem;
+import com.example.todoappdeel3.models.RetourReason;
 import com.example.todoappdeel3.repositories.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -213,6 +217,29 @@ public class Seeder {
         adressRepository.save(address);
         orderRepository.save(order);
         orderItemRepository.save(orderItem);
+
+
+        // tweede order van langer 30 dagen oud
+
+        PlacedOrder order2 = new PlacedOrder();
+        order2.setUser(user);
+        order2.setOrderDate(LocalDateTime.now().minusDays(60));
+        order2.setAdress(address);
+        order2.setStatus(StaticDetails.ORDER_DELIVERED);
+
+        OrderItem orderItem2 = new OrderItem();
+        orderItem2.setQuantity(1);
+        orderItem2.setPlacedOrder(order2);
+        orderItem2.setProductType(productSpecificationTypesRepository.findByName("silver"));
+
+        List<OrderItem> orderItems2 = new ArrayList<>();
+        orderItems2.add(orderItem2);
+
+        order2.setOrderItems(orderItems2);
+
+        adressRepository.save(address);
+        orderRepository.save(order2);
+        orderItemRepository.save(orderItem2);
     }
 
     private void seedRetourReasons() {
