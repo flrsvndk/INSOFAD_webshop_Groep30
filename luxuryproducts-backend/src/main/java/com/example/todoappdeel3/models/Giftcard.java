@@ -13,26 +13,15 @@ public class Giftcard {
     private Number price;
     private Number value;
 
-     /*
-    Maps the many-to-one relationship between giftcard and its buyer, jsonbackreference so that we do not get an
-    infinite dependency loop in the request. Cascasdetype merge so the product is able to create a category if we
-    seed the data to the database. Without the merge you get a persistence race condition.
-    */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private CustomUser buyer;
 
-    /*
-   Maps the many-to-one relationship between giftcard and its owner, jsonbackreference so that we do not get an
-   infinite dependency loop in the request. Cascasdetype merge so the product is able to create a category if we
-   seed the data to the database. Without the merge you get a persistence race condition.
-   */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private CustomUser owner;
 
 
-    //needed by JPA to create the entity must be present no arg constructor
     public Giftcard() {
     }
 
@@ -43,9 +32,6 @@ public class Giftcard {
         this.buyer = buyer;
         this.owner = owner;
     }
-
-    //getters and setters are needed to map all the properties to the database by JPA, could
-    //also be solved by making the properties public but gives less control over the properties.
 
 
     public long getId() {
