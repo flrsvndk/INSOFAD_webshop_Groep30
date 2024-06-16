@@ -1,0 +1,42 @@
+<div class="container-fluid mt-5">
+  <div class="row">
+    <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+      <app-sidepanel></app-sidepanel>
+    </aside>
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="giftcards-container" *ngIf="giftcards && giftcards.length > 0; else noGiftcards">
+        <div class="giftcard card mb-4" *ngFor="let giftcard of giftcards; index as i">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="customer-info">
+                <h4>
+                  <span class="fw-bold"></span>{{giftcard.value | currency: 'EUR'}}
+                  <button *ngIf="giftcard.ownerEmail != ''" class="btn-secondary" (click)="delete(giftcard.id)">CANCEL</button>
+                </h4>
+                <h5>
+                  <span class="fw-bold">Bought by:</span> {{giftcard.buyerEmail}}
+                </h5>
+                <h5 *ngIf="giftcard.ownerEmail != ''">
+                  <span class="fw-bold">Sent to:</span> {{giftcard.ownerEmail}}
+                </h5>
+                <p>
+                  <span class="fw-bold">Message:</span> {{giftcard.message}}
+                </p>
+                <p>
+                  <span class="fw-bold">Initial value:</span> {{giftcard.price | currency: 'EUR'}}
+                </p>
+              </div>
+              <p class="giftcard-info"><span>CODE:</span> {{giftcard.id}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <ng-template #noGiftcards>
+      <div class="no-giftcards-message">
+        <p>No giftcards were bought</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

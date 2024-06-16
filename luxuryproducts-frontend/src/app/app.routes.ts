@@ -21,6 +21,9 @@ import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/a
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
 import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
 import {RetourPageComponent} from "./retour-page/retour-page.component";
+import {GiftcardsComponent} from "./giftcards/giftcards.component";
+import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
+import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
 import {RetourRequestsAdminComponent} from "./admin/retour-requests-admin/retour-requests-admin.component";
 
 export const routes: Routes = [
@@ -44,7 +47,6 @@ export const routes: Routes = [
   {path:'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
   {path:'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
   {path:'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
-  {path:'admin/retours', component: RetourRequestsAdminComponent, canActivate: [AdminGuard]},
   {path:'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
   {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
   {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},

@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="mb-4 text-center">Giftcards</h1>
+                    <form [formGroup]="giftcardForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label>Price</label>
+                            <fieldset>
+                                <input type="radio" id="a" name="price" value="10" checked>
+                                <label for="a">€10</label>
+                                <input type="radio" id="b" name="price" value="25">
+                                <label for="b">€25</label>
+                                <input type="radio" id="c" name="price" value="50">
+                                <label for="c">€50</label>
+                                <input type="radio" id="d" name="price" value="100">
+                                <label for="d">€100</label>
+                                <input type="radio" id="e" name="price" value="250">
+                                <label for="e">€250</label>
+                            </fieldset>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Receiver (Email)</label>
+                            <input type="email" class="form-control" formControlName="email" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea type="text" rows="11" cols="60" name="message" class="form-control" formControlName="message" id="message">
+                                Message...
+                            </textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-md btn-dark w-100" [disabled]="!giftcardForm.valid">Buy</button>
+                    </form>
+                </div>
+            </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-4 text-center">
+                <h1>FAQ</h1>
+                <label for="message" class="form-label">Frequently Asked Questions</label>
+              </div>
+
+
+              <h4>Can i use multiple giftcards during one purchase?</h4>
+              <div class="mb-3">
+                <label for="message" class="form-label">Yes, you can use as many giftcards as you want during one purchase.</label>
+              </div>
+
+              <h4>Do giftcards expire?</h4>
+              <div class="mb-3">
+                <label for="message" class="form-label">Giftcards never expire.</label>
+              </div>
+
+              <h4>Can i exchange giftcards for cash?</h4>
+              <div class="mb-3">
+                <label for="message" class="form-label">No, once a giftcard is bought, the money can only be used at this store.</label>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
