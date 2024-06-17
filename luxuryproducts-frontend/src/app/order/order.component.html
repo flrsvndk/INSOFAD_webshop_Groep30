@@ -1,33 +1,38 @@
 <div class="container-fluid mt-5" style="width: 50%">
   <form [formGroup]="bestelForm">
     <div class="row mb-4">
-        <div class="col-md-6">
-            <div data-mdb-input-init class="form-outline">
-              <input type="text" id="form2.1" class="form-control" placeholder="Postcode" formControlName="Postcode" pattern="\d{4}[A-Z]{2}"/>
-            </div>
+      <div class="col-md-6">
+        <div data-mdb-input-init class="form-outline">
+          <input type="text" id="form2.1" class="form-control" placeholder="Postcode" formControlName="Postcode" pattern="\d{4}[A-Z]{2}"/>
         </div>
-        <div class="col-md-6">
-            <div data-mdb-input-init class="form-outline">
-              <input type="number" id="form2.2" class="form-control" placeholder="Huisnummer" formControlName="Huisnummer"/>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div data-mdb-input-init class="form-outline">
+          <input type="number" id="form2.2" class="form-control" placeholder="Huisnummer" formControlName="Huisnummer"/>
         </div>
-        <div class="col-md-6">
-            <div data-mdb-input-init class="form-outline">
-                <input type="text" id="form2.3" class="form-control" placeholder="Huisnummer Toevoeging" formControlName="HouseNummerAddition"/>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div data-mdb-input-init class="form-outline">
+          <input type="text" id="form2.3" class="form-control" placeholder="Huisnummer Toevoeging" formControlName="HouseNummerAddition"/>
         </div>
+      </div>
 
-        <div class="col-md-6">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" data-toggle="toggle" formControlName="Opslaan">  Save Adress
-                </label>
-            </div>
+      <div class="col-md-6">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-toggle="toggle" formControlName="Opslaan">  Save Adress
+          </label>
         </div>
+      </div>
     </div>
 
     <div data-mdb-input-init class="form-outline mb-4">
       <textarea class="form-control" id="form3.2" rows="4" placeholder="Opmerkingen" formControlName="Opmerkingen"></textarea>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+      <div class="col-md text-end">
+        <input type="text" id="form2.4" class="form-control" placeholder="Giftcard CODEs" formControlName="Giftcards"/>
+      </div>
     </div>
     <div class="row mb-4">
       <div class="col-md text-end">
