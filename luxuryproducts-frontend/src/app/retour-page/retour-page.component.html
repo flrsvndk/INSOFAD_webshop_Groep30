@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-9 col-sm-12 retour-form">
+        <h1 class="mt-3">Retourverzoek indienen</h1>
+
+        <form #retourForm="ngForm" (ngSubmit)="onSubmit(retourForm)" novalidate>
+
+            <p>Selecteer producten die je wilt retourneren</p>
+            @for(orderItem of order.orderItems; track $index){
+                <div class="form-check">
+                    <input class="form-check-input" id="{{ orderItem.id }}" type="checkbox"
+                           value="{{ orderItem.id }}" [(ngModel)]="selectedProducts[orderItem.id]" name="{{ orderItem.id }}">
+                    <label class="form-check-label" for="{{ orderItem.id }}">{{ orderItem.productType.name }}</label>
+                </div>
+            }
+
+            <div class="form-group mt-3">
+                <select id="reason-select" class="form-select" aria-label="reason-selection" [(ngModel)]="selectedReason" name="reason" required>
+                    <option value="" selected>--Selecteer retourreden--</option>
+                    @for(reason of reasons; track $index){
+                        <option [value]="reason.id" id="{{ reason.id }}">{{ reason.reason }}</option>
+                    }
+                </select>
+                <div *ngIf="retourForm.submitted && retourForm.controls['reason'].invalid" class="text-danger">Selecteer een retourreden.</div>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="comment">(Optioneel) Geef een opmerking</label>
+                <textarea class="form-control" id="comment" rows="3" name="comment" [(ngModel)]="comment"></textarea>
+            </div>
+
+            <div class="row">
+                <button id="send-request-button" class="btn btn-primary mt-3" type="submit" [disabled]="!retourForm.valid || !atLeastOneProductSelected()">Verzend retourverzoek</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

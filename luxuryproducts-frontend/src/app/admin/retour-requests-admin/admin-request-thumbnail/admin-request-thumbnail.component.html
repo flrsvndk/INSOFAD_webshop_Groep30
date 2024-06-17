@@ -1,0 +1,65 @@
+<div class="card mb-4 shadow">
+    <div class="card-header">
+        <h5 class="card-title">Request ID: {{ request.id }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-md-6">
+                <p><b>Request Data</b></p>
+                <p>Request Date: {{ request.dateTime | date: 'medium' }}</p>
+                <p>Request Status: {{ request.state }}</p>
+                <p>Request Reason: {{ request.reason?.reason }}</p>
+                <p>Request Comment: {{ request.note || "No Comment" }}</p>
+
+                @if(request.state == StaticDetails.RETOUR_PENDING) {
+                    <div class="float-end">
+                        <button id="accept-button" class="btn btn-light" (click)="onAccept()">Accept request</button>
+                    </div>
+                    <div class="float-end">
+                        <button id="decline-button" class="btn btn-danger" (click)="onDecline()">Decline request</button>
+                    </div>
+                }
+                @if(request.state == StaticDetails.RETOUR_ACCEPTED) {
+                    <div class="float-end">
+                        <button id="refund-button" class="btn btn-light" (click)="onRefund()">Make refund</button>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <p><b>Order Data</b></p>
+                <p>Order ID: {{ request.order?.id }}</p>
+                <p>User ID: {{ request.order?.userId }}</p>
+                <p>Order Date: {{ request.order?.orderDate | date: 'medium' }}</p>
+                <p>Order Status: {{ request.order?.status }}</p>
+                @if(request.order?.notes) {
+                    <p>Notes: {{ request.order?.notes }}</p>
+                }
+                <p>
+                    Address:
+                    {{ request.order?.adress?.zipcode || 'No zipcode' }},
+                    {{ request.order?.adress?.houseNumber || 'No house number' }}
+                    {{ request.order?.adress?.houseNumberAddition || '' }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        @for(returnedItem of request.retouredProducts; track $index){
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <img src="{{returnedItem.productType.imgUrl}}" alt="{{ returnedItem.productType.name }}" class="img-thumbnail mr-3" style="width: 100px; height: auto;">
+                        <span>{{ returnedItem.productType.name }}</span>
+                    </div>
+                    <div>
+                        <span>Quantity: {{ returnedItem.quantity }}</span>
+                        <span class="ml-3">Price: {{ returnedItem.productType.price * returnedItem.quantity | currency: 'EUR' }}</span>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

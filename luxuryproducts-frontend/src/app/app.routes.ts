@@ -20,9 +20,11 @@ import {UsersComponent} from "./admin/users/users.component";
 import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
 import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
+import {RetourPageComponent} from "./retour-page/retour-page.component";
 import {GiftcardsComponent} from "./giftcards/giftcards.component";
 import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
 import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
+import {RetourRequestsAdminComponent} from "./admin/retour-requests-admin/retour-requests-admin.component";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -38,8 +40,9 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
+  {path: 'retour-page/:id', component: RetourPageComponent, canActivate: [authGuard]},
   {path: 'giftcards', component: GiftcardsComponent},
-  {path: 'my-giftcards', component: MyGiftcardsComponent},
+  {path: 'my-giftcards', component: MyGiftcardsComponent, canActivate: [authGuard]},
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},
@@ -50,7 +53,6 @@ export const routes: Routes = [
   {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
   {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
   {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
-  {path: 'admin/giftcards', component: GiftcardsAdminComponent, canActivate:[AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];

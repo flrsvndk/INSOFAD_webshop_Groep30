@@ -6,5 +6,9 @@ import {HttpClientModule, provideHttpClient, withInterceptors} from '@angular/co
 import {authInterceptor} from "./auth/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), importProvidersFrom(HttpClientModule), provideHttpClient(withInterceptors([authInterceptor]))]
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(HttpClientModule),
+    provideHttpClient(
+      withInterceptors([authInterceptor]))]
 };

@@ -17,7 +17,7 @@ const localStorageKey: string = "products-in-cart";
 export class CartService {
   private productsInCart: ProductType[] = [];
   public $productInCart: BehaviorSubject<ProductType[]> = new BehaviorSubject<ProductType[]>([]);
-  private baseUrl: string = environment.base_url + "/orders";
+  private baseUrl: string = environment.BASE_URL + "/orders";
 
   constructor(private http: HttpClient) {
     this.loadProductsFromLocalStorage();

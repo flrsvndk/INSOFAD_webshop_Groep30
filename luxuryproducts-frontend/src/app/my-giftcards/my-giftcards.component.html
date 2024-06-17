@@ -8,11 +8,11 @@
                             <div class="customer-info">
                                 <h4>
                                   <span class="fw-bold"></span>{{giftcard.value | currency: 'EUR'}}
-                                  <button *ngIf="giftcard.price > giftcard.value && giftcard.ownerEmail == ''" class="btn-secondary" (click)="charge(10, giftcard.id)">10</button>
-                                  <button *ngIf="giftcard.price > giftcard.value && giftcard.ownerEmail == ''" class="btn-secondary" (click)="charge(25, giftcard.id)">25</button>
-                                  <button *ngIf="giftcard.price > giftcard.value && giftcard.ownerEmail == ''" class="btn-secondary" (click)="charge(50, giftcard.id)">50</button>
-                                  <button *ngIf="giftcard.price > giftcard.value && giftcard.ownerEmail == ''" class="btn-secondary" (click)="charge(100, giftcard.id)">100</button>
-                                  <button *ngIf="giftcard.price > giftcard.value && giftcard.ownerEmail == ''" class="btn-secondary" (click)="charge(250, giftcard.id)">250</button>
+                                  <button *ngIf="giftcard.price >= 10 && giftcard.value < 10" class="btn btn-primary" (click)="charge(10, giftcard.id)">10</button>
+                                  <button *ngIf="giftcard.price >= 25 && giftcard.value < 25" class="btn btn-primary" (click)="charge(25, giftcard.id)">25</button>
+                                  <button *ngIf="giftcard.price >= 50 && giftcard.value < 50" class="btn btn-primary" (click)="charge(50, giftcard.id)">50</button>
+                                  <button *ngIf="giftcard.price >= 100 && giftcard.value < 100" class="btn btn-primary" (click)="charge(100, giftcard.id)">100</button>
+                                  <button *ngIf="giftcard.price >= 250 && giftcard.value < 250" class="btn btn-primary" (click)="charge(250, giftcard.id)">250</button>
                                 </h4>
                                 <h5>
                                   <span class="fw-bold">Bought by:</span> {{giftcard.buyerEmail}}

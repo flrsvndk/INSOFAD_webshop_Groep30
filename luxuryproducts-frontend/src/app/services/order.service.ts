@@ -11,7 +11,7 @@ import {ProductType} from "../models/product-type.model";
   providedIn: 'root'
 })
 export class OrderService {
-  private baseUrl: string = environment.base_url + "/orders";
+  private baseUrl: string = environment.BASE_URL + "/orders";
 
   constructor(private http: HttpClient) { }
 
@@ -32,5 +32,29 @@ export class OrderService {
       orderItems.push(orderItem);
     }
     return orderItems;
+  }
+
+  public setProcessing(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/processing", {
+      id: id
+    });
+  }
+
+  public setConfirmed(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/confirmed", {
+      id: id
+    });
+  }
+
+  public setOutForDelivery(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/out-for-delivery", {
+      id: id
+    });
+  }
+
+  public setDelivered(id: string): Observable<ExistingOrder> {
+    return this.http.put<ExistingOrder>(this.baseUrl + "/delivered", {
+      id: id
+    });
   }
 }

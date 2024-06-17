@@ -1,0 +1,30 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+            <app-sidepanel></app-sidepanel>
+        </aside>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="text-center mb-4">
+                <h1 class="h3">Retour Requests</h1>
+            </div>
+            <div class="row">
+                <div class="col-6 float-start">
+                    <button class="btn btn-light" (click)="toggleSort()"><i class="{{ sortNewestFirst ? 'bi bi-sort-down' : 'bi bi-sort-down-alt' }}"></i> {{ sortNewestFirst ? 'Oldest First' : 'Newest First' }}</button>
+                </div>
+                <div class="col-6 float-end">
+                    <select class="form-select" [(ngModel)]="filterStatus" (ngModelChange)="filterRetourRequests()">
+                        <option value="">All Statuses</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="ACCEPTED">ACCEPTED</option>
+                        <option value="DECLINED">DECLINED</option>
+                        <option value="REFUNDED">REFUNDED</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            @for(request of alteredRetourRequests; track $index){
+                <app-admin-request-thumbnail [request]="request"></app-admin-request-thumbnail>
+            }
+        </main>
+    </div>
+</div>

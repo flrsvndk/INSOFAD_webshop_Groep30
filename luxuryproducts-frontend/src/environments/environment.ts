@@ -1,3 +1,7 @@
 export const environment = {
-  base_url: "http://localhost:8080/api",
+  BASE_URL: "",
+  API_KEY: "",
+  API_RESPONSE_URL: "",
+  API_AUDIO_URL: "",
+  PROMPT: ""
 };

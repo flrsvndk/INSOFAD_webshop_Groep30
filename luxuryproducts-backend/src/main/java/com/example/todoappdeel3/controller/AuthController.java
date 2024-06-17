@@ -1,17 +1,14 @@
 package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.config.JWTUtil;
-import com.example.todoappdeel3.dao.AdressDAO;
 import com.example.todoappdeel3.dao.AuthenticationDAO;
-import com.example.todoappdeel3.dao.UserRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.dto.AuthenticationDTO;
 import com.example.todoappdeel3.dto.CustomUserDTO;
 import com.example.todoappdeel3.dto.LoginResponse;
 import com.example.todoappdeel3.dto.RoleUpgradeDTO;
-import com.example.todoappdeel3.models.Adress;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.services.CredentialValidator;
-import com.example.todoappdeel3.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
