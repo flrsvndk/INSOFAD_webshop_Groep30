@@ -44,7 +44,11 @@ export class GiftcardsComponent {
     public onSubmit(): void {
         const form = document.forms[0];
         // @ts-ignore
-        this.giftcard = new GiftcardPurchase(form.elements["message"].value, this.price, form.elements["email"].value);
+        console.log((<HTMLInputElement>document.getElementById("email")).value);
+        // @ts-ignore
+        this.giftcard = new GiftcardPurchase((<HTMLInputElement>document.getElementById("message")).value,
+            this.price,
+            (<HTMLInputElement>document.getElementById("email")).value);
         console.log(this.giftcard);
 
         this.giftcardService.addOrder(this.giftcard).subscribe(
