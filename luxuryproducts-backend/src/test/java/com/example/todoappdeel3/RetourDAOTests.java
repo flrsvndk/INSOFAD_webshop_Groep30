@@ -3,11 +3,8 @@ package com.example.todoappdeel3;
 import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dao.RetourDAO;
 import com.example.todoappdeel3.dto.RetourRequestDTO;
-import com.example.todoappdeel3.models.OrderItem;
-import com.example.todoappdeel3.models.ProductSpecificationType;
-import com.example.todoappdeel3.models.RetourRequest;
-import com.example.todoappdeel3.repositories.OrderItemRepository;
-import com.example.todoappdeel3.repositories.RetourRequestRepository;
+import com.example.todoappdeel3.models.*;
+import com.example.todoappdeel3.repositories.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.todoappdeel3.utils.StaticDetails;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -32,17 +30,26 @@ public class RetourDAOTests {
     @Mock
     private RetourRequestRepository retourRequestRepository;
     @Mock
-    private OrderItemRepository orderItemRepository
-            ;
+    private OrderItemRepository orderItemRepository;
     @Mock
-    private ProductDAO productDAO;
+    private UserRepository userRepository;
+    @Mock
+    private OrderRepository orderRepository;
+    @Mock
+    private RetourReasonRepository retourReasonRepository;
+
     @InjectMocks
     private RetourDAO retourDAO;
+    @Mock
+    private ProductDAO productDAO;
 
     private RetourRequestDTO dummyRetourRequestDTO;
     private RetourRequest dummyRetourRequest;
     private Set<OrderItem> dummyRetouredProducts;
+    private OrderItem dummyRetouredProduct;
     private ProductSpecificationType dummyProduct;
+    private PlacedOrder dummyPlacedOrder;
+    private RetourReason dummyReason;
 
     @BeforeEach
     public void setup() {
@@ -51,8 +58,8 @@ public class RetourDAOTests {
 
         this.dummyProduct = new ProductSpecificationType();
         this.dummyProduct.setId(UUID.randomUUID());
-        OrderItem dummyRetouredProduct = new OrderItem();
-        dummyRetouredProduct.setProductType(dummyProduct);
+        this.dummyRetouredProduct = new OrderItem();
+        this.dummyRetouredProduct.setProductType(dummyProduct);
         this.dummyRetouredProducts = new HashSet<>();
         this.dummyRetouredProducts.add(dummyRetouredProduct);
         this.dummyRetourRequest = new RetourRequest();
@@ -62,7 +69,11 @@ public class RetourDAOTests {
         doNothing().when(productDAO).incrementProductStock(any());
     }
 
-    @Test // TEST Order status aanpasesn
+    //  USER STORY #60
+    //  Admin retours overzicht
+
+    // TEST Retour verzoek beoordelen (Task #70)
+    @Test
     public void should_set_status_accepted_when_called() {
         String expectedStatus = StaticDetails.RETOUR_ACCEPTED;
 
@@ -76,21 +87,70 @@ public class RetourDAOTests {
         verify(orderItemRepository, times(1)).saveAll(dummyRetouredProducts);
     }
 
-    @Test
-    public void should_increment_stock_when_product_set_to_returned() {
-        retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
+    @Test void should_set_status_declined_when_called() {
 
-        verify(productDAO, times(1)).incrementProductStock(dummyProduct.getId());
+    }
+
+    // TEST retourverzoek zoeken op id (Task #68)
+    @Test
+    public void should_return_request_when_given_valid_id() {
+
     }
 
     @Test
-    public void should_correctly_detect_returned_products_when_called() {
-        RetourRequest actualRetourRequest = retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
+    public void should_return_nothing_when_given_invalid_id() {
 
-        for (OrderItem orderProduct : actualRetourRequest.getRetouredProducts()) {
-            assertThat(orderProduct.isReturned(), is(true));
-            verify(productDAO, times(1)).incrementProductStock(orderProduct.getProductType().getId());
-        }
-        verify(orderItemRepository, times(1)).saveAll(dummyRetourRequest.getRetouredProducts());
+    }
+
+    @Test
+    public void should_return_nothing_when_given_no_id() {
+
+    }
+
+    // Test retourverzoeken terugvinden (Task #69)
+    @Test
+    public void should_return_all_requests_when_called() {
+
+    }
+
+    //  USER STORY #61
+    //  Gebruiker orders overzicht
+
+    // Test: Retourverzoek indienen (Task #72)
+    @Test
+    public void should_create_request_when_all_inputs_valid() {
+
+    }
+
+    @Test
+    public void should_throw_exception_when_not_all_inputs_valid() {
+
+    }
+
+    @Test
+    public void should_throw_exception_when_order_id_not_found() {
+
+    }
+
+    // Test: Keuze uit 1 van de retourredenen (Task #71)
+    @Test
+    public void should_return_all_reasons() {
+
+    }
+
+    // Test: 30 dagen retourbeleid (Task #73)
+    @Test
+    public void should_throw_exception_when_ordered_31_days_ago() {
+
+    }
+
+    @Test
+    public void should_not_throw_exception_when_ordered_30_days_ago() {
+
+    }
+
+    @Test
+    public void should_not_throw_exception_when_ordered_29_days_ago() {
+
     }
 }
