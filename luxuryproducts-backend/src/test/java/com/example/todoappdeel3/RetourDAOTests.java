@@ -5,14 +5,14 @@ import com.example.todoappdeel3.dao.RetourDAO;
 import com.example.todoappdeel3.dto.RetourRequestDTO;
 import com.example.todoappdeel3.models.*;
 import com.example.todoappdeel3.repositories.*;
+import com.example.todoappdeel3.utils.StaticDetails;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import com.example.todoappdeel3.utils.StaticDetails;
-import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,11 +40,11 @@ public class RetourDAOTests {
     private RetourRequestRepository retourRequestRepository;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private ProductDAO productDAO;
 
     @InjectMocks
     private RetourDAO retourDAO;
-    @Mock
-    private ProductDAO productDAO;
 
     private RetourRequestDTO dummyRetourRequestDTO;
     private RetourRequest dummyRetourRequest;
@@ -58,8 +58,13 @@ public class RetourDAOTests {
 
     @BeforeEach
     public void setup() {
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("dummyUsername", null));
+
         dummyRetourRequestDTO = new RetourRequestDTO();
         dummyRetourRequestDTO.id = UUID.randomUUID();
+        dummyRetourRequestDTO.orderId = UUID.randomUUID();
+        dummyRetourRequestDTO.reasonId = UUID.randomUUID();
+        dummyRetourRequestDTO.orderItemIds = Collections.singletonList(1L);
 
         dummyProduct = new ProductSpecificationType();
         dummyProduct.setId(UUID.randomUUID());
@@ -73,18 +78,12 @@ public class RetourDAOTests {
         dummyRetourRequest = new RetourRequest();
         dummyRetourRequest.setRetouredProducts(dummyRetouredProducts);
 
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("dummyUsername", null));
-
-        dummyRetourRequestDTO = new RetourRequestDTO();
-        dummyRetourRequestDTO.orderId = UUID.randomUUID();
-        dummyRetourRequestDTO.reasonId = UUID.randomUUID();
-        dummyRetourRequestDTO.orderItemIds = new ArrayList<>();
-        dummyRetourRequestDTO.orderItemIds.add(1L);
-
         dummyPlacedOrder = new PlacedOrder();
         dummyReason = new RetourReason();
         dummyOrderItem = new OrderItem();
     }
+
+
 
     //  USER STORY #60
     //  Admin retours overzicht
@@ -119,6 +118,8 @@ public class RetourDAOTests {
         verify(retourRequestRepository, times(1)).save(dummyRetourRequest);
     }
 
+
+
     //  Test retourverzoeken terugvinden (Task #69)
     @Test
     public void should_return_all_requests_when_called() {
@@ -129,6 +130,8 @@ public class RetourDAOTests {
 
         assertThat(actualRetourRequests, is(expectedRetourRequests));
     }
+
+
 
     //  USER STORY #61
     //  Gebruiker orders overzicht
@@ -167,11 +170,7 @@ public class RetourDAOTests {
         when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(dummyOrderItem));
     }
 
-    //  Test: Keuze uit 1 van de retourredenen (Task #71)
-    @Test
-    public void should_return_all_reasons() {
 
-    }
 
     //  Test: 30 dagen retourbeleid (Task #73)
     @Test
