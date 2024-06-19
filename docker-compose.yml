@@ -12,8 +12,8 @@ services:
         image: postgres:16
         environment:
             POSTGRES_DB: luxuryproductsbob
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: bobwebshop
+            POSTGRES_PASSWORD: ilovepuppies
         ports:
             - "5432:5432"
 
