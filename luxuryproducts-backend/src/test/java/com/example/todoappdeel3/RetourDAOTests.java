@@ -13,14 +13,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.todoappdeel3.utils.StaticDetails;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -165,16 +169,37 @@ public class RetourDAOTests {
     //  Test: 30 dagen retourbeleid (Task #73)
     @Test
     public void should_throw_exception_when_ordered_31_days_ago() {
+        dummyPlacedOrder.setOrderDate(LocalDateTime.now().minusDays(31));
+        when(orderRepository.findById(any())).thenReturn(Optional.of(dummyPlacedOrder));
+        String expectedExceptionResponse = "Cannot create return request for orders placed more than 30 days ago";
 
+        ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+            retourDAO.createRetourRequest(dummyRetourRequestDTO);
+        });
+        assertThat(e.getReason(), is(expectedExceptionResponse));
+        assertThat(e.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
     @Test
     public void should_not_throw_exception_when_ordered_30_days_ago() {
-
+        testOrderWithinAllowedReturnPeriod(30);
     }
 
     @Test
     public void should_not_throw_exception_when_ordered_29_days_ago() {
+        testOrderWithinAllowedReturnPeriod(29);
+    }
 
+    private void testOrderWithinAllowedReturnPeriod(int daysAgo) {
+        dummyPlacedOrder.setOrderDate(LocalDateTime.now().minusDays(daysAgo));
+        dummyReason.setReason("Van gedachten veranderd");
+
+        when(orderRepository.findById(any())).thenReturn(Optional.of(dummyPlacedOrder));
+        when(retourReasonRepository.findById(any())).thenReturn(Optional.of(dummyReason));
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(dummyOrderItem));
+
+        assertDoesNotThrow(() -> {
+            retourDAO.createRetourRequest(dummyRetourRequestDTO);
+        });
     }
 }
