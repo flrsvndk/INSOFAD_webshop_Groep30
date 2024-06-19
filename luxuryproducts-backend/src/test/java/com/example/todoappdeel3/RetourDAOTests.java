@@ -14,10 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.todoappdeel3.utils.StaticDetails;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -59,8 +56,6 @@ public class RetourDAOTests {
 
         dummyRetourRequest = new RetourRequest();
         dummyRetourRequest.setRetouredProducts(dummyRetouredProducts);
-
-        when(retourRequestRepository.findById(any())).thenReturn(Optional.of(dummyRetourRequest));
     }
 
     //  USER STORY #60
@@ -69,6 +64,7 @@ public class RetourDAOTests {
     //  TEST Retour verzoek beoordelen (Task #70)
     @Test
     public void should_set_status_accepted_when_called() {
+        when(retourRequestRepository.findById(any())).thenReturn(Optional.of(dummyRetourRequest));
         doNothing().when(productDAO).incrementProductStock(any());
         String expectedStatus = StaticDetails.RETOUR_ACCEPTED;
 
@@ -80,6 +76,7 @@ public class RetourDAOTests {
     }
 
     @Test void should_set_status_declined_when_called() {
+        when(retourRequestRepository.findById(any())).thenReturn(Optional.of(dummyRetourRequest));
         String expectedStatus = StaticDetails.RETOUR_DECLINED;
 
         RetourRequest actualRetourRequest = retourDAO.declineRetourRequest(dummyRetourRequestDTO);
@@ -113,7 +110,12 @@ public class RetourDAOTests {
     //  Test retourverzoeken terugvinden (Task #69)
     @Test
     public void should_return_all_requests_when_called() {
+        when(this.retourRequestRepository.findAll()).thenReturn(List.of(this.dummyRetourRequest));
+        List<RetourRequest> expectedRetourRequests = List.of(this.dummyRetourRequest);
 
+        List<RetourRequest> actualRetourRequests = this.retourDAO.getAllRequests();
+
+        assertThat(actualRetourRequests, is(expectedRetourRequests));
     }
 
     //  USER STORY #61
