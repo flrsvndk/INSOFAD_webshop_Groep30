@@ -13,7 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.todoappdeel3.utils.StaticDetails;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,9 +27,15 @@ import static org.mockito.Mockito.*;
 public class RetourDAOTests {
 
     @Mock
-    private RetourRequestRepository retourRequestRepository;
+    private OrderRepository orderRepository;
+    @Mock
+    private RetourReasonRepository retourReasonRepository;
     @Mock
     private OrderItemRepository orderItemRepository;
+    @Mock
+    private RetourRequestRepository retourRequestRepository;
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private RetourDAO retourDAO;
@@ -38,6 +47,9 @@ public class RetourDAOTests {
     private OrderItem dummyRetouredProduct;
     private Set<OrderItem> dummyRetouredProducts;
     private ProductSpecificationType dummyProduct;
+    private PlacedOrder dummyPlacedOrder;
+    private RetourReason dummyReason;
+    private OrderItem dummyOrderItem;
 
 
     @BeforeEach
@@ -56,6 +68,18 @@ public class RetourDAOTests {
 
         dummyRetourRequest = new RetourRequest();
         dummyRetourRequest.setRetouredProducts(dummyRetouredProducts);
+
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("dummyUsername", null));
+
+        dummyRetourRequestDTO = new RetourRequestDTO();
+        dummyRetourRequestDTO.orderId = UUID.randomUUID();
+        dummyRetourRequestDTO.reasonId = UUID.randomUUID();
+        dummyRetourRequestDTO.orderItemIds = new ArrayList<>();
+        dummyRetourRequestDTO.orderItemIds.add(1L);
+
+        dummyPlacedOrder = new PlacedOrder();
+        dummyReason = new RetourReason();
+        dummyOrderItem = new OrderItem();
     }
 
     //  USER STORY #60
@@ -91,22 +115,6 @@ public class RetourDAOTests {
         verify(retourRequestRepository, times(1)).save(dummyRetourRequest);
     }
 
-    //  TEST retourverzoek zoeken op id (Task #68)
-    @Test
-    public void should_return_request_when_given_valid_id() {
-
-    }
-
-    @Test
-    public void should_return_nothing_when_given_invalid_id() {
-
-    }
-
-    @Test
-    public void should_return_nothing_when_given_no_id() {
-
-    }
-
     //  Test retourverzoeken terugvinden (Task #69)
     @Test
     public void should_return_all_requests_when_called() {
@@ -124,7 +132,18 @@ public class RetourDAOTests {
     //  Test: Retourverzoek indienen (Task #72)
     @Test
     public void should_create_request_when_all_inputs_valid() {
+        dummyPlacedOrder.setOrderDate(LocalDateTime.now());
+        dummyReason.setReason(dummyReason.getReason());
 
+        when(orderRepository.findById(any())).thenReturn(Optional.of(dummyPlacedOrder));
+        when(retourReasonRepository.findById(any())).thenReturn(Optional.of(dummyReason));
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(dummyOrderItem));
+
+        RetourRequest result = retourDAO.createRetourRequest(dummyRetourRequestDTO);
+
+        assertThat(result.getOrder(), is(dummyPlacedOrder));
+        assertThat(result.getReason().getReason(), is(dummyReason.getReason()));
+        verify(retourRequestRepository, times(1)).save(result);
     }
 
     @Test
