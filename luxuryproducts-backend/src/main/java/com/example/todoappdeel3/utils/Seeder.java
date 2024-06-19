@@ -121,7 +121,7 @@ public class Seeder {
                 null, category3,specificationsDTO3  );
 
 
-        TypeDTO typed1 = new TypeDTO("Roestvrijstaal", 40000.00, 8, "https://theswisscollector.com/22433/audemars-piguet-royal-oak-offshore.jpg" , null);
+        TypeDTO typed1 = new TypeDTO("Roestvrijstaal", 40000.00, 8, "https://chronexttime.imgix.net/V/4/V47820/V47820_1_det.png?w=570&ar=1:1&auto=format&fm=png&q=55&usm=50&usmrad=1.5&dpr=1&trim=color&fit=fill&auto=compress&bg=FFFFFF&bg-remove=true" , null);
         typesDTO4.add(typed1);
         ProductSpecificationsDTO specificationsDTO4 = new ProductSpecificationsDTO("materiaal", typesDTO4);
         ProductDTO productDTO4 = new ProductDTO("Audemars Piguet Royal Oak Offshore",
@@ -145,7 +145,7 @@ public class Seeder {
                 null, category2, specificationsDTO6  );
 
 
-        TypeDTO typeg1 = new TypeDTO("Elektrisch", null, 0, null, teslaWielen);
+        TypeDTO typeg1 = new TypeDTO("Elektrisch", null, 0, "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png", teslaWielen);
         typesDTO7.add(typeg1);
         ProductSpecificationsDTO specificationsDTO7 = new ProductSpecificationsDTO("materiaal", typesDTO7);
         ProductDTO productDTO6 = new ProductDTO("Tesla Model S Plaid",

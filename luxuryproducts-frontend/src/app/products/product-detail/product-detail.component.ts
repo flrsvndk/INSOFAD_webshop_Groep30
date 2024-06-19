@@ -17,11 +17,11 @@ import {ProductType} from "../../models/product-type.model";
 export class ProductDetailComponent {
   @Input() public product!: Product;
   private productId: number;
-  public chosenType: ProductType;
-  public currentType: ProductType;
+  public chosenType1: ProductType;
+  public chosenType2: ProductType;
   public img: string;
-  public type1Index: number = 0;
-  public type2Index: number = 0;
+  public typeIndex1: number = 0;
+  public typeIndex2: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,36 +43,41 @@ export class ProductDetailComponent {
   }
 
   public selectType(productType: ProductType, index: number){
-    this.chosenType = productType;
-    this.type1Index = index;
-    this.img = this.chosenType.imgUrl;
-    console.log(this.chosenType.name);
+    this.chosenType1 = productType;
+    this.typeIndex1 = index;
+    this.img = this.chosenType1.imgUrl;
+    console.log(this.chosenType1.name);
+    console.log(this.img);
   }
 
   public selectSubType(productType: ProductType, index: number){
-    this.currentType = productType;
-    this.type2Index = index;
-    this.img = this.chosenType.imgUrl;
-    console.log(this.currentType.name + " " + this.chosenType.name);
+    this.chosenType2 = productType;
+    this.typeIndex2 = index;
+    this.img = this.chosenType2.imgUrl;
+    console.log(this.chosenType2.name + " " + this.chosenType2.name);
+    console.log(this.img);
   }
 
 
   public canOrder(): boolean{
-    if(this.chosenType == null){
+    if(this.chosenType1 == null){
       return false;
-    } else{
+    }
+    if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
       return true;
+    } else {
+      return false;
     }
   }
 
   public onBuyProduct(product: Product) {
-    if(this.currentType == null){
-      if(product.productSpecification.types.includes(this.chosenType)) {
-        this.cartService.addProductToCart(this.chosenType);
+    if(this.chosenType2 == null){
+      if(product.productSpecification.types.includes(this.chosenType1)) {
+        this.cartService.addProductToCart(this.chosenType1);
       }
     }
-    if(product.productSpecification.types.includes(this.chosenType)) {
-      this.cartService.addProductToCart(this.currentType);
+    if(product.productSpecification.types.includes(this.chosenType1)) {
+      this.cartService.addProductToCart(this.chosenType2);
     }
   }
 

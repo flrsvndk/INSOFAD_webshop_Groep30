@@ -17,7 +17,7 @@ public class ProductSpecificationDAO {
     private final ProductSpecificationRepository repository;
     private final ProductSpecificationTypesRepository typesRepository;
 
-    public ProductSpecificationDAO( ProductSpecificationRepository repository, ProductSpecificationTypesRepository typesRepository) {
+    public ProductSpecificationDAO(ProductSpecificationRepository repository, ProductSpecificationTypesRepository typesRepository) {
         this.repository = repository;
         this.typesRepository = typesRepository;
     }
@@ -30,10 +30,8 @@ public class ProductSpecificationDAO {
 
         this.repository.save(productSpecification);
 
-        for(TypeDTO typeDTO : productSpecificationsDTO.typesDTO){
-            if(typeDTO.productSpecificationsDTO == null){
-
-                // er zijn geen andere specificaties en de eindprijs, de voorraad en het plaatje kan meegegeven worden
+        for (TypeDTO typeDTO : productSpecificationsDTO.typesDTO) {
+            if (typeDTO.productSpecificationsDTO == null) {
                 ProductSpecificationType type = new ProductSpecificationType(
                         typeDTO.name,
                         typeDTO.stock,
@@ -46,13 +44,12 @@ public class ProductSpecificationDAO {
                 this.typesRepository.save(type);
                 types.add(type);
 
-            } else{
-                // er zijn nog sub categorien:
+            } else {
 
                 ProductSpecification subProductSpecification = this.createSpecification(product, typeDTO.productSpecificationsDTO);
 
                 ProductSpecificationType type = new ProductSpecificationType(
-                        typeDTO.name, productSpecification, subProductSpecification, product.getId());
+                        typeDTO.name, typeDTO.imgUrl, productSpecification, subProductSpecification);
 
                 this.typesRepository.save(type);
                 types.add(type);
@@ -64,36 +61,4 @@ public class ProductSpecificationDAO {
 
         return productSpecification;
     }
-
-//    public ProductSpecification makeSubSpecification(ProductSpecificationsDTO productSpecificationsDTO){
-//        List<ProductSpecificationType> types = new ArrayList<>();
-//
-//        ProductSpecification productSpecification = new ProductSpecification(
-//                productSpecificationsDTO.name,
-//                productSpecificationsDTO.imgUrl);
-//
-//        for(TypeDTO typeDTO : productSpecificationsDTO.typesDTO){
-//            if(typeDTO.productSpecificationsDTO == null){
-//                ProductSpecificationType type = new ProductSpecificationType(typeDTO.name, typeDTO.stock, typeDTO.priceAdjustment, typeDTO.imgUrl);
-//
-//                type.setProductSpecification(productSpecification);
-//                this.typesRepository.save(type);
-//                types.add(type);
-//
-//
-//            } else{
-//                ProductSpecification subProductSpecification = this.makeSubSpecification(typeDTO.productSpecificationsDTO);
-//                ProductSpecificationType type = new ProductSpecificationType(typeDTO.name, typeDTO.priceAdjustment, subProductSpecification);
-//
-//                type.setProductSpecification(productSpecification);
-//                this.typesRepository.save(type);
-//                types.add(type);
-//            }
-//        }
-//        productSpecification.setTypes(types);
-//
-//        this.repository.save(productSpecification);
-//
-//        return productSpecification;
-//    }
 }
