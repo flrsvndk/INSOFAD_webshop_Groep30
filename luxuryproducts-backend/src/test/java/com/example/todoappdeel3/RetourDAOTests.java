@@ -133,15 +133,10 @@ public class RetourDAOTests {
     //  USER STORY #61
     //  Gebruiker orders overzicht
 
-    //  Test: Retourverzoek indienen (Task #72)
+    // Test: Retourverzoek indienen (Task #72)
     @Test
     public void should_create_request_when_all_inputs_valid() {
-        dummyPlacedOrder.setOrderDate(LocalDateTime.now());
-        dummyReason.setReason(dummyReason.getReason());
-
-        when(orderRepository.findById(any())).thenReturn(Optional.of(dummyPlacedOrder));
-        when(retourReasonRepository.findById(any())).thenReturn(Optional.of(dummyReason));
-        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(dummyOrderItem));
+        setupMocksForValidRequest();
 
         RetourRequest result = retourDAO.createRetourRequest(dummyRetourRequestDTO);
 
@@ -151,13 +146,25 @@ public class RetourDAOTests {
     }
 
     @Test
-    public void should_throw_exception_when_not_all_inputs_valid() {
+    public void should_throw_exception_when_order_id_not_found() {
+        when(orderRepository.findById(any())).thenReturn(Optional.empty());
+        String expectedExceptionResponse = "Order not found";
 
+        ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+            retourDAO.createRetourRequest(dummyRetourRequestDTO);
+        });
+
+        assertThat(e.getReason(), is(expectedExceptionResponse));
+        assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 
-    @Test
-    public void should_throw_exception_when_order_id_not_found() {
+    private void setupMocksForValidRequest() {
+        dummyPlacedOrder.setOrderDate(LocalDateTime.now());
+        dummyReason.setReason("Some valid reason");
 
+        when(orderRepository.findById(any())).thenReturn(Optional.of(dummyPlacedOrder));
+        when(retourReasonRepository.findById(any())).thenReturn(Optional.of(dummyReason));
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(dummyOrderItem));
     }
 
     //  Test: Keuze uit 1 van de retourredenen (Task #71)
