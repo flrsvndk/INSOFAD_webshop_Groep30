@@ -4,7 +4,6 @@ import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dao.RetourDAO;
 import com.example.todoappdeel3.dto.RetourRequestDTO;
 import com.example.todoappdeel3.models.OrderItem;
-import com.example.todoappdeel3.models.Product;
 import com.example.todoappdeel3.models.ProductSpecificationType;
 import com.example.todoappdeel3.models.RetourRequest;
 import com.example.todoappdeel3.repositories.OrderItemRepository;
@@ -58,59 +57,16 @@ public class RetourDAOTests {
         this.dummyRetouredProducts.add(dummyRetouredProduct);
         this.dummyRetourRequest = new RetourRequest();
         this.dummyRetourRequest.setRetouredProducts(dummyRetouredProducts);
-    }
 
-    @Test
-    public void should_set_status_accepted_when_called() {
-        setupMocksForValidRetourRequest();
-
-        RetourRequest actualRetourRequest = retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
-
-        assertRetourRequestAccepted(actualRetourRequest);
-    }
-    //
-//    @Test
-//    public void should_throw_404_when_request_is_not_found() {
-//        String expectedExceptionMessage = "Request not found";
-//
-//        when(retourRequestRepository.findById(anyLong())).thenReturn(Optional.empty());
-//
-//        ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
-//            retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
-//        });
-//        assertThat(e.getReason(), is(expectedExceptionMessage));
-//        assertThat(e.getStatusCode(), is(HttpStatus.NOT_FOUND));
-//    }
-//
-//    @Test
-//    public void should_increment_stock_when_product_set_to_returned() {
-//        setupMocksForValidRetourRequest();
-//
-//        retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
-//
-//        verify(productDAO, times(1)).incrementProductStock(dummyProduct.getId());
-//    }
-//
-//    @Test
-//    public void should_correctly_detect_returned_products_when_called() {
-//        setupMocksForValidRetourRequest();
-//
-//        RetourRequest actualRetourRequest = retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
-//
-//        for (OrderItem orderProduct : actualRetourRequest.getRetouredProducts()) {
-//            assertThat(orderProduct.isReturned(), is(true));
-//            verify(productDAO, times(1)).incrementProductStock(orderProduct.getProduct().getId());
-//        }
-//        verify(orderItemRepository, times(1)).saveAll(dummyRetourRequest.getRetouredProducts());
-//    }
-//
-    private void setupMocksForValidRetourRequest() {
         when(retourRequestRepository.findById(any())).thenReturn(Optional.of(dummyRetourRequest));
         doNothing().when(productDAO).incrementProductStock(any());
     }
 
-    private void assertRetourRequestAccepted(RetourRequest actualRetourRequest) {
+    @Test // TEST Order status aanpasesn
+    public void should_set_status_accepted_when_called() {
         String expectedStatus = StaticDetails.RETOUR_ACCEPTED;
+
+        RetourRequest actualRetourRequest = retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
 
         assertThat(actualRetourRequest, is(dummyRetourRequest));
         assertThat(actualRetourRequest.getState(), is(expectedStatus));
@@ -118,5 +74,23 @@ public class RetourDAOTests {
         verify(retourRequestRepository, times(1)).save(dummyRetourRequest);
         verify(productDAO, times(1)).incrementProductStock(dummyProduct.getId());
         verify(orderItemRepository, times(1)).saveAll(dummyRetouredProducts);
+    }
+
+    @Test
+    public void should_increment_stock_when_product_set_to_returned() {
+        retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
+
+        verify(productDAO, times(1)).incrementProductStock(dummyProduct.getId());
+    }
+
+    @Test
+    public void should_correctly_detect_returned_products_when_called() {
+        RetourRequest actualRetourRequest = retourDAO.acceptRetourRequest(dummyRetourRequestDTO);
+
+        for (OrderItem orderProduct : actualRetourRequest.getRetouredProducts()) {
+            assertThat(orderProduct.isReturned(), is(true));
+            verify(productDAO, times(1)).incrementProductStock(orderProduct.getProductType().getId());
+        }
+        verify(orderItemRepository, times(1)).saveAll(dummyRetourRequest.getRetouredProducts());
     }
 }
