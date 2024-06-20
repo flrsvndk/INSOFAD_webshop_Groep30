@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/category").hasAnyAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/promocodes").permitAll()
                         .requestMatchers(HttpMethod.POST, "/promocodes").hasAnyAuthority("ADMIN", "STAFF")
-                        .requestMatchers(HttpMethod.PUT, "/promocodes/update/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/promocodes/update").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/promocodes/**").hasAnyAuthority("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.DELETE, "/promocodes/**").hasAuthority("ADMIN")
                         .requestMatchers("/auth/**").permitAll()

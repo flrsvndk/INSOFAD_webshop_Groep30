@@ -51,11 +51,11 @@
         </div>
           <form [formGroup]="promocodeForm" class="col-md-4 justify-content-center">
               <div class="col-md-12">
-                  <input class="form-outline" style="border-radius: .5rem; border: 1px solid gray" type="text" formControlName="Promocode" placeholder="Vul Promocode in...">
-                  <button class="btn btn-success fw-bold" (click)="onSubmitPromocode()"><i class="bi-check-lg"></i>Toepassen</button>
+                  <input class="form-outline" style="border-radius: .5rem; border: 1px solid gray" type="text" formControlName="Promocode" placeholder="Vul Promocode in..." (input)="onNameInput($event)">
+                  <button class="btn btn-success fw-bold" (click)="onSubmitPromocode()" ><i class="bi-check-lg"></i>Toepassen</button>
 
                   @if (promocodeError) {
-                      <p style="font-weight: bold; color: red">Fout bij valideren promocode</p>
+                      <p style="font-weight: bold; color: red">Fout bij verwerken promocode</p>
                   }
 
               </div>

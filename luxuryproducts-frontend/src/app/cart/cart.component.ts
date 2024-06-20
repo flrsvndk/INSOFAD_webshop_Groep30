@@ -56,8 +56,12 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.productsInCart$.unsubscribe();
-    this.loginState$.unsubscribe();
+    if (this.productsInCart$) {
+      this.productsInCart$.unsubscribe();
+    }
+    if (this.loginState$) {
+      this.loginState$.unsubscribe();
+    }
   }
 
   public clearCart() {
@@ -102,10 +106,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public checkLoginState(): void {
     this.loginState$ = this.authService
-      .$userIsLoggedIn
-      .subscribe((loginState: boolean) => {
-        this.userIsLoggedIn = loginState;
-      });
+        .$userIsLoggedIn
+        .subscribe((loginState: boolean) => {
+          this.userIsLoggedIn = loginState;
+        });
+  }
+
+  public onNameInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+    this.promocodeForm.get('promocode')?.setValue(input.value, {emitEvent: false});
   }
 
   protected onSubmitPromocode() {
