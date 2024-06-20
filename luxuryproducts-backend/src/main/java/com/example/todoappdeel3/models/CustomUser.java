@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "Users")
@@ -25,11 +24,11 @@ public class CustomUser {
 
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-placed-order")
     private List<PlacedOrder> placedOrders;
 
     @OneToOne
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-adress")
     private Adress adress;
 
     public CustomUser() {

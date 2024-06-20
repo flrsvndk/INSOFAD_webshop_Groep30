@@ -21,11 +21,11 @@ public class Adress {
     private String houseNumberAddition;
 
     @OneToOne
-    @JsonBackReference
+    @JsonBackReference(value = "user-adress")
     private CustomUser customUser;
 
     @OneToMany(mappedBy = "adress")
-    @JsonBackReference
+    @JsonBackReference(value = "adress-placed-order")
     private List<PlacedOrder> placedOrder;
 
     public Adress(String zipcode, int houseNumber, String houseNumberAddition) {

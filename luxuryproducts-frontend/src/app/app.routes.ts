@@ -21,6 +21,10 @@ import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/a
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
 import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
 import {RetourPageComponent} from "./retour-page/retour-page.component";
+import {PromocodesComponent} from "./admin/promocode/promocodes/promocodes.component";
+import {CreatePromocodeComponent} from "./admin/promocode/create-promocode/create-promocode.component";
+import {PromocodeThumbnailComponent} from "./admin/promocode/promocode-thumbnail/promocode-thumbnail.component";
+import {PromocodeEditComponent} from "./admin/promocode/promocode-edit/promocode-edit.component";
 import {GiftcardsComponent} from "./giftcards/giftcards.component";
 import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
 import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
@@ -46,13 +50,17 @@ export const routes: Routes = [
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},
-  {path:'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
-  {path:'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
-  {path:'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
-  {path:'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
-  {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
-  {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
+  {path: 'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
+  {path: 'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
+  {path: 'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: 'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
+  {path: 'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
   {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
+  {path: 'admin/promocodes', component: PromocodesComponent, canActivate: [AdminGuard]},
+  {path: 'admin/create-promocode', component: CreatePromocodeComponent, canActivate: [AdminGuard]},
+  {path: 'admin/promocodes/:id', component: PromocodeThumbnailComponent, canActivate: [AdminGuard]},
+  {path: 'admin/promocode-edit/:id', component: PromocodeEditComponent, canActivate: [AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];

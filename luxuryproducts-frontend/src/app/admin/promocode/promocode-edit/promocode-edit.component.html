@@ -1,0 +1,73 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+            <app-sidepanel></app-sidepanel>
+        </aside>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="container-fluid mt-5" style="width: 50%">
+                <h1 style="text-align: center;">Promocode aanpassen</h1>
+                <form [formGroup]="editPromocodeForm">
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div data-mdb-input-init class="form-outline">
+                                <label for="name" class="form-label subtle-label" style="padding-left: .8rem;">
+                                    Let op: De promocode moet inclusief en niet discriminerend zijn!
+                                </label>
+                                <hr>
+                                <input id="name" type="text" class="form-control" placeholder="Naam" formControlName="name" (input)="onNameInput($event)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="text" class="form-control" placeholder="Beschrijving" formControlName="description"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="number" class="form-control" placeholder="Percentage Korting" formControlName="percentageOff" min="5" max="50"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="number" class="form-control" placeholder="Keer te gebruiken" formControlName="maxUsages" min="1" max="1000"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="dedicatedPromocode"> 1 Specifieke gebruiker
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="email" class="form-control" placeholder="Specifieke Gebruiker Email" formControlName="dedicatedUserEmail"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md text-end">
+                            <button data-mdb-ripple-init [disabled]="!editPromocodeForm.valid" type="button" class="btn btn-primary btn-block fw-bold" (click)="onSubmit()">
+                                <i class="bi-check-circle"></i> Promocode aanpassen
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mb-4" *ngIf="promocodeAlreadyExists">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" role="alert" style="text-align: center;">
+                                Deze promotiecode bestaat al!
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+
