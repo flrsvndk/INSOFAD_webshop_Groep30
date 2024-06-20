@@ -128,4 +128,8 @@ public class PlacedOrder {
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
+
+    public String getStatus() {
+        return status;
+    }
 }
