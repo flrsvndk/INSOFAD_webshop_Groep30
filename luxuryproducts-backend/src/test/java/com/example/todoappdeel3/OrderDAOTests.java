@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,6 +32,7 @@ public class OrderDAOTests {
 
     private OrderDTO dummyOrderDTO;
     private PlacedOrder dummyPlacedOrder;
+    private List<PlacedOrder> dummyPlacedOrders;
 
     @BeforeEach
     public void setup() {
@@ -38,7 +41,7 @@ public class OrderDAOTests {
 
         this.dummyPlacedOrder = new PlacedOrder();
 
-        when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
+        this.dummyPlacedOrders = new ArrayList<PlacedOrder>();
     }
 
 
@@ -47,10 +50,21 @@ public class OrderDAOTests {
     //  Admin orders overzicht
 
     //  TEST Orders terugzien (Task #65)
+    @Test
+    public void should_return_all_orders_when_called() {
+        when(this.orderRepository.findAll()).thenReturn(this.dummyPlacedOrders);
+
+        List<PlacedOrder> actualPlacedOrders = this.orderDAO.getAllOrders();
+
+        assertThat(actualPlacedOrders, is(this.dummyPlacedOrders));
+    }
+
+
 
     //  TEST Orderstatus aanpassen (Task #66)
     @Test
     public void should_set_status_processing_when_called() {
+        when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
         String expectedStatus = StaticDetails.ORDER_PROCESSING;
 
         PlacedOrder actualOrder = this.orderDAO.setProcessing(this.dummyOrderDTO);
@@ -60,6 +74,7 @@ public class OrderDAOTests {
 
     @Test
     public void should_set_status_confirmed_when_called() {
+        when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
         String expectedStatus = StaticDetails.ORDER_CONFIRMED;
 
         PlacedOrder actualOrder = this.orderDAO.setConfirmed(this.dummyOrderDTO);
@@ -69,6 +84,7 @@ public class OrderDAOTests {
 
     @Test
     public void should_set_status_out_for_delivery_when_called() {
+        when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
         String expectedStatus = StaticDetails.ORDER_OUT_FOR_DELIVERY;
 
         PlacedOrder actualOrder = this.orderDAO.setOutForDelivery(this.dummyOrderDTO);
@@ -78,6 +94,7 @@ public class OrderDAOTests {
 
     @Test
     public void should_set_status_delivered_when_called() {
+        when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
         String expectedStatus = StaticDetails.ORDER_DELIVERED;
 
         PlacedOrder actualOrder = this.orderDAO.setDelivered(this.dummyOrderDTO);
