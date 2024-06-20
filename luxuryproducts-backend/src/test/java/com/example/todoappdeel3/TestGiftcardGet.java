@@ -28,6 +28,7 @@ class TestGiftcardGet {
     private CustomUser user;
     GiftcardDAO giftcardDAO;
     Giftcard giftcard;
+    List<Giftcard> giftcards;
 
     @Mock
     private GiftcardRepository giftcardRepositoryMock;
@@ -41,8 +42,11 @@ class TestGiftcardGet {
                 "name", "infix", "lastName", "admin@mail.com",
                 "Hallo123!", "imgUrl"
         );
-        this.user.setRole("");
-        this.giftcard = new Giftcard("message", 2, 2, this.user, this.user);
+        this.user.setRole("ADMIN");
+
+        giftcard = new Giftcard("message", 2, 2, this.user, this.user);
+        giftcards = new ArrayList<>();
+        giftcards.add(giftcard); this.giftcards.add(giftcard);
     }
 
 
@@ -62,11 +66,10 @@ class TestGiftcardGet {
     }
 
     @Test
-    public void should_returnGiftcards_when_getGiftcardByOwnerAdmin() {
+    public void should_returnGiftcards_when_getGiftcardByAdmin() {
         when(this.userRepositoryMock.findByEmail(any())).thenReturn(user);
-        List<Giftcard> giftcards = new ArrayList<>();
-        giftcards.add(giftcard); giftcards.add(giftcard);
         when(this.giftcardRepositoryMock.findAll()).thenReturn(giftcards);
+        System.out.println(this.giftcardDAO.getAllGiftcards(user.getEmail()));
         List<GiftcardOwnerDTO> result = this.giftcardDAO.getAllGiftcards(user.getEmail());
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(2);
