@@ -47,7 +47,7 @@
             </li>
         }
         <li class="list-group-item font-weight-bold">
-            Total: {{ order.totalProductsPrice | currency: 'EUR' }}
+            Total: {{ order.totalPriceAfterPromocode | currency: 'EUR' }}
         </li>
     </ul>
 </div>

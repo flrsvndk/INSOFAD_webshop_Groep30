@@ -25,9 +25,9 @@
                 </div>
             </li>
         }
-        <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
-            Total: {{order.totalProductsPrice | currency: 'EUR'}}
-        </li>
+        <div class="d-flex justify-content-between align-items-center fw-bold">
+            <p>Total: {{ order.totalPriceAfterPromocode| currency: 'EUR' }}</p>
+        </div>
     </ul>
     @if(order.status == StaticDetails.ORDER_DELIVERED && orderWithinReturnPeriod){
         <a [routerLink]="['/retour-page', order.id]" id="return-order-button" class="btn btn-danger float-end">Return product(s)</a>

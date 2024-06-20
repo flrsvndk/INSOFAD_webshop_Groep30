@@ -4,11 +4,7 @@ import com.example.todoappdeel3.dao.*;
 import com.example.todoappdeel3.dto.ProductDTO;
 import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
 import com.example.todoappdeel3.dto.TypeDTO;
-import com.example.todoappdeel3.models.CustomUser;
-import com.example.todoappdeel3.models.PlacedOrder;
-import com.example.todoappdeel3.models.Adress;
-import com.example.todoappdeel3.models.OrderItem;
-import com.example.todoappdeel3.models.RetourReason;
+import com.example.todoappdeel3.models.*;
 import com.example.todoappdeel3.repositories.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -22,15 +18,16 @@ import java.util.List;
 @Component
 public class Seeder {
     private final CategoryDAO categoryDAO;
-    private ProductDAO productDAO;
-    private UserRepository userRepository;
+    private final ProductDAO productDAO;
+    private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
     private final AdressRepository adressRepository;
     private final RetourReasonRepository retourReasonRepository;
+    private final PromocodeRepository promocodeRepository;
 
-    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository, AdressRepository adressRepository, RetourReasonRepository retourReasonRepository) {
+    public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryDAO categoryDAO, OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductSpecificationTypesRepository productSpecificationTypesRepository, AdressRepository adressRepository, RetourReasonRepository retourReasonRepository, PromocodeRepository promocodeRepository) {
         this.productDAO = productDAO;
         this.userRepository = userRepository;
         this.categoryDAO = categoryDAO;
@@ -39,6 +36,7 @@ public class Seeder {
         this.productSpecificationTypesRepository = productSpecificationTypesRepository;
         this.adressRepository = adressRepository;
         this.retourReasonRepository = retourReasonRepository;
+        this.promocodeRepository = promocodeRepository;
     }
 
     @EventListener
@@ -47,6 +45,7 @@ public class Seeder {
         this.seedUser();
         this.seedOrder();
         this.seedRetourReasons();
+        this.seedPromocodes();
     }
 
     private void seedProducts(){
@@ -249,6 +248,17 @@ public class Seeder {
         retourReasons.add(new RetourReason("Verkeerd geleverd"));
         retourReasons.add(new RetourReason("Van gedachten veranderd"));
         retourReasonRepository.saveAll(retourReasons);
+    }
+
+    private void seedPromocodes() {
+        Promocode promocode0 = new Promocode("SUMMERSALE10", "Krijg 25% korting op het gehele assortiment!", 10, 100, 0, 0, true, false, null);
+        Promocode promocode1 = new Promocode("WINTERSALE25", "Krijg 25% korting op het gehele assortiment!", 25, 15, 0, 0, true, false, null);
+        Promocode promocode2 = new Promocode("HERFSTSALE5", "Krijg 5% korting op het gehele assortiment!", 5, 10, 0, 0, true, false, null);
+        Promocode promocode3 = new Promocode("LENTESALE20", "Krijg 20% korting op het gehele assortiment!", 20, 1, 0, 0, true, true, "test@test.com");
+        this.promocodeRepository.save(promocode0);
+        this.promocodeRepository.save(promocode1);
+        this.promocodeRepository.save(promocode2);
+        this.promocodeRepository.save(promocode3);
     }
 
 }

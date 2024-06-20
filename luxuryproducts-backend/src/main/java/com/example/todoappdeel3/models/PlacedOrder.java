@@ -7,9 +7,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -18,40 +16,50 @@ public class PlacedOrder {
     @UuidGenerator
     private UUID id;
 
-    private Double totalProductsPrice;
     private LocalDateTime orderDate;
     private String notes;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @JsonBackReference(value = "user-placed-order")
     private CustomUser user;
 
     @OneToMany(mappedBy = "placedOrder")
-    @JsonManagedReference
+    @JsonManagedReference(value = "placed-order-order-items")
     private List<OrderItem> orderItems;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "adress-placed-order")
     private Adress adress;
 
     private String status;
 
+    @ManyToOne
+    @JsonBackReference(value = "promocode-placed-order")
+    private Promocode promocode;
+
+    private double totalPriceBeforePromocode;
+    private double totalPriceAfterPromocode;
+
+
     public PlacedOrder() {
     }
 
-    public PlacedOrder(Double totalProductsPrice, LocalDateTime orderDate, String notes, CustomUser user, Adress adress) {
-        this.totalProductsPrice = totalProductsPrice;
+    public PlacedOrder(LocalDateTime orderDate,
+                       String notes,
+                       CustomUser user,
+                       Adress adress,
+                       Promocode promocode,
+                       double totalPriceBeforePromocode,
+                       double totalPriceAfterPromocode) {
         this.orderDate = orderDate;
         this.notes = notes;
         this.user = user;
         this.adress = adress;
         this.status = StaticDetails.ORDER_PENDING;
+        this.promocode = promocode;
+        this.totalPriceBeforePromocode = totalPriceBeforePromocode;
+        this.totalPriceAfterPromocode = totalPriceAfterPromocode;
     }
-
-    public UUID getUserId() {
-        return this.user.getId();
-    }
-
 
     public Adress getAdress() {
         return adress;
@@ -59,14 +67,6 @@ public class PlacedOrder {
 
     public void setAdress(Adress adress) {
         this.adress = adress;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     public LocalDateTime getOrderDate() {
@@ -93,27 +93,39 @@ public class PlacedOrder {
         this.id = id;
     }
 
-    public Double getTotalProductsPrice() {
-        return totalProductsPrice;
-    }
-
-    public void setTotalProductsPrice(Double totalProductsPrice) {
-        this.totalProductsPrice = totalProductsPrice;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Promocode getPromocode() {
+        return promocode;
+    }
+
+    public void setPromocode(Promocode promocode) {
+        this.promocode = promocode;
+    }
+
+    public double getTotalPriceBeforePromocode() {
+        return totalPriceBeforePromocode;
+    }
+
+    public void setTotalPriceBeforePromocode(double totalPriceBeforePromocode) {
+        this.totalPriceBeforePromocode = totalPriceBeforePromocode;
+    }
+
+    public double getTotalPriceAfterPromocode() {
+        return totalPriceAfterPromocode;
+    }
+
+    public void setTotalPriceAfterPromocode(double totalPriceAfterPromocode) {
+        this.totalPriceAfterPromocode = totalPriceAfterPromocode;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 }

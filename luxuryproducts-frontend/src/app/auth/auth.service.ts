@@ -29,6 +29,7 @@ export class AuthService {
         tap((authResponse: AuthResponse) => {
           this.tokenService.storeToken(authResponse.token);
           this.$userIsLoggedIn.next(true);
+          localStorage.setItem('userEmail', authResponse.email);
         })
       );
   }
@@ -40,6 +41,7 @@ export class AuthService {
         tap((authResponse: AuthResponse) => {
           this.tokenService.storeToken(authResponse.token);
           this.$userIsLoggedIn.next(true);
+            localStorage.setItem('userEmail', authResponse.email);
         })
       );
   }
@@ -47,5 +49,6 @@ export class AuthService {
   public logOut(): void {
     this.tokenService.removeToken();
     this.$userIsLoggedIn.next(false);
+    localStorage.removeItem('userEmail');
   }
 }
