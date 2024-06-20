@@ -67,13 +67,14 @@ public class OrderService {
 
         if (orderDTO.promocode != null) {
             totalPriceAfterPromocode = (totalPricebeforePromocode * (1 - ((double) orderDTO.promocode.percentageOff / 100)));
+            customerOrder.setTotalPriceBeforePromocode(totalPricebeforePromocode);
+            customerOrder.setTotalPriceAfterPromocode(totalPriceAfterPromocode);
             this.promocodeDAO.updateAnalyticsPromocode(customerOrder);
         } else {
             totalPriceAfterPromocode = totalPricebeforePromocode;
+            customerOrder.setTotalPriceBeforePromocode(totalPricebeforePromocode);
+            customerOrder.setTotalPriceAfterPromocode(totalPriceAfterPromocode);
         }
-
-        customerOrder.setTotalPriceBeforePromocode(totalPricebeforePromocode);
-        customerOrder.setTotalPriceAfterPromocode(totalPriceAfterPromocode);
 
         return customerOrder;
     }
