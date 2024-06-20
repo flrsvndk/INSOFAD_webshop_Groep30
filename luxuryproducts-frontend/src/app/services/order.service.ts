@@ -28,7 +28,7 @@ export class OrderService {
   createOrderItems(products_in_cart: ProductType[]) {
     let orderItems: OrderItem[] = [];
     for (let product  of products_in_cart){
-      let orderItem : OrderItem = new OrderItem(product.amount, product.id, product);
+      let orderItem : OrderItem = new OrderItem(product.amount, product.id);
       orderItems.push(orderItem);
     }
     return orderItems;

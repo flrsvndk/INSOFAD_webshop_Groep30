@@ -43,11 +43,11 @@ public class ProductSpecificationType {
         this.productId = productId;
     }
 
-    public ProductSpecificationType(String name, ProductSpecification productSpecification, ProductSpecification subSpecification, UUID productId) {
+    public ProductSpecificationType(String name, String imgUrl, ProductSpecification productSpecification, ProductSpecification subSpecification) {
         this.name = name;
+        this.imgUrl = imgUrl;
         this.productSpecification = productSpecification;
         this.subSpecification = subSpecification;
-        this.productId = productId;
     }
 
     public UUID getId() {

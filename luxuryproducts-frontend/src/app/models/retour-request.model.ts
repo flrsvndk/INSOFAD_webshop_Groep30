@@ -3,12 +3,13 @@ import {ExistingOrder} from "./existing-order.model";
 import {OrderItem} from "./order-item.model";
 import {ProductType} from "./product-type.model";
 import {RetourReason} from "./retour-reason.model";
+import {PlacedOrderItem} from "./placed-order-item.model";
 
 export class RetourRequest {
   public id: string;
   public user?: User;
   public order?: ExistingOrder;
-  public retouredProducts?: OrderItem[];
+  public retouredProducts?: PlacedOrderItem[];
   public dateTime?: string;
   public reason?: RetourReason;
   public note?: string;

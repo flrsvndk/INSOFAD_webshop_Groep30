@@ -6,6 +6,7 @@ import com.example.todoappdeel3.dto.OrderItemDTO;
 import com.example.todoappdeel3.models.*;
 import com.example.todoappdeel3.repositories.OrderItemRepository;
 import com.example.todoappdeel3.repositories.ProductSpecificationTypesRepository;
+import com.example.todoappdeel3.repositories.PromocodeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,38 +20,61 @@ public class OrderService {
     private final AdressDAO adressDAO;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
     private final OrderItemRepository orderItemRepository;
+    private final PromocodeRepository promocodeRepository;
+    private final PromocodeDAO promocodeDAO;
 
-    public OrderService(OrderItemDAO orderItemDAO, AdressDAO adressDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository, OrderItemRepository orderItemRepository) {
+    public OrderService(OrderItemDAO orderItemDAO,
+                        AdressDAO adressDAO,
+                        ProductSpecificationTypesRepository productSpecificationTypesRepository,
+                        OrderItemRepository orderItemRepository,
+                        PromocodeRepository promocodeRepository,
+                        PromocodeDAO promocodeDAO) {
         this.orderItemDAO = orderItemDAO;
         this.adressDAO = adressDAO;
         this.productSpecificationTypesRepository = productSpecificationTypesRepository;
         this.orderItemRepository = orderItemRepository;
+        this.promocodeRepository = promocodeRepository;
+        this.promocodeDAO = promocodeDAO;
     }
 
     public PlacedOrder createOrder(OrderDTO orderDTO, CustomUser user){
-        double totalOrderSum = 0.00;
 
         List<OrderItem> orderItems = new ArrayList<>();
 
         LocalDateTime orderDate = LocalDateTime.now();
 
-
         Adress adress = adressDAO.createAdress(orderDTO.adressDTO);
 
+        Promocode promocode = getPromocode(orderDTO);
+
+        double totalPricebeforePromocode = 0;
+        double totalPriceAfterPromocode = 0;
+
         PlacedOrder customerOrder = new PlacedOrder(
-            0.00, orderDate, orderDTO.notes, user, adress
+            orderDate, orderDTO.notes, user, adress, promocode, totalPricebeforePromocode, totalPriceAfterPromocode
         );
 
         for (OrderItemDTO orderItemDTO : orderDTO.orderItems) {
             OrderItem orderItem = orderItemDAO.createOrderItem(orderItemDTO, customerOrder);
             orderItem.setQuantity(this.checkProductQuanity(orderItem.getProductType().getId(), orderItem.getQuantity()));
 
-            totalOrderSum +=  orderItem.getProductType().getPrice() * orderItem.getQuantity();
+            totalPricebeforePromocode +=  orderItem.getProductType().getPrice() * orderItem.getQuantity();
+
             orderItems.add(orderItem);
             this.orderItemRepository.save(orderItem);
         }
         customerOrder.setOrderItems(orderItems);
-        customerOrder.setTotalProductsPrice(totalOrderSum);
+
+        if (orderDTO.promocode != null) {
+            totalPriceAfterPromocode = (totalPricebeforePromocode * (1 - ((double) orderDTO.promocode.percentageOff / 100)));
+            customerOrder.setTotalPriceBeforePromocode(totalPricebeforePromocode);
+            customerOrder.setTotalPriceAfterPromocode(totalPriceAfterPromocode);
+            this.promocodeDAO.updateAnalyticsPromocode(customerOrder);
+        } else {
+            totalPriceAfterPromocode = totalPricebeforePromocode;
+            customerOrder.setTotalPriceBeforePromocode(totalPricebeforePromocode);
+            customerOrder.setTotalPriceAfterPromocode(totalPriceAfterPromocode);
+        }
 
         return customerOrder;
     }
@@ -70,5 +94,17 @@ public class OrderService {
         throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "No Product found for that Id"
         );
+    }
+
+    private Promocode getPromocode(OrderDTO orderDTO) {
+        Promocode promocode = null;
+
+        if (orderDTO.promocode != null) {
+            Optional<Promocode> optionalPromocode = this.promocodeRepository.findById(orderDTO.promocode.id);
+            if (optionalPromocode.isPresent()) {
+                promocode = optionalPromocode.get();
+            }
+        }
+        return promocode;
     }
 }
