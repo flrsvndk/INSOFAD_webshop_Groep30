@@ -51,7 +51,7 @@ public class OrderService {
         double totalPriceAfterPromocode = 0;
 
         PlacedOrder customerOrder = new PlacedOrder(
-                orderDate, orderDTO.notes, user, adress, promocode, totalPricebeforePromocode, totalPriceAfterPromocode
+            orderDate, orderDTO.notes, user, adress, promocode, totalPricebeforePromocode, totalPriceAfterPromocode
         );
 
         for (OrderItemDTO orderItemDTO : orderDTO.orderItems) {
