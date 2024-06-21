@@ -17,15 +17,15 @@ export class PromocodeService {
         return this.http.get<Promocode[]>(this.baseUrl);
     }
 
-    getPromocodeById(promocodeId: number): Observable<Promocode> {
+    getPromocodeById(promocodeId: string): Observable<Promocode> {
         return this.http.get<Promocode>(`${this.baseUrl}/${promocodeId}`);
     }
 
-    deletePromocodeById(promocodeId: number): Observable<String> {
+    deletePromocodeById(promocodeId: string): Observable<String> {
         return this.http.delete<String>(`${this.baseUrl}/${promocodeId}`);
     }
 
-    archivePromocodeById(promocodeId: number): Observable<String> {
+    archivePromocodeById(promocodeId: string): Observable<String> {
         return this.http.put<String>(`${this.baseUrl}/${promocodeId}`, promocodeId);
     }
 
