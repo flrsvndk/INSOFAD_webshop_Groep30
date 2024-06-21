@@ -128,4 +128,16 @@ public class PlacedOrder {
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }
