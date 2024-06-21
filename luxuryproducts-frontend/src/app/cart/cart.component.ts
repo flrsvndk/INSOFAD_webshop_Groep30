@@ -56,12 +56,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.productsInCart$) {
-      this.productsInCart$.unsubscribe();
-    }
-    if (this.loginState$) {
-      this.loginState$.unsubscribe();
-    }
+    this.productsInCart$?.unsubscribe();
+    this.loginState$?.unsubscribe();
   }
 
   public clearCart() {

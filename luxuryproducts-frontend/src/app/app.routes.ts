@@ -62,6 +62,7 @@ export const routes: Routes = [
   {path: 'admin/promocodes/:id', component: PromocodeThumbnailComponent, canActivate: [AdminGuard]},
   {path: 'admin/promocode-edit/:id', component: PromocodeEditComponent, canActivate: [AdminGuard]},
   {path: 'admin/giftcards', component: GiftcardsAdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/retours', component: RetourRequestsAdminComponent, canActivate: [AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];

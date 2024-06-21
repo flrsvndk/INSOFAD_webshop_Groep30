@@ -1,12 +1,9 @@
-export class Promocode {
-    public id: string;
+export class NewPromocode {
     public name: string;
     public description: string;
     public percentageOff: number;
     public maxUsages: number;
-    public usages: number;
-    public totalPriceOrders: number;
-    public available: boolean;
+    public available: true;
     public dedicatedPromocode: boolean;
     public dedicatedUserEmail: string;
 }
