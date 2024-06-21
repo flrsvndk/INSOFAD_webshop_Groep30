@@ -4,6 +4,7 @@ import {SidepanelComponent} from "../../sidepanel/sidepanel.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {PromocodeService} from "../../../services/promocode.service";
 import {Promocode} from "../../../models/promocode.model";
+import {NewPromocode} from "../../../models/new-promocode.model";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -65,27 +66,24 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   public onSubmit(): void {
     if (this.createPromocodeForm.valid) {
       const formData = this.createPromocodeForm.value;
-      const newPromocode: Promocode = {
-        id: 1,
+      const submittedNewPromocode: NewPromocode = {
         name: formData.name,
         description: formData.description,
         percentageOff: formData.percentageOff,
         maxUsages: formData.maxUsages,
-        usages: 0,
-        totalPriceOrders: 0,
         available: true,
         dedicatedPromocode: formData.dedicatedPromocode,
         dedicatedUserEmail: formData.dedicatedUserEmail
       };
 
       for (let promocode of this.existingPromocodes) {
-        if (promocode.name === newPromocode.name) {
+        if (promocode.name === submittedNewPromocode.name) {
           this.promocodeAlreadyExists = true;
           return;
         }
       }
 
-      this.promocodeService$ = this.promocodeService.createPromocode(newPromocode).subscribe({
+      this.promocodeService$ = this.promocodeService.createPromocode(submittedNewPromocode).subscribe({
         next(response) {
           console.log(response);
           window.location.reload();

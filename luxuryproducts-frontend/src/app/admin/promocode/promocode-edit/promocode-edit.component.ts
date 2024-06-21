@@ -12,7 +12,7 @@ import {Subscription} from "rxjs";
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SidepanelComponent],
   templateUrl: './promocode-edit.component.html',
-  styleUrls: ['./promocode-edit.component.scss']
+  styleUrl: './promocode-edit.component.scss'
 })
 export class PromocodeEditComponent implements OnInit, OnDestroy{
   @Input() public promocode!: Promocode;
