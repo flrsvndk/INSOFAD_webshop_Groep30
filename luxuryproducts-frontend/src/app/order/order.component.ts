@@ -54,7 +54,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.addOrder$.unsubscribe();
+    this.addOrder$?.unsubscribe();
   }
 
   public clearCart() {

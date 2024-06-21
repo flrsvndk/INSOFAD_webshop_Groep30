@@ -1,5 +1,5 @@
 export class Promocode {
-    public id: number;
+    public id: string;
     public name: string;
     public description: string;
     public percentageOff: number;

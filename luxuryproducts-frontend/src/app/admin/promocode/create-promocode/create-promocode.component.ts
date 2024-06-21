@@ -53,8 +53,8 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.promocodeService$.unsubscribe();
-    this.getPromocodes$.unsubscribe();
+    this.promocodeService$?.unsubscribe();
+    this.getPromocodes$?.unsubscribe();
   }
 
   public onNameInput(event: Event): void {
