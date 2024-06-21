@@ -1,0 +1,10 @@
+[
+  {
+    "id": 301,
+    "message": "message",
+    "price": 10,
+    "value": 5,
+    "buyerEmail": "buyerEmail",
+    "ownerEmail": ""
+  }
+]
