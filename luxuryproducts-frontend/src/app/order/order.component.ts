@@ -30,7 +30,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   private addOrder$: Subscription;
 
-
   constructor(private cartService: CartService,
               private router: Router,
               private fb: FormBuilder,
@@ -55,7 +54,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.addOrder$.unsubscribe();
+    this.addOrder$?.unsubscribe();
   }
 
   public clearCart() {
@@ -63,12 +62,12 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-        const formData = this.bestelForm.value;
+      const formData = this.bestelForm.value;
 
-        this.orderItems = this.orderService.createOrderItems(this.products_in_cart);
+      this.orderItems = this.orderService.createOrderItems(this.products_in_cart);
 
-        this.order = {
-            notes: formData.Opmerkingen,
+      this.order = {
+          notes: formData.Opmerkingen,
 
             adressDTO : this.adress = {
                 zipcode: formData.Postcode,

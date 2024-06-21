@@ -58,13 +58,15 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row mb-4" *ngIf="promocodeAlreadyExists">
-                        <div class="col-md-12">
-                            <div class="alert alert-danger" role="alert" style="text-align: center;">
-                                Deze promotiecode bestaat al!
+                    @if (this.promocodeAlreadyExists){
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger" role="alert" style="text-align: center;">
+                                    Deze promotiecode bestaat al!
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </form>
             </div>
         </main>

@@ -55,15 +55,15 @@ export class ProductDetailComponent {
     this.typeIndex2 = index;
     this.img = this.chosenType2.imgUrl;
     console.log(this.chosenType2.name + " " + this.chosenType2.name);
-    console.log(this.img);
   }
 
 
   public canOrder(): boolean{
     if(this.chosenType1 == null){
       return false;
-    }
-    if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
+    } else if (!this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType1) {
+      return true;
+    } else if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
       return true;
     } else {
       return false;

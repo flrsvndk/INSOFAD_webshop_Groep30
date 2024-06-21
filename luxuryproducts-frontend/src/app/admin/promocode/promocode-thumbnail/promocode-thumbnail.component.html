@@ -33,7 +33,12 @@
             <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Gebruikt: {{ promocode.usages }}</h5></div>
             <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Maximaal: {{ promocode.maxUsages }}</h5></div>
             <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Opbrengst: {{ promocode.totalPriceOrders | currency: 'EUR' }}</h5></div>
-            <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)"> Verwijderen</button></div>
+
+            @if (promocode.usages > 0) {
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)" disabled> Verwijderen</button></div>
+            } @else {
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)"> Verwijderen</button></div>
+            }
         </div>
 
     </div>
