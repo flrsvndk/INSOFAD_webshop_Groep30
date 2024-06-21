@@ -13,6 +13,7 @@ import {Subscription} from "rxjs";
 import {GiftcardService} from "../services/giftcard.service";
 import {GiftcardOwned} from "../models/giftcard-owned.model";
 import {HttpResponse} from "../models/http-response.model";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-order',
@@ -28,16 +29,15 @@ export class OrderComponent implements OnInit, OnDestroy {
   public products_in_cart: ProductType[];
   public order: Order;
   public adress: Adress;
-  public orderItems: OrderItem[];
   public totalPrice: number;
   public orderItems: OrderItem[];
   public promocode: Promocode;
 
   private addOrder$: Subscription;
 
-  constructor(private giftcardService: GiftcardService, private userService: UserService,private cartService: CartService, private router: Router, private fb: FormBuilder, private orderServive: OrderService) {}
-
-  constructor(private cartService: CartService,
+  constructor(private giftcardService: GiftcardService,
+              private userService: UserService,
+              private cartService: CartService,
               private router: Router,
               private fb: FormBuilder,
               private orderService: OrderService,) {
@@ -57,7 +57,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       Huisnummer: ['', [Validators.maxLength(5)]],
       Opmerkingen: [''],
       HouseNummerAddition: [''],
-      Opslaan: ['']
+      Opslaan: [''],
+      Giftcards: ['']
     });
     this.totalPrice = this.products_in_cart.reduce((total, product) => total + product.price * product.amount, 0);
   }
@@ -98,21 +99,20 @@ export class OrderComponent implements OnInit, OnDestroy {
                 console.error('Failed to add order:', error);
             }
             );
-    }
-      this.cartService.addOrder(this.order).subscribe(
-        (result) => {
-          console.log('Order added successfully:', result);
-          this.clearCart();
-          this.router.navigateByUrl('/paymentsuccessful');
-        },
-        (error) => {
-          console.error('Failed to add order:', error);
-        }
-      );
+        this.cartService.addOrder(this.order).subscribe(
+          (result) => {
+            console.log('Order added successfully:', result);
+            this.clearCart();
+            this.router.navigateByUrl('/paymentsuccessful');
+          },
+          (error) => {
+            console.error('Failed to add order:', error);
+          }
+        );
 
-    if (formData.giftcards != "") {
-      this.useGiftcards(formData.giftcards);
-    }
+        if (formData.Giftcards != "") {
+          this.useGiftcards(formData.Giftcards);
+        }
   }
 
   public useGiftcards(giftcardsText: String) {
