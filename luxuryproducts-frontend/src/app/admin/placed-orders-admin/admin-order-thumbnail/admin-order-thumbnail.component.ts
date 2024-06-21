@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {CurrencyPipe, DatePipe, NgIf} from "@angular/common";
 import {ExistingOrder} from "../../../models/existing-order.model";
 import {Subscription} from "rxjs";
@@ -16,12 +16,17 @@ import {StaticDetails} from "../../../utils/static-details";
   templateUrl: './admin-order-thumbnail.component.html',
   styleUrl: './admin-order-thumbnail.component.scss'
 })
-export class AdminOrderThumbnailComponent {
+export class AdminOrderThumbnailComponent implements OnDestroy {
+
   @Input() order: ExistingOrder;
 
   private status$: Subscription;
 
   constructor(private orderService: OrderService) { }
+
+  ngOnDestroy() {
+    this.status$?.unsubscribe();
+  }
 
   public setProcessing() {
     this.status$ = this.orderService.setProcessing(this.order.id).subscribe(() => {
