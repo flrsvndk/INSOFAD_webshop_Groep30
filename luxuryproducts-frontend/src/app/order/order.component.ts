@@ -57,14 +57,13 @@ export class OrderComponent implements OnInit, OnDestroy {
       Huisnummer: ['', [Validators.maxLength(5)]],
       Opmerkingen: [''],
       HouseNummerAddition: [''],
-      Opslaan: [''],
-      Giftcards: ['']
+      Opslaan: ['']
     });
     this.totalPrice = this.products_in_cart.reduce((total, product) => total + product.price * product.amount, 0);
   }
 
   ngOnDestroy() {
-    this.addOrder$.unsubscribe();
+    this.addOrder$?.unsubscribe();
   }
 
   public clearCart() {
@@ -72,12 +71,12 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-        const formData = this.bestelForm.value;
+      const formData = this.bestelForm.value;
 
-        this.orderItems = this.orderService.createOrderItems(this.products_in_cart);
+      this.orderItems = this.orderService.createOrderItems(this.products_in_cart);
 
-        this.order = {
-            notes: formData.Opmerkingen,
+      this.order = {
+          notes: formData.Opmerkingen,
 
             adressDTO : this.adress = {
                 zipcode: formData.Postcode,
@@ -144,5 +143,4 @@ export class OrderComponent implements OnInit, OnDestroy {
         return;
       }
     }
-  }
 }

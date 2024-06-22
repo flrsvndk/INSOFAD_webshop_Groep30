@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Promocode} from "../models/promocode.model";
 import {Observable} from "rxjs";
-import {Order} from "../models/order.model";
+import {NewPromocode} from "../models/new-promocode.model";
 
 @Injectable({
     providedIn: 'root'
@@ -17,15 +17,15 @@ export class PromocodeService {
         return this.http.get<Promocode[]>(this.baseUrl);
     }
 
-    getPromocodeById(promocodeId: number): Observable<Promocode> {
+    getPromocodeById(promocodeId: string): Observable<Promocode> {
         return this.http.get<Promocode>(`${this.baseUrl}/${promocodeId}`);
     }
 
-    deletePromocodeById(promocodeId: number): Observable<String> {
+    deletePromocodeById(promocodeId: string): Observable<String> {
         return this.http.delete<String>(`${this.baseUrl}/${promocodeId}`);
     }
 
-    archivePromocodeById(promocodeId: number): Observable<String> {
+    archivePromocodeById(promocodeId: string): Observable<String> {
         return this.http.put<String>(`${this.baseUrl}/${promocodeId}`, promocodeId);
     }
 
@@ -34,12 +34,7 @@ export class PromocodeService {
         return this.http.put<String>(updateUrl, promocode)
     }
 
-    updateAnalyticsPromocode(order: Order): Observable<String> {
-        const updateUrl: string = this.baseUrl  + "/update/analytics";
-        return this.http.put<String>(updateUrl, order);
-    }
-
-    createPromocode(promocode: Promocode): Observable<String> {
+    createPromocode(promocode: NewPromocode): Observable<String> {
         return this.http.post<String>(`${this.baseUrl}`, promocode);
     }
 }
