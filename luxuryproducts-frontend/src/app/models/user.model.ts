@@ -1,6 +1,7 @@
 import {Adress} from "./adress.model";
 
 export class User {
+  public id?: string;
   public name: string;
   public infix: string;
   public lastName: string;

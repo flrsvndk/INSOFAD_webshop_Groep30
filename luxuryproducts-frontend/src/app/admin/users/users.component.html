@@ -1,6 +1,3 @@
-
-
-
 <div class="container-fluid mt-5">
     <div class="row">
         <aside class="col-md-3 col-lg-2 d-md-block sidebar">
@@ -8,55 +5,61 @@
         </aside>
         <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="text-center mb-4">
-                <h1 class="h3">User overview</h1>
+                <h1 class="h3">All accounts</h1>
             </div>
-            <a routerLink="admin/users/edit" class="btn btn-primary">Give user new Role</a>
 
             <table class="table manage-candidates-top mb-0">
                 <thead>
                 <tr>
                     <th>Candidate Name</th>
-                    <th class="text-center">Status</th>
-                    <th class="action text-right">Action</th>
+                    <th class="text-center">Role</th>
+                    <th class="action text-right">Appoint new Role</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @for(user of userList; track $index){
-
+                    @for (user of userList; track $index){
                         <tr class="candidates-list">
                             <td class="title">
                                 <div class="thumb">
-                                    <img class="container-fluid" src="{{user.imgUrl}}" alt="">
+                                    <img class="card-img img-thumbnail img-fluid width" [src]="user.imgUrl" alt="">
                                 </div>
                                 <div class="candidate-list-details">
                                     <div class="candidate-list-info">
                                         <div class="candidate-list-title">
-                                            <h5 class="mb-0">{{user.name}}</h5>
+                                            <h5 class="mb-0">{{ user.name }}</h5>
                                         </div>
                                         @if(user.adress){
-                                        <div class="candidate-list-option">
-                                            <ul class="list-unstyled">
-                                                <li><i class="fas fa-map-marker-alt pr-1"></i>{{user.adress.zipcode +  " " + user.adress.houseNumber + " " + user.adress.houseNumberAddition}}</li>
-                                            </ul>
-                                        </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <i class="fas fa-map-marker-alt pr-1"></i>
+                                                        {{ user.adress.zipcode }} {{ user.adress.houseNumber }} {{ user.adress.houseNumberAddition }}
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         }
                                     </div>
                                 </div>
                             </td>
                             <td class="candidate-list-favourite-time text-center">
-<!--                                <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>-->
-                                <span >{{ user.role }}</span>
+                                <span>{{ user.role }}</span>
                             </td>
                             <td>
-                                <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                    <li><a [routerLink]="'/admin/user/role'" @Input(user)>Appoint new role</a></li>
-<!--                                    <li><a href="" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>-->
-                                </ul>
+                                    <form [formGroup]="newRoleForm">
+                                        <div class="form-group">
+                                            <label for="newRole">Role</label>
+                                            <select id="newRole" formControlName="newRole" class="form-control">
+                                                @for (role of roles; track $index){
+                                                    <option [value]="role">{{ role }}</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <button type="button" (click)="onSubmit($index)" class="btn btn-primary">Appoint Role</button>
+                                    </form>
                             </td>
                         </tr>
                     }
-
-                    </tbody>
+                </tbody>
             </table>
         </main>
     </div>
