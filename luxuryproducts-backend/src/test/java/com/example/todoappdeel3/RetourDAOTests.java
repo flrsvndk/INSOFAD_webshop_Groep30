@@ -221,7 +221,6 @@ public class RetourDAOTests {
 
 
 
-    //  USER STORY #59
     //  Admin orders overzicht
 
     //  TEST Orderstatus aanpassen
