@@ -8,6 +8,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {Promocode} from "../models/promocode.model";
 import {PromocodeService} from "../services/promocode.service";
 import {Subscription} from "rxjs";
+import {GiftcardService} from "../services/giftcard.service";
+import {Giftcard} from "../models/giftcard.model";
 
 @Component({
   selector: 'app-cart',
@@ -27,6 +29,9 @@ export class CartComponent implements OnInit, OnDestroy {
   protected usedPromocode: Promocode;
   protected promocodeError: boolean;
 
+  public giftcardForm: FormGroup;
+  public giftcardString: string = "";
+
   private productsInCart$: Subscription;
   private loginState$: Subscription;
 
@@ -34,7 +39,8 @@ export class CartComponent implements OnInit, OnDestroy {
               private router: Router,
               private authService: AuthService,
               private fb: FormBuilder,
-              private promocodeService: PromocodeService) {
+              private promocodeService: PromocodeService,
+              private giftcardService: GiftcardService) {
 
   }
 
@@ -49,6 +55,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.promocodeForm = this.fb.group({
       Promocode: ['', [Validators.required]]
     });
+    this.giftcardForm = this.fb.group({
+      Giftcard: ['']
+    });
 
     this.promocodeService.getPromocodes().subscribe((promocodes: Promocode[]) => {
       this.promocodes = promocodes;
@@ -56,12 +65,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.productsInCart$) {
-      this.productsInCart$.unsubscribe();
-    }
-    if (this.loginState$) {
-      this.loginState$.unsubscribe();
-    }
+    this.productsInCart$?.unsubscribe();
+    this.loginState$?.unsubscribe();
   }
 
   public clearCart() {
@@ -72,7 +77,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.removeProductFromCart(product_index);
   }
 
-  public getTotalPriceWithoutPromocode(): number {
+  public getTotalPriceWithoutPromocodeAndGiftcards(): number {
     return this.products_in_cart.reduce(
         (total , product) =>
             total + product.price * product.amount, 0
@@ -81,9 +86,17 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public getTotalPriceWithPromocode(): number {
     if (this.usedPromocode) {
-      return this.getTotalPriceWithoutPromocode() * (1 - (this.usedPromocode.percentageOff / 100));
+      return this.getTotalPriceWithoutPromocodeAndGiftcards() * (1 - (this.usedPromocode.percentageOff / 100));
     } else {
-      return this.getTotalPriceWithoutPromocode();
+      return this.getTotalPriceWithoutPromocodeAndGiftcards();
+    }
+  }
+
+  public getTotalPrice() {
+    if (this.usedPromocode) {
+      return this.getTotalPriceWithoutPromocodeAndGiftcards() * (1 - (this.usedPromocode.percentageOff / 100));
+    } else {
+      return this.giftcardService.getPriceWithGiftcards(this.giftcardString, this.getTotalPriceWithoutPromocodeAndGiftcards());
     }
   }
 
@@ -98,8 +111,10 @@ export class CartComponent implements OnInit, OnDestroy {
     else {
       this.router.navigate(['/orders'],
           {state: {
-              totalPriceBeforePromocode: this.getTotalPriceWithoutPromocode(),
-              totalPriceAfterPromocode: this.getTotalPriceWithPromocode(),
+              totalPriceBeforePromocodeAndGiftcards: this.getTotalPriceWithoutPromocodeAndGiftcards(),
+              totalPriceWithPromocode: this.getTotalPriceWithPromocode(),
+              totalPrice: this.getTotalPrice(),
+              giftcardString: this.giftcardString,
               promocode: this.usedPromocode}});
             }
   }
@@ -116,6 +131,12 @@ export class CartComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement;
     input.value = input.value.toUpperCase();
     this.promocodeForm.get('promocode')?.setValue(input.value, {emitEvent: false});
+  }
+
+  public onGiftcardsUpdate(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.giftcardString = input.value.toUpperCase();
+    console.log(this.giftcardString);
   }
 
   protected onSubmitPromocode() {

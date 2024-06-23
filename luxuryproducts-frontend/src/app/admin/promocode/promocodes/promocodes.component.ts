@@ -30,7 +30,7 @@ export class PromocodesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.promocodes$.unsubscribe();
+    this.promocodes$?.unsubscribe();
   }
 
   private loadPromocodes() {
