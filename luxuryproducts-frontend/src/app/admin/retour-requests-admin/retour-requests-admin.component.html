@@ -12,7 +12,7 @@
                     <button class="btn btn-light" (click)="toggleSort()"><i class="{{ sortNewestFirst ? 'bi bi-sort-down' : 'bi bi-sort-down-alt' }}"></i> {{ sortNewestFirst ? 'Oldest First' : 'Newest First' }}</button>
                 </div>
                 <div class="col-6 float-end">
-                    <select class="form-select" [(ngModel)]="filterStatus" (ngModelChange)="filterRetourRequests()">
+                    <select id="status-select" class="form-select" [(ngModel)]="filterStatus" (ngModelChange)="filterRetourRequests()">
                         <option value="">All Statuses</option>
                         <option value="PENDING">PENDING</option>
                         <option value="ACCEPTED">ACCEPTED</option>
