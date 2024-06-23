@@ -16,7 +16,7 @@ import {ProductType} from "../../models/product-type.model";
 })
 export class ProductDetailComponent {
   @Input() public product!: Product;
-  private productId: number;
+  private productId: string;
   public chosenType1: ProductType;
   public chosenType2: ProductType;
   public img: string;

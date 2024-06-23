@@ -45,16 +45,12 @@ export class ProductsService {
     return this.http.post<Product>(this.baseUrl, productData);
   }
 
-  public getProductByIndex(id: number): Observable<Product> {
+  public getProductByIndex(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 
-  public DeleteProductByIndex(id: number): Observable<Product> {
-    return this.http.delete<Product>(`${this.baseUrl}/${id}`);
-  }
-
-  public updateProductByIndex(id: Product, product: number): Observable<Product> {
-    return this.http.put<Product>(`${this.baseUrl}/${id}`, product);
+  public updateProductByIndex(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.baseUrl}`, product);
   }
 
 
