@@ -14,5 +14,7 @@ describe('Retour Pagina tests', () => {
     cy.intercept('GET', '/api/orders/myOrders', { fixture: 'orders.json' }).as('orders');
 
     cy.visit('/order-history');
+    cy.wait(1000);
+    cy.get('button[id=send-request-button]').click();
   });
 })
