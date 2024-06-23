@@ -3,9 +3,9 @@
         <div class="col-lg-6 col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="mb-4 text-center">Giftcards</h1>
+                    <h1 class="mb-4 text-center">Buy Giftcards</h1>
                     <div class="mt-4">
-                    <h4>Price</h4>
+                    <h4>Price: {{price | currency: 'EUR' }}</h4>
                     <div class="btn-group" role="group" aria-label="Product Types">
                       <button (click)="selectPrice(10)" class="btn btn-outline-primary"> 10 </button>
                       <button (click)="selectPrice(25)" class="btn btn-outline-primary"> 25 </button>
