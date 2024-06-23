@@ -63,4 +63,55 @@ export class GiftcardService {
         console.log("deleteGiftcard start");
         return this.http.delete<HttpResponse>(this.baseUrl + "/" + id);
     }
+
+    public getPriceWithGiftcards(giftcardsText: String, totalPrice: number) {
+        let unpaid = totalPrice;
+        let giftcardIds: String[] = giftcardsText.split(" ");
+        let giftcards: GiftcardOwned[] = this.ownedGiftcards;
+
+        for (let giftcard of giftcards) {
+            for (let id of giftcardIds) {
+                if (id == giftcard.id.toString()) {
+                    console.log(giftcard);
+                    unpaid -= Math.min(unpaid, giftcard.value);
+                    break;
+                }
+            }
+            if (unpaid == 0) {
+                return 0;
+            }
+        }
+
+        return unpaid;
+    }
+
+    public useGiftcards(giftcardsText: string, totalPrice: number) {
+        let unpaid = totalPrice;
+        let giftcardIds: String[] = giftcardsText.split(" ");
+        let giftcards: GiftcardOwned[] = this.ownedGiftcards;
+
+
+        for (let giftcard of giftcards) {
+            for (let id of giftcardIds) {
+                if (id == giftcard.id.toString()) {
+                    console.log(giftcard);
+                    let unpaidOld = unpaid;
+                    unpaid -= Math.min(unpaid, giftcard.value);
+                    giftcard.value -= Math.min(unpaidOld, giftcard.value);
+                    this.lowerGiftcardValue(giftcard.value, giftcard.id).subscribe(
+                        (result: HttpResponse) => {
+                            console.log('Giftcard value updated successfully:', result);
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+                    break;
+                }
+            }
+            if (unpaid == 0) {
+                return;
+            }
+        }
+    }
 }

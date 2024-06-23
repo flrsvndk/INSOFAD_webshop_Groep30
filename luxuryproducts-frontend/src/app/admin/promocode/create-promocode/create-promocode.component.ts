@@ -4,7 +4,9 @@ import {SidepanelComponent} from "../../sidepanel/sidepanel.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {PromocodeService} from "../../../services/promocode.service";
 import {Promocode} from "../../../models/promocode.model";
+import {NewPromocode} from "../../../models/new-promocode.model";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-promocode',
@@ -25,7 +27,7 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   private promocodeService$: Subscription;
   private getPromocodes$: Subscription;
 
-  constructor(private fb: FormBuilder, private promocodeService: PromocodeService) {
+  constructor(private fb: FormBuilder, private promocodeService: PromocodeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.promocodeService$.unsubscribe();
-    this.getPromocodes$.unsubscribe();
+    this.promocodeService$?.unsubscribe();
+    this.getPromocodes$?.unsubscribe();
   }
 
   public onNameInput(event: Event): void {
@@ -65,34 +67,31 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   public onSubmit(): void {
     if (this.createPromocodeForm.valid) {
       const formData = this.createPromocodeForm.value;
-      const newPromocode: Promocode = {
-        id: 1,
+      const submittedNewPromocode: NewPromocode = {
         name: formData.name,
         description: formData.description,
         percentageOff: formData.percentageOff,
         maxUsages: formData.maxUsages,
-        usages: 0,
-        totalPriceOrders: 0,
         available: true,
         dedicatedPromocode: formData.dedicatedPromocode,
         dedicatedUserEmail: formData.dedicatedUserEmail
       };
 
       for (let promocode of this.existingPromocodes) {
-        if (promocode.name === newPromocode.name) {
+        if (promocode.name === submittedNewPromocode.name) {
           this.promocodeAlreadyExists = true;
           return;
         }
       }
 
-      this.promocodeService$ = this.promocodeService.createPromocode(newPromocode).subscribe({
-        next(response) {
+      this.promocodeService$ = this.promocodeService.createPromocode(submittedNewPromocode).subscribe({
+        next:(response) => {
           console.log(response);
           window.location.reload();
         },
-        error(error) {
+        error: (error) => {
           if (error.status === 200) {
-            window.location.reload();
+            this.router.navigate(['/admin/promocodes'])
           } else {
             console.error(error);
           }

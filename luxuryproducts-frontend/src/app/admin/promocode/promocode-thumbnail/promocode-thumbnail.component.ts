@@ -24,7 +24,7 @@ export class PromocodeThumbnailComponent implements OnDestroy {
 
   constructor(private promocodeService: PromocodeService) {}
 
-  protected onDeletePromocode(id: number) {
+  protected onDeletePromocode(id: string) {
 
       if (confirm("Weet je zeker dat je deze promocode wil verwijderen? Dat kan niet ongedaan worden!")) {
           this.deletePromocode$ = this.promocodeService.deletePromocodeById(id).subscribe(
@@ -43,7 +43,7 @@ export class PromocodeThumbnailComponent implements OnDestroy {
       }
   }
 
-  protected onArchivePromocode(id: number) {
+  protected onArchivePromocode(id: string) {
       this.archivePromocode$ = this.promocodeService.archivePromocodeById(id).subscribe(
           {
              next: () => {
@@ -59,12 +59,7 @@ export class PromocodeThumbnailComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-      if (this.deletePromocode$) {
-          this.deletePromocode$.unsubscribe();
-      }
-
-      if (this.archivePromocode$) {
-          this.archivePromocode$.unsubscribe();
-      }
+      this.deletePromocode$?.unsubscribe();
+      this.archivePromocode$?.unsubscribe();
   }
 }

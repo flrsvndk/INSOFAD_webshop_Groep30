@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Promocode} from '../../../models/promocode.model';
 import {PromocodeService} from '../../../services/promocode.service';
 import {CommonModule} from '@angular/common';
@@ -12,14 +12,14 @@ import {Subscription} from "rxjs";
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SidepanelComponent],
   templateUrl: './promocode-edit.component.html',
-  styleUrls: ['./promocode-edit.component.scss']
+  styleUrl: './promocode-edit.component.scss'
 })
 export class PromocodeEditComponent implements OnInit, OnDestroy{
   @Input() public promocode!: Promocode;
   public editPromocodeForm: FormGroup;
-  public promocodeAlreadyExists: boolean = false;
+  public promocodeAlreadyExists: boolean;
   public existingPromocodes: Promocode[];
-  private promocodeId: number;
+  private promocodeId: string;
 
   private route$: Subscription;
   private promocodeService$: Subscription;
@@ -29,7 +29,8 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
   constructor(
       private fb: FormBuilder,
       private promocodeService: PromocodeService,
-      private activatedRoute: ActivatedRoute
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
   ) {}
 
   ngOnInit() {
@@ -57,19 +58,31 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
     });
 
     this.getPromocodes();
+    this.promocodeAlreadyExists = false;
   }
 
   ngOnDestroy() {
-    this.route$.unsubscribe();
-    this.promocodeService$.unsubscribe();
-    this.updatePromocode$.unsubscribe();
-    this.getPromocodes$.unsubscribe();
+    this.route$?.unsubscribe();
+    this.promocodeService$?.unsubscribe();
+    this.getPromocodes$?.unsubscribe();
+    this.updatePromocode$?.unsubscribe();
   }
 
   private loadPromocode():void {
     this.promocodeService$ = this.promocodeService.getPromocodeById(this.promocodeId)
         .subscribe((promocode: Promocode) => {
           this.promocode = promocode;
+          this.editPromocodeForm.patchValue({
+            name: promocode.name,
+            description: promocode.description,
+            percentageOff: promocode.percentageOff,
+            maxUsages: promocode.maxUsages,
+            dedicatedPromocode: promocode.dedicatedPromocode,
+            dedicatedUserEmail: promocode.dedicatedUserEmail
+          });
+          if (promocode.dedicatedPromocode) {
+            this.editPromocodeForm.get('dedicatedUserEmail')?.enable();
+          }
         });
   }
 
@@ -82,7 +95,7 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
   public onSubmit(): void {
     if (this.editPromocodeForm.valid) {
       const formData = this.editPromocodeForm.value;
-      const updatedPromocode: Promocode = {
+      const submittedPromocodeWithChanges: Promocode = {
         ...this.promocode,
         name: formData.name,
         description: formData.description,
@@ -93,26 +106,25 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
       };
 
       for (let promocode of this.existingPromocodes) {
-        if (promocode.name === updatedPromocode.name && promocode.id !== updatedPromocode.id) {
+        if (promocode.name === submittedPromocodeWithChanges.name && promocode.id !== submittedPromocodeWithChanges.id) {
           this.promocodeAlreadyExists = true;
           return;
         }
       }
-      if (!this.promocodeAlreadyExists) {
-        this.updatePromocode$ = this.promocodeService.updatePromocode(updatedPromocode).subscribe({
-          next: (response) => {
-            console.log(response);
-            window.location.reload();
-          },
-          error: (error) => {
-            if (error.status === 200) {
-              window.location.reload();
-            } else {
-              console.error(error);
-            }
+
+      this.updatePromocode$ = this.promocodeService.updatePromocode(submittedPromocodeWithChanges).subscribe({
+        next: (response) => {
+          console.log(response);
+          window.location.reload();
+        },
+        error: (error) => {
+          if (error.status === 200) {
+            this.router.navigate(['/admin/promocodes'])
+          } else {
+            console.error(error);
           }
-        });
-      }
+        }
+      });
     }
   }
 
@@ -124,4 +136,3 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
     );
   }
 }
-
