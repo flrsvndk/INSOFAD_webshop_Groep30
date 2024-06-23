@@ -46,10 +46,9 @@ public class OrderDAOTests {
 
 
 
-    //  USER STORY #59
-    //  Admin orders overzicht
+    //  STORY Admin orders overzicht
 
-    //  TEST Orders terugzien (Task #65)
+    //  TEST Orders terugzien
     @Test
     public void should_return_all_orders_when_called() {
         when(this.orderRepository.findAll()).thenReturn(this.dummyPlacedOrders);
@@ -61,7 +60,7 @@ public class OrderDAOTests {
 
 
 
-    //  TEST Orderstatus aanpassen (Task #66)
+    //  TEST Orderstatus aanpassen
     @Test
     public void should_set_status_processing_when_called() {
         when(this.orderRepository.findById(any())).thenReturn(Optional.of(this.dummyPlacedOrder));
