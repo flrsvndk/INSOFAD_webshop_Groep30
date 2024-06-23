@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,6 +55,9 @@ public class RetourDAOTests {
     private PlacedOrder dummyPlacedOrder;
     private RetourReason dummyReason;
     private OrderItem dummyOrderItem;
+    private OrderItem dummyOrderItemTrue;
+    private OrderItem dummyOrderItemFalse;
+    private Set<OrderItem> dummyOrderItems;
 
 
     @BeforeEach
@@ -81,6 +85,14 @@ public class RetourDAOTests {
         dummyPlacedOrder = new PlacedOrder();
         dummyReason = new RetourReason();
         dummyOrderItem = new OrderItem();
+
+        this.dummyOrderItemTrue = new OrderItem();
+        this.dummyOrderItemTrue.setReturned(true);
+
+        this.dummyOrderItemFalse = new OrderItem();
+        this.dummyOrderItemFalse.setReturned(false);
+
+        this.dummyOrderItems = new HashSet<>();
     }
 
 
@@ -205,5 +217,35 @@ public class RetourDAOTests {
         assertDoesNotThrow(() -> {
             retourDAO.createRetourRequest(dummyRetourRequestDTO);
         });
+    }
+
+
+
+    //  Admin orders overzicht
+
+    //  TEST Orderstatus aanpassen
+    @Test
+    public void should_set_partially_returned_when_partially_returned() {
+        this.dummyOrderItems.add(dummyOrderItemTrue);
+        this.dummyOrderItems.add(dummyOrderItemFalse);
+        this.dummyPlacedOrder.setOrderItems(List.copyOf(this.dummyOrderItems));
+        String expectedStatus = StaticDetails.ORDER_PARTIALLY_RETURNED;
+
+        PlacedOrder result = this.retourDAO.updateOrderStatusAfterRefund(this.dummyPlacedOrder);
+
+        assertThat(result.getStatus(), is(expectedStatus));
+        Mockito.verify(orderRepository, times(1)).save(this.dummyPlacedOrder);
+    }
+
+    @Test
+    public void should_set_returned_when_fully_returned() {
+        this.dummyOrderItems.add(dummyOrderItemTrue);
+        this.dummyPlacedOrder.setOrderItems(List.copyOf(this.dummyOrderItems));
+        String expectedStatus = StaticDetails.ORDER_RETURNED;
+
+        PlacedOrder result = this.retourDAO.updateOrderStatusAfterRefund(this.dummyPlacedOrder);
+
+        assertThat(result.getStatus(), is(expectedStatus));
+        Mockito.verify(orderRepository, times(1)).save(this.dummyPlacedOrder);
     }
 }

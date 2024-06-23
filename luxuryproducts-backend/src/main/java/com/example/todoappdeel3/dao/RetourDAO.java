@@ -117,7 +117,7 @@ public class RetourDAO {
         return retouredProducts;
     }
 
-    private PlacedOrder updateOrderStatusAfterRefund(PlacedOrder order) {
+    public PlacedOrder updateOrderStatusAfterRefund(PlacedOrder order) {
         List<OrderItem> orderItems = order.getOrderItems();
         for (OrderItem orderProduct : orderItems) {
             if (!orderProduct.isReturned()) {
