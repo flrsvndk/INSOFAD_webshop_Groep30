@@ -123,7 +123,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
         console.log(this.giftcardString);
         if (this.giftcardString != null && this.giftcardString != "") {
-            // @ts-ignore
             this.giftcardService.useGiftcards(this.giftcardString, this.totalPriceWithPromocode);
         }
     }
