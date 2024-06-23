@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/giftcards")
+
 public class GiftcardController {
 
     private final GiftcardDAO giftcardDAO;
