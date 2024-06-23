@@ -6,6 +6,7 @@ import {PromocodeService} from "../../../services/promocode.service";
 import {Promocode} from "../../../models/promocode.model";
 import {NewPromocode} from "../../../models/new-promocode.model";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-promocode',
@@ -26,7 +27,7 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
   private promocodeService$: Subscription;
   private getPromocodes$: Subscription;
 
-  constructor(private fb: FormBuilder, private promocodeService: PromocodeService) {
+  constructor(private fb: FormBuilder, private promocodeService: PromocodeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -84,13 +85,13 @@ export class CreatePromocodeComponent implements OnInit, OnDestroy {
       }
 
       this.promocodeService$ = this.promocodeService.createPromocode(submittedNewPromocode).subscribe({
-        next(response) {
+        next:(response) => {
           console.log(response);
           window.location.reload();
         },
-        error(error) {
+        error: (error) => {
           if (error.status === 200) {
-            window.location.reload();
+            this.router.navigate(['/admin/promocodes'])
           } else {
             console.error(error);
           }

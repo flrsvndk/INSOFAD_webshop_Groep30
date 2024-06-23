@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Promocode} from '../../../models/promocode.model';
 import {PromocodeService} from '../../../services/promocode.service';
 import {CommonModule} from '@angular/common';
@@ -29,7 +29,8 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
   constructor(
       private fb: FormBuilder,
       private promocodeService: PromocodeService,
-      private activatedRoute: ActivatedRoute
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
   ) {}
 
   ngOnInit() {
@@ -118,7 +119,7 @@ export class PromocodeEditComponent implements OnInit, OnDestroy{
         },
         error: (error) => {
           if (error.status === 200) {
-            window.location.reload();
+            this.router.navigate(['/admin/promocodes'])
           } else {
             console.error(error);
           }

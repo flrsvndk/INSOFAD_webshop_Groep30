@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 import {AuthResponse} from "../auth/auth-response.model";
@@ -16,7 +16,8 @@ import {HttpResponse} from "../models/http-response.model";
     NgIf,
     ReactiveFormsModule,
     NgForOf,
-    NgClass
+    NgClass,
+    CurrencyPipe
   ],
   templateUrl: './giftcards.component.html',
   styleUrl: './giftcards.component.scss'
