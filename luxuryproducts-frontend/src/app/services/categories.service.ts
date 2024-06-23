@@ -17,4 +17,8 @@ export class CategoriesService {
     return this.http.get<Category[]>(this.baseUrl)
   }
 
+  public createCategory(category: string){
+    return this.http.post(this.baseUrl, category, {responseType: 'text'});
+  }
+
 }
