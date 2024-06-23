@@ -1,0 +1,51 @@
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .row {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+
+      .col {
+        flex: 1;
+        margin: 10px;
+
+        h5 {
+          margin-bottom: 10px;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+
+          li {
+            margin: 5px 0;
+
+            a {
+              text-decoration: none;
+              color: #000;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+
+        p {
+          margin: 5px 0;
+        }
+      }
+    }
+
+    .text-center {
+      text-align: center;
+    }
+  }
+}

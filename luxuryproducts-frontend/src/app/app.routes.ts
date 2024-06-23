@@ -19,7 +19,6 @@ import {PlacedOrdersAdminComponent} from "./admin/placed-orders-admin/placed-ord
 import {UsersComponent} from "./admin/users/users.component";
 import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
-import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
 import {RetourPageComponent} from "./retour-page/retour-page.component";
 import {PromocodesComponent} from "./admin/promocode/promocodes/promocodes.component";
 import {CreatePromocodeComponent} from "./admin/promocode/create-promocode/create-promocode.component";
@@ -54,7 +53,6 @@ export const routes: Routes = [
   {path: 'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
   {path: 'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
-  {path: 'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
   {path: 'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
   {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
   {path: 'admin/promocodes', component: PromocodesComponent, canActivate: [AdminGuard]},
