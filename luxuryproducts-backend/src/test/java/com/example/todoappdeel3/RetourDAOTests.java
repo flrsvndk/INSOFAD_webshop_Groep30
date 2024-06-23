@@ -97,10 +97,9 @@ public class RetourDAOTests {
 
 
 
-    //  USER STORY #60
-    //  Admin retours overzicht
+    //  STORY Admin retours overzicht
 
-    //  TEST Retour verzoek beoordelen (Task #70)
+    //  TEST Retour verzoek beoordelen
     @Test
     public void should_set_status_accepted_when_called() {
         when(retourRequestRepository.findById(any())).thenReturn(Optional.of(dummyRetourRequest));
@@ -132,7 +131,7 @@ public class RetourDAOTests {
 
 
 
-    //  Test retourverzoeken terugvinden (Task #69)
+    //  Test retourverzoeken terugvinden
     @Test
     public void should_return_all_requests_when_called() {
         when(this.retourRequestRepository.findAll()).thenReturn(List.of(this.dummyRetourRequest));
@@ -145,10 +144,9 @@ public class RetourDAOTests {
 
 
 
-    //  USER STORY #61
-    //  Gebruiker orders overzicht
+    //  STORY Gebruiker orders overzicht
 
-    // Test: Retourverzoek indienen (Task #72)
+    //  Test: Retourverzoek indienen
     @Test
     public void should_create_request_when_all_inputs_valid() {
         setupMocksForValidRequest();
@@ -184,7 +182,7 @@ public class RetourDAOTests {
 
 
 
-    //  Test: 30 dagen retourbeleid (Task #73)
+    //  Test: 30 dagen retourbeleid
     @Test
     public void should_throw_exception_when_ordered_31_days_ago() {
         dummyPlacedOrder.setOrderDate(LocalDateTime.now().minusDays(31));
