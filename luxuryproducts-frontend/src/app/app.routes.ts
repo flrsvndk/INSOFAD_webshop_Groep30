@@ -14,12 +14,21 @@ import { OrderHistoryComponent } from './profile/order-history/order-history.com
 import {AdminComponent} from "./admin/admin.component";
 import {AdminGuard} from "./admin/admin.guard";
 import {ProductAdminComponent} from "./admin/product-admin/product-admin.component";
-import {NewProductComponent} from "./admin/product-admin/new-product/new-product.component";
 import {PlacedOrdersAdminComponent} from "./admin/placed-orders-admin/placed-orders-admin.component";
 import {UsersComponent} from "./admin/users/users.component";
 import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
 import {UpdateProductComponent} from "./admin/product-admin/update-product/update-product.component";
-import {UpdateRoleComponent} from "./admin/users/update-role/update-role.component";
+import {RetourPageComponent} from "./retour-page/retour-page.component";
+import {PromocodesComponent} from "./admin/promocode/promocodes/promocodes.component";
+import {CreatePromocodeComponent} from "./admin/promocode/create-promocode/create-promocode.component";
+import {PromocodeThumbnailComponent} from "./admin/promocode/promocode-thumbnail/promocode-thumbnail.component";
+import {PromocodeEditComponent} from "./admin/promocode/promocode-edit/promocode-edit.component";
+import {GiftcardsComponent} from "./giftcards/giftcards.component";
+import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
+import {NewProductComponent} from "./admin/product-admin/new-product/new-product.component";
+import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
+import {RetourRequestsAdminComponent} from "./admin/retour-requests-admin/retour-requests-admin.component";
+
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -35,16 +44,24 @@ export const routes: Routes = [
   {path: 'order-history', component: OrderHistoryComponent, canActivate: [authGuard] },
   {path: 'paymentsuccessful', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [authGuard]},
+  {path: 'retour-page/:id', component: RetourPageComponent, canActivate: [authGuard]},
+  {path: 'giftcards', component: GiftcardsComponent},
+  {path: 'my-giftcards', component: MyGiftcardsComponent, canActivate: [authGuard]},
 
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},
-  {path:'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
-  {path:'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
-  {path:'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
-  {path:'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
-  {path:'admin/users/role', component: UpdateRoleComponent, canActivate: [AdminGuard]},
-  {path:'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
+  {path: 'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
+  {path: 'admin/product/update/:id', component: UpdateProductComponent, canActivate: [AdminGuard]},
+  {path: 'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: 'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},
   {path: 'admin/**', component: AdminComponent, canActivate:[AdminGuard]},
+  {path: 'admin/promocodes', component: PromocodesComponent, canActivate: [AdminGuard]},
+  {path: 'admin/create-promocode', component: CreatePromocodeComponent, canActivate: [AdminGuard]},
+  {path: 'admin/promocodes/:id', component: PromocodeThumbnailComponent, canActivate: [AdminGuard]},
+  {path: 'admin/promocode-edit/:id', component: PromocodeEditComponent, canActivate: [AdminGuard]},
+  {path: 'admin/giftcards', component: GiftcardsAdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/retours', component: RetourRequestsAdminComponent, canActivate: [AdminGuard]},
 
   {path: '**', component: HomeComponent}
 ];

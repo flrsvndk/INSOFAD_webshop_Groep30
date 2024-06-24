@@ -1,0 +1,38 @@
+<div class="container my-4">
+    <div class="card mb-3">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-4">
+                <img src="{{ product.productSpecification.types.at(0)?.imgUrl }}" class="img-fluid rounded-start" alt="Product Image" style="max-height: 150px;">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+
+                    @for (productType of product.productSpecification.types; track $index){
+                            <p><span class="text-muted"> {{product.productSpecification.name}}: </span>{{ productType.name }}</p>
+                            <p>{{ product.id }}</p>
+                        @if (this.productsService.subSpecificationExist(productType)){
+                            <br>
+                            @for (productSubType of productType.subSpecification.types; track $index){
+                                <span class="text-muted">{{productType.subSpecification.name}}: </span>{{ productSubType.name }}
+                                <span class="text-muted">In Stock: </span>{{ productSubType.stock }}
+                                <span class="text-muted">Price: </span>{{ productSubType.price | currency: 'EUR' }}
+                                <br>
+                            }
+
+                        } @else {
+                            <span class="text-muted">In Stock: </span>{{ productType.stock }}
+                            <span class="text-muted">From: </span>{{ productType.price | currency: 'EUR' }}
+                        }
+                        <br>
+                    }
+                </div>
+            </div>
+            <div class="col-md-2 text-end">
+                <button [routerLinkActive]="['active']" [routerLink]="'/admin/product/update/' + product.id" class="btn btn-secondary m-2">
+                    Edit Product
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

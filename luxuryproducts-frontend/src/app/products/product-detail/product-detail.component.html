@@ -2,38 +2,55 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6 mb-5 mb-md-0">
-                <img class="img-fluid rounded" src="{{ product.productSpecification.types.at(type1Index)?.imgUrl }}" alt="Product Image" />
+                <img class="img-fluid rounded" src="{{ this.img }}" alt="Product Image" />
             </div>
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
                 <div class="fs-5 mb-4">
-                    <span>{{ productsService.calculatePrice(product, type1Index, type2Index) | currency: 'EUR' }}</span>
+                    <span>{{ productsService.calculatePrice(product, typeIndex1, typeIndex2) | currency: 'EUR' }}</span>
                 </div>
                 <p class="lead">{{ product.description }}</p>
+
                 <div class="mt-4">
                     <h4>{{ product.productSpecification.name }}</h4>
                     <div class="btn-group" role="group" aria-label="Product Types">
-                        <button *ngFor="let productType of product.productSpecification.types; let i = index"
-                                (click)="selectType(productType, i)"
-                                [class.btn-primary]="i === type1Index"
-                                class="btn"
-                                [ngClass]="{'btn-outline-primary': i !== type1Index}">
-                            {{ productType.name }}
-                        </button>
+                        @for (productType of product.productSpecification.types; track $index){
+                            <button
+                                    (click)="selectType(productType, $index)"
+                                    [class.btn-primary]="$index === typeIndex1"
+                                    [disabled]="!inStock(productType)"
+                                    class="btn"
+                                    [ngClass]="{'btn-outline-primary': $index !== typeIndex1}">
+                                @if(!inStock(productType)){
+                                    <strong>{{ productType.name }}</strong> is not in stock
+                                } @else {
+                                    {{ productType.name }}
+                                }
+                            </button>
+                        }
                     </div>
                 </div>
-                <div *ngIf="productsService.subSpecificationExist(chosenType)" class="mt-4">
-                    <h4>{{ chosenType.subSpecification.name }}</h4>
+                @if(productsService.subSpecificationExist(chosenType1)){
+                <div class="mt-4">
+                    <h4>{{ chosenType1.subSpecification.name }}</h4>
                     <div class="btn-group" role="group" aria-label="Sub Types">
-                        <button *ngFor="let subType of chosenType.subSpecification.types; let i = index"
-                                (click)="selectSubType(subType, i)"
-                                [class.btn-secondary]="i === type2Index"
-                                class="btn"
-                                [ngClass]="{'btn-outline-secondary': i !== type2Index}">
-                            {{ subType.name }}
-                        </button>
+                        @for (subType of chosenType1.subSpecification.types; track $index){
+                            <button
+                                    (click)="selectSubType(subType, $index)"
+                                    [class.btn-secondary]="$index === typeIndex2"
+                                    [disabled]="!inStock(subType)"
+                                    class="btn"
+                                    [ngClass]="{'btn-outline-secondary': $index !== typeIndex2}">
+                                @if(!inStock(subType)){
+                                    <strong>{{ subType.name }}</strong> is not in stock
+                                } @else {
+                                    {{ subType.name }}
+                                }
+                            </button>
+                        }
                     </div>
                 </div>
+                }
                 <div class="mt-4">
                     <button (click)="onBuyProduct(product)" [disabled]="!canOrder()" class="btn btn-primary btn-lg w-100">
                         Voeg toe aan winkelmand

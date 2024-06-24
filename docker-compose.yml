@@ -6,14 +6,14 @@ services:
             - "4200:80"
         depends_on:
             - backend
-            - postgres
+            - database
 
-    postgres:
+    database:
         image: postgres:16
         environment:
             POSTGRES_DB: luxuryproductsbob
-            POSTGRES_USER: bobwebshop
-            POSTGRES_PASSWORD: ilovepuppies
+            POSTGRES_USER:
+            POSTGRES_PASSWORD:
         ports:
             - "5432:5432"
 
@@ -25,9 +25,9 @@ services:
             - "8080:8080"
         environment:
             - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/luxuryproductsbob
-            - SPRING_DATASOURCE_USERNAME=bobwebshop
-            - SPRING_DATASOURCE_PASSWORD=ilovepuppies
+            - SPRING_DATASOURCE_USERNAME=
+            - SPRING_DATASOURCE_PASSWORD=
         depends_on:
-            - postgres
+            - database
     
     

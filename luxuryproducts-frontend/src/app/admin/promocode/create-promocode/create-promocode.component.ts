@@ -1,0 +1,110 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {PromocodeThumbnailComponent} from "../promocode-thumbnail/promocode-thumbnail.component";
+import {SidepanelComponent} from "../../sidepanel/sidepanel.component";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {PromocodeService} from "../../../services/promocode.service";
+import {Promocode} from "../../../models/promocode.model";
+import {NewPromocode} from "../../../models/new-promocode.model";
+import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
+
+@Component({
+  selector: 'app-create-promocode',
+  standalone: true,
+  imports: [
+    PromocodeThumbnailComponent,
+    SidepanelComponent,
+    ReactiveFormsModule
+  ],
+  templateUrl: './create-promocode.component.html',
+  styleUrl: './create-promocode.component.scss'
+})
+export class CreatePromocodeComponent implements OnInit, OnDestroy {
+  public createPromocodeForm: FormGroup;
+  public existingPromocodes: Promocode[];
+  public promocodeAlreadyExists: boolean = false;
+
+  private promocodeService$: Subscription;
+  private getPromocodes$: Subscription;
+
+  constructor(private fb: FormBuilder, private promocodeService: PromocodeService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.createPromocodeForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(255)]],
+      percentageOff: ['', [Validators.required, Validators.min(5), Validators.max(50)]],
+      maxUsages: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
+      dedicatedPromocode: [false],
+      dedicatedUserEmail: [{value: '', disabled: true}, [Validators.email, Validators.maxLength(100)]],
+    });
+
+    this.createPromocodeForm.get('dedicatedPromocode')?.valueChanges.subscribe((value) => {
+      const dedicatedUserEmailControl = this.createPromocodeForm.get('dedicatedUserEmail');
+      if (value) {
+        dedicatedUserEmailControl?.enable();
+      } else {
+        dedicatedUserEmailControl?.disable();
+        dedicatedUserEmailControl?.reset();
+      }
+    });
+
+    this.getPromocodes();
+  }
+
+  ngOnDestroy() {
+    this.promocodeService$?.unsubscribe();
+    this.getPromocodes$?.unsubscribe();
+  }
+
+  public onNameInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+    this.createPromocodeForm.get('name')?.setValue(input.value, {emitEvent: false});
+  }
+
+  public onSubmit(): void {
+    if (this.createPromocodeForm.valid) {
+      const formData = this.createPromocodeForm.value;
+      const submittedNewPromocode: NewPromocode = {
+        name: formData.name,
+        description: formData.description,
+        percentageOff: formData.percentageOff,
+        maxUsages: formData.maxUsages,
+        available: true,
+        dedicatedPromocode: formData.dedicatedPromocode,
+        dedicatedUserEmail: formData.dedicatedUserEmail
+      };
+
+      for (let promocode of this.existingPromocodes) {
+        if (promocode.name === submittedNewPromocode.name) {
+          this.promocodeAlreadyExists = true;
+          return;
+        }
+      }
+
+      this.promocodeService$ = this.promocodeService.createPromocode(submittedNewPromocode).subscribe({
+        next:(response) => {
+          console.log(response);
+          window.location.reload();
+        },
+        error: (error) => {
+          if (error.status === 200) {
+            this.router.navigate(['/admin/promocodes'])
+          } else {
+            console.error(error);
+          }
+        }
+      });
+    }
+  }
+
+  private getPromocodes(): void {
+    this.getPromocodes$ = this.promocodeService.getPromocodes().subscribe(
+        (receivedPromocodes: Promocode[]) => {
+          this.existingPromocodes = receivedPromocodes;
+        }
+    );
+  }
+}

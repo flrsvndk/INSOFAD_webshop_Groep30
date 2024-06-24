@@ -1,0 +1,14 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar">
+            <app-sidepanel></app-sidepanel>
+        </aside>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <h1 style="text-align: center;">Promocodes</h1>
+            <h1 style="text-align: right; margin-right: .8rem;"><button class="btn btn-success fw-bolder" style="width: 15rem;" [routerLink]="['/admin/create-promocode']"><i class="bi-plus"></i>Aanmaken</button></h1>
+            @for (promocode of promocodes; track $index) {
+                <app-promocode-thumbnail [promocode]="promocode"></app-promocode-thumbnail>
+            }
+        </main>
+    </div>
+</div>

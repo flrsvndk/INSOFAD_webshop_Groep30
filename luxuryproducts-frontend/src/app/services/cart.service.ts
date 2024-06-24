@@ -1,12 +1,11 @@
-
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
-import { Product } from '../models/product.model';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Form, FormGroup } from '@angular/forms';
-import { Order } from '../models/order.model';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, catchError, Observable, throwError} from 'rxjs';
+import {Product} from '../models/product.model';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Order} from '../models/order.model';
 import {ProductType} from "../models/product-type.model";
+import {ProductsService} from "./products.service";
 
 
 const localStorageKey: string = "products-in-cart";
@@ -17,20 +16,26 @@ const localStorageKey: string = "products-in-cart";
 export class CartService {
   private productsInCart: ProductType[] = [];
   public $productInCart: BehaviorSubject<ProductType[]> = new BehaviorSubject<ProductType[]>([]);
-  private baseUrl: string = environment.base_url + "/orders";
+  private baseUrl: string = environment.BASE_URL + "/orders";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private productService: ProductsService) {
     this.loadProductsFromLocalStorage();
+  }
+
+  public productName(productType: ProductType) : Observable<Product> {
+    return this.productService.getProductById(productType.productId);
   }
 
   public addProductToCart(productType: ProductType) {
     let existingProductIndex: number = this.productsInCart.findIndex(product => product.id === productType.id);
 
     if (existingProductIndex !== -1) {
-      this.productsInCart[existingProductIndex].amount += 1;
+      if(productType.stock > productType.amount) {
+        this.productsInCart[existingProductIndex].amount += 1;
+      }
     } else {
-      productType.amount = 1;
-      this.productsInCart.push(productType);
+        productType.amount = 1;
+        this.productsInCart.push(productType);
     }
 
     this.saveProductsAndNotifyChange();
@@ -57,17 +62,16 @@ export class CartService {
 
 
   public addOrder(order: Order): Observable<Order> {
-    console.log("Ontvangen order: " + order);
+      console.log("Ontvangen order: " + order);
 
-   return this.http.post<Order>(this.baseUrl, order).pipe(
-    catchError(error => {
-      console.error('Error adding order:', error);
-      return throwError(error); // Rethrow the error to propagate it to the caller
-    })
-  );
-}
+     return this.http.post<Order>(this.baseUrl, order).pipe(
+        catchError(error => {
+          console.error('Error adding order:', error);
+          return throwError(error);
+        })
+     );
+  }
 
-  // ------------ PRIVATE ------------------
 
   private saveProductsAndNotifyChange(): void {
     this.saveProductsToLocalStorage(this.productsInCart.slice());
@@ -81,8 +85,7 @@ export class CartService {
   private loadProductsFromLocalStorage(): void {
     let productsOrNull = localStorage.getItem(localStorageKey);
     if (productsOrNull != null) {
-      let products: ProductType[] = JSON.parse(productsOrNull);
-      this.productsInCart = products;
+      this.productsInCart = JSON.parse(productsOrNull);
       this.$productInCart.next(this.productsInCart.slice());
     }
   }

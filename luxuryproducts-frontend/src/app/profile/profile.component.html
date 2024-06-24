@@ -11,7 +11,7 @@
                         <h4 class="card-title text-center">User Information</h4>
                         <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
                         <p class="card-text" *ngIf="user.infix"><strong>Tussenvoegsel:</strong> {{ user.infix }}</p>
-                        <p class="card-text"><strong>Achternaam:</strong> {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Lastname:</strong> {{ user.lastName }}</p>
                         <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
 
                         <div *ngIf="userAdressSaved(user)">
@@ -22,9 +22,12 @@
                         </div>
 
                         <div class="d-flex justify-content-center mt-4">
-                            <a href="/profile-update" class="btn btn-primary mr-2">Wijzigen</a>
-                            <a href="/order-history" class="btn btn-secondary mr-2">Bestel geschiedenis</a>
-                            <a *ngIf="isStaff(user)" href="/admin" class="btn btn-warning">Admin Dashboard</a>
+                            <a href="/profile-update" class="btn btn-primary mr-2">Update</a>
+                            <a id="order-history" href="/order-history" class="btn btn-secondary mr-2">Order History</a>
+                            <a href="/my-giftcards" class="btn btn-secondary mr-2">My Giftcards</a>
+                            @if (isStaff(user)){
+                                <a id="admin-dashboard" href="/admin" class="btn btn-warning">Admin Dashboard</a>
+                            }
                         </div>
                     </div>
                 </div>

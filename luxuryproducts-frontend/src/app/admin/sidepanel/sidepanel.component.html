@@ -1,9 +1,11 @@
-
-    <div class="list-group">
+ <div class="list-group">
         <a [routerLink]="'/admin/orders'" class="list-group-item list-group-item-action">Placed Orders</a>
+        <a [routerLink]="'/admin/retours'" class="list-group-item list-group-item-action">Retour Requests</a>
         <a [routerLink]="'/admin/products'" class="list-group-item list-group-item-action">Products Dashboard</a>
         @if(this.admin){
             <a [routerLink]="'/admin/categories'" class="list-group-item list-group-item-action">Categories</a>
             <a [routerLink]="'/admin/users'" class="list-group-item list-group-item-action">User Overview</a>
+            <a [routerLink]="'/admin/giftcards'" class="list-group-item list-group-item-action">Giftcards</a>
+            <a [routerLink]="'/admin/promocodes'" class="list-group-item list-group-item-action">Promocodes</a>
         }
     </div>

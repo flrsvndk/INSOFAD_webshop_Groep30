@@ -7,43 +7,20 @@
             <div class="text-center mb-4">
                 <h1 class="h3">Order History</h1>
             </div>
-            @for(order of orders; track $index){
-                <div class="card mb-4 shadow">
-                    <div class="card-header">
-                        <h5 class="card-title">Order ID: {{ order.id }}</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>User ID: {{ order.userId }}</p>
-                                <p>Order Date: {{ order.orderDate | date: 'medium' }}</p>
-                                <p *ngIf="order.notes">Notes: {{ order.notes }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Address: {{ order.adress.zipcode }}, {{ order.adress.houseNumber }} {{ order.adress.houseNumberAddition }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        @for(orderItem of order.orderItems; track $index){
-                            <li class="list-group-item">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <img src="{{orderItem.productType.imgUrl}}" alt="{{ orderItem.productType.name }}" class="img-thumbnail mr-3" style="width: 100px; height: auto;">
-                                        <span>{{ orderItem.productType.name }}</span>
-                                    </div>
-                                    <div>
-                                        <span>Quantity: {{ orderItem.quantity }}</span>
-                                        <span class="ml-3">Price: {{ orderItem.productType.price | currency: 'EUR' }}</span>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        <li class="list-group-item font-weight-bold">
-                            Total: {{ order.totalProductsPrice | currency: 'EUR' }}
-                        </li>
-                    </ul>
+            <div class="row">
+                <div class="col-6 float-start">
+                    <button class="btn btn-light" (click)="toggleSort()"><i class="{{ sortNewestFirst ? 'bi bi-sort-down' : 'bi bi-sort-down-alt' }}"></i> {{ sortNewestFirst ? 'Oldest First' : 'Newest First' }}</button>
                 </div>
+                <div class="col-6 float-start">
+                    <form (ngSubmit)="alterOrders()">
+                        <input class="form-control" placeholder="Search by order id..." [(ngModel)]="searchFilter" name="filter">
+                        <button class="btn btn-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            @for(order of alteredOrders; track $index){
+                <app-admin-order-thumbnail [order]="order"></app-admin-order-thumbnail>
             }
         </main>
     </div>

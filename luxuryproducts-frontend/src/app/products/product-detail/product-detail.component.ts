@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {Product} from '../../models/product.model';
@@ -16,12 +16,12 @@ import {ProductType} from "../../models/product-type.model";
 })
 export class ProductDetailComponent {
   @Input() public product!: Product;
-  private productId: number;
-  public chosenType: ProductType;
-  public currentType: ProductType;
+  private productId: string;
+  public chosenType1: ProductType;
+  public chosenType2: ProductType;
   public img: string;
-  public type1Index: number = 0;
-  public type2Index: number = 0;
+  public typeIndex1: number = 0;
+  public typeIndex2: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,43 +36,55 @@ export class ProductDetailComponent {
     });
 
     this.productsService
-      .getProductByIndex(this.productId)
+      .getProductById(this.productId)
       .subscribe((product: Product) => {
         this.product = product;
       });
   }
 
   public selectType(productType: ProductType, index: number){
-    this.chosenType = productType;
-    this.type1Index = index;
-    this.img = this.chosenType.imgUrl;
-    console.log(this.chosenType.name);
+    this.chosenType1 = productType;
+    this.typeIndex1 = index;
+    this.img = this.chosenType1.imgUrl;
+    console.log(this.chosenType1.name);
+    console.log(this.img);
+  }
+
+  public inStock(productType: ProductType): boolean{
+    if(this.productsService.subSpecificationExist(productType)){
+      return true;
+    } else return productType.stock > 0;
   }
 
   public selectSubType(productType: ProductType, index: number){
-    this.currentType = productType;
-    this.type2Index = index;
-    this.img = this.chosenType.imgUrl;
-    console.log(this.currentType.name + " " + this.chosenType.name);
+    this.chosenType2 = productType;
+    this.typeIndex2 = index;
+    this.img = this.chosenType2.imgUrl;
+    console.log(this.chosenType2.name + " " + this.chosenType2.name);
   }
 
 
   public canOrder(): boolean{
-    if(this.chosenType == null){
+    if(this.chosenType1 == null){
       return false;
-    } else{
-      return true;
+    } else if (!this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType1) {
+      return this.inStock(this.chosenType1);
+    } else if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
+      return this.inStock(this.chosenType2);
+    } else {
+      return false;
     }
   }
 
   public onBuyProduct(product: Product) {
-    if(this.currentType == null){
-      if(product.productSpecification.types.includes(this.chosenType)) {
-        this.cartService.addProductToCart(this.chosenType);
+    if(this.canOrder()) {
+      if (this.chosenType2 == null) {
+        if (product.productSpecification.types.includes(this.chosenType1)) {
+          this.cartService.addProductToCart(this.chosenType1);
+        }
+      } else if (product.productSpecification.types.includes(this.chosenType1)) {
+        this.cartService.addProductToCart(this.chosenType2);
       }
-    }
-    if(product.productSpecification.types.includes(this.chosenType)) {
-      this.cartService.addProductToCart(this.currentType);
     }
   }
 

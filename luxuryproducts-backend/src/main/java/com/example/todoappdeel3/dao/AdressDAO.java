@@ -3,13 +3,13 @@ package com.example.todoappdeel3.dao;
 import com.example.todoappdeel3.dto.AdressDTO;
 import com.example.todoappdeel3.models.Adress;
 import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.repositories.AdressRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.services.CredentialValidator;
 import com.example.todoappdeel3.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Component
 public class AdressDAO {
@@ -30,7 +30,7 @@ public class AdressDAO {
         CustomUser user = userService.getUser();
 
         if(adressDTO == null){
-            if (!user.getAdress().getZipcode().isEmpty()) {
+            if (user.getAdress() != null && !user.getAdress().getZipcode().isEmpty()) {
                 Adress adress = user.getAdress();
                 return adress;
             } throw new ResponseStatusException(

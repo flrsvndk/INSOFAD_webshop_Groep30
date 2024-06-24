@@ -1,17 +1,14 @@
 package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.config.JWTUtil;
-import com.example.todoappdeel3.dao.AdressDAO;
 import com.example.todoappdeel3.dao.AuthenticationDAO;
-import com.example.todoappdeel3.dao.UserRepository;
+import com.example.todoappdeel3.repositories.UserRepository;
 import com.example.todoappdeel3.dto.AuthenticationDTO;
 import com.example.todoappdeel3.dto.CustomUserDTO;
 import com.example.todoappdeel3.dto.LoginResponse;
 import com.example.todoappdeel3.dto.RoleUpgradeDTO;
-import com.example.todoappdeel3.models.Adress;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.services.CredentialValidator;
-import com.example.todoappdeel3.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,12 +16,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,7 +50,7 @@ public class AuthController {
         return ResponseEntity.ok(this.authenticationDAO.getStaff());
     }
 
-    @PostMapping("/admin/new/role")
+    @PutMapping("/role/new")
     public ResponseEntity<String> addNewRole(@RequestBody RoleUpgradeDTO roleUpgradeDTO) {
         String message = this.authenticationDAO.newRole(roleUpgradeDTO);
         return ResponseEntity.ok(message);
@@ -128,6 +126,18 @@ public class AuthController {
         return ResponseEntity.ok(userDAO.findAll());
     }
     
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<CustomUser> getUserWithId(@PathVariable("id") UUID id){
+        Optional<CustomUser> customUserOptional =  this.userDAO.findById(id);
+        if(customUserOptional.isPresent()){
+            return ResponseEntity.ok(customUserOptional.get());
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user was not found"
+            );
+        }
+    }
 
     @GetMapping("/user/role")
     public ResponseEntity<String> getUserRole() {

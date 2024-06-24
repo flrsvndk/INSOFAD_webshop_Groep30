@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1cc5c76a-7848-42eb-8b50-9029ef608f12",
+    "orderDate": "2024-06-21T14:55:56.000009",
+    "notes": null,
+    "orderItems": [
+      {
+        "id": 1,
+        "quantity": 1,
+        "productType": {
+          "id": "b96b7379-3de7-4161-8511-576764d4b1df",
+          "name": "silver",
+          "stock": 8,
+          "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+          "price": 55003.0,
+          "productId": "dcc1c338-9f12-460f-aaec-20c186de43d8",
+          "subSpecification": null
+        },
+        "returned": false
+      }
+    ],
+    "adress": {
+      "id": "a2827052-af32-4132-8b38-523d5b3a4c3f",
+      "zipcode": "0000XX",
+      "houseNumber": 99,
+      "houseNumberAddition": ""
+    },
+    "status": "DELIVERED",
+    "totalPriceBeforePromocode": 0.0,
+    "totalPriceAfterPromocode": 0.0
+  },
+  {
+    "id": "3d27eddd-8155-411c-8c1b-d26bcec6c798",
+    "orderDate": "2024-04-22T14:55:56.03525",
+    "notes": null,
+    "orderItems": [
+      {
+        "id": 2,
+        "quantity": 1,
+        "productType": {
+          "id": "b96b7379-3de7-4161-8511-576764d4b1df",
+          "name": "silver",
+          "stock": 8,
+          "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+          "price": 55003.0,
+          "productId": "dcc1c338-9f12-460f-aaec-20c186de43d8",
+          "subSpecification": null
+        },
+        "returned": false
+      }
+    ],
+    "adress": {
+      "id": "a2827052-af32-4132-8b38-523d5b3a4c3f",
+      "zipcode": "0000XX",
+      "houseNumber": 99,
+      "houseNumberAddition": ""
+    },
+    "status": "DELIVERED",
+    "totalPriceBeforePromocode": 0.0,
+    "totalPriceAfterPromocode": 0.0
+  }
+]

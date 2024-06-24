@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1dd7a6d6-4d22-48f0-ac6f-6cd2aa050bd0",
+    "reason": "Defect bij ontvangst"
+  },
+  {
+    "id": "77b7ccf4-943f-4011-abdb-f02294c6aa89",
+    "reason": "Komt niet overeen met beschrijving"
+  },
+  {
+    "id": "20a64260-9000-4d14-a78b-ed965a9cf0a6",
+    "reason": "Verkeerd geleverd"
+  },
+  {
+    "id": "743309db-cf2c-4554-8eb2-3d1728fd590d",
+    "reason": "Van gedachten veranderd"
+  }
+]

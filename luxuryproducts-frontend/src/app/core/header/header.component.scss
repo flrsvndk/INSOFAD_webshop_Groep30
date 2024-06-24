@@ -1,3 +1,44 @@
 .webshop-name {
   color: black;
 }
+
+.lds-facebook,
+.lds-facebook div {
+  box-sizing: border-box;
+}
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 40px; /* Reduced width */
+  height: 40px; /* Reduced height */
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 4px; /* Adjusted left position */
+  width: 8px; /* Reduced width */
+  background: currentColor;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 4px; /* Adjusted left position */
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 16px; /* Adjusted left position */
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 28px; /* Adjusted left position */
+  animation-delay: 0s;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 4px; /* Adjusted top position */
+    height: 32px; /* Reduced height */
+  }
+  50%, 100% {
+    top: 12px; /* Adjusted top position */
+    height: 16px; /* Reduced height */
+  }
+}

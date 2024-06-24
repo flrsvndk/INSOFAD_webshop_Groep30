@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="ownedGiftcards-container" *ngIf="ownedGiftcards && ownedGiftcards.length > 0; else noOwnedGiftcards">
+                <div class="giftcard card mb-4" *ngFor="let giftcard of ownedGiftcards; index as i">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="customer-info">
+                                <h4>
+                                  <span class="fw-bold"></span>{{giftcard.value | currency: 'EUR'}}
+                                  <button *ngIf="giftcard.price >= 10 && giftcard.value < 10" class="btn btn-primary" (click)="charge(10, giftcard.id)">10</button>
+                                  <button *ngIf="giftcard.price >= 25 && giftcard.value < 25" class="btn btn-primary" (click)="charge(25, giftcard.id)">25</button>
+                                  <button *ngIf="giftcard.price >= 50 && giftcard.value < 50" class="btn btn-primary" (click)="charge(50, giftcard.id)">50</button>
+                                  <button *ngIf="giftcard.price >= 100 && giftcard.value < 100" class="btn btn-primary" (click)="charge(100, giftcard.id)">100</button>
+                                  <button *ngIf="giftcard.price >= 250 && giftcard.value < 250" class="btn btn-primary" (click)="charge(250, giftcard.id)">250</button>
+                                </h4>
+                                <h5>
+                                  <span class="fw-bold">Bought by:</span> {{giftcard.buyerEmail}}
+                                </h5>
+                                <h5 *ngIf="giftcard.ownerEmail != ''">
+                                  <span class="fw-bold">Sent to:</span> {{giftcard.ownerEmail}}
+                                </h5>
+                                <p>
+                                  <span class="fw-bold">Message:</span> {{giftcard.message}}
+                                </p>
+                                <p>
+                                  <span class="fw-bold">Initial value:</span> {{giftcard.price | currency: 'EUR'}}
+                                </p>
+                            </div>
+                            <p class="giftcard-info"><span>CODE:</span> {{giftcard.id}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #noOwnedGiftcards>
+                <div class="no-giftcards-message">
+                    <p>You don't own any giftcards.</p>
+                </div>
+            </ng-template>
+
+            <div class="ownedGiftcards-container" *ngIf="boughtGiftcards && boughtGiftcards.length > 0; else noBoughtGiftcards">
+                <div class="giftcard card mb-4" *ngFor="let giftcard of boughtGiftcards">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="customer-info">
+                                <h4><span class="fw-bold"></span>{{giftcard.price | currency: 'EUR'}}</h4>
+                                <h5><span class="fw-bold">Sent to:</span> {{giftcard.ownerEmail}}</h5>
+                                <p><span class="fw-bold">Message:</span> {{giftcard.message}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #noBoughtGiftcards>
+                <p>You haven't bought any giftcards.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

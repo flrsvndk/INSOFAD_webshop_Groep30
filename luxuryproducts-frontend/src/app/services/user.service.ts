@@ -1,21 +1,19 @@
-import {inject, Injectable, OnInit} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, map, Observable, tap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
 import {AuthResponse} from "../auth/auth-response.model";
 import {TokenService} from "../auth/token.service";
-import {when} from "jquery";
-import {Product} from "../models/product.model";
-import {ProductsService} from "./products.service";
-import {CartService} from "./cart.service";
-import {waitForAsync} from "@angular/core/testing";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-    private baseUrl: string = environment.base_url + "/auth/user";
+    private baseUrl: string = environment.BASE_URL + "/auth/user";
+    private adminUrl: string = environment.BASE_URL + "/auth";
+
     public $userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient, private tokenService: TokenService) {
@@ -46,6 +44,15 @@ export class UserService {
 
     public getUserRole() {
         return this.http.get(`${this.baseUrl}/role`,{responseType: 'text'});
+    }
+
+    public updateUserRole(newRole: FormGroup){
+        return this.http.put(`${this.adminUrl}/role/new`, newRole, {responseType: 'text'});
+
+    }
+
+    public getUserFromId(userId: string): Observable<User> {
+        return this.http.get<User>(`${this.baseUrl}/${userId}`);
     }
 
 

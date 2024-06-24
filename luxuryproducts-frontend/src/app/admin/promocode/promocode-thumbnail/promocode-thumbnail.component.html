@@ -1,0 +1,46 @@
+<section class="w-100 px-3 py-5" style="background-color: #eee; border-radius: .5rem .5rem 0 0; padding-bottom: 0 !important; padding-top: 1rem !important;">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12" ><h1 class="fw-bold">{{ promocode.name }}</h1></div>
+        </div>
+
+        <div class="row" style="height: 3.5rem">
+            <div class="col-9" style="vertical-align: middle; align-content: center;"><h3>{{ promocode.description }}</h3></div>
+            <div class="col-3" style="border-left: 1px solid lightgray;"><button [routerLink]="['/admin/promocode-edit', promocode.id]" class="btn btn-secondary bi-pencil-fill" style="width: 240px; font-weight: bold;" id="edit"> Aanpassen</button></div>
+        </div>
+
+        <div class="row" style="height: 3.5rem">
+            <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center"><h4>Korting: {{ promocode.percentageOff }}%</h4></div>
+
+            @if (promocode.dedicatedPromocode){
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center"><h4>Gebruiker: {{ promocode.dedicatedUserEmail }}</h4></div>
+            }
+            @else {
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center"><h4>Universele Code</h4></div>
+            }
+
+            @if (promocode.available){
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center;" id="available"><h5 style="color: green; font-weight: bold">Beschikbaar</h5></div>
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive-fill" style="width: 240px; font-weight: bold" id="archive" (click)="onArchivePromocode(promocode.id)"> Archiveren</button></div>
+            } @else {
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center" id="notAvailable"><p style="color: red; font-weight: bold">Niet Beschikbaar</p></div>
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive" style="width: 240px; font-weight: bold" id="unarchive" (click)="onArchivePromocode(promocode.id)"> De-archiveren</button></div>
+            }
+        </div>
+
+        <div class="row" style="height: 3.5rem;">
+            <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Gebruikt: {{ promocode.usages }}</h5></div>
+            <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Maximaal: {{ promocode.maxUsages }}</h5></div>
+            <div class="col-3" style="vertical-align: middle; align-content: center; text-align: center; border-top: 1px solid lightgray"><h5 style="font-weight: bold;">Opbrengst: {{ promocode.totalPriceOrders | currency: 'EUR' }}</h5></div>
+
+            @if (promocode.usages > 0) {
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)" disabled> Verwijderen</button></div>
+            } @else {
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" id="delete" (click)="onDeletePromocode(promocode.id)"> Verwijderen</button></div>
+            }
+        </div>
+
+    </div>
+</section>
+<br>

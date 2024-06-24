@@ -1,0 +1,12 @@
+{
+  "id": "f8caa349-3f77-4b16-997e-d416a05f5d67",
+  "name": "TESTPROMOCODE123",
+  "description": "Testbeschrijving voor de Promocode! 10%!",
+  "percentageOff": 10,
+  "maxUsages": 100,
+  "usages": 0,
+  "totalPriceOrders": 0.0,
+  "available": true,
+  "dedicatedPromocode": true,
+  "dedicatedUserEmail": "user@example.com"
+}

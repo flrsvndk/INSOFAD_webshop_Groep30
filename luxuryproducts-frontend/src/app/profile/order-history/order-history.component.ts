@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {CommonModule, CurrencyPipe, DatePipe} from "@angular/common";
 import {OrderService} from "../../services/order.service";
 import {ExistingOrder} from "../../models/existing-order.model";
+import {UserOrderThumbnailComponent} from "./user-order-thumbnail/user-order-thumbnail.component";
+import {FormsModule} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {SortingFilteringService} from "../../services/sorting-filtering.service";
 
 @Component({
   selector: 'app-order-history',
@@ -11,62 +15,43 @@ import {ExistingOrder} from "../../models/existing-order.model";
   imports: [
     CommonModule,
     DatePipe,
-    CurrencyPipe
+    CurrencyPipe,
+    UserOrderThumbnailComponent,
+    FormsModule
   ],
   styleUrls: ['./order-history.component.scss']
 })
-export class OrderHistoryComponent implements OnInit {
-  orders: ExistingOrder[];
+export class OrderHistoryComponent implements OnInit, OnDestroy {
 
-  constructor(private orderService: OrderService) {
+  public orders: ExistingOrder[];
+  public alteredOrders: ExistingOrder[];
+
+  public sortNewestFirst: boolean = true;
+  public searchFilter: string = '';
+
+  private orders$: Subscription;
+
+  constructor(private orderService: OrderService,
+              private sortFilterService: SortingFilteringService) {
   }
 
   ngOnInit(): void {
     this.orderService.getOrdersByCurrentUser().subscribe((orders: ExistingOrder[]) => {
       this.orders = orders;
+      this.alterOrders();
     });
   }
-}
 
-// import { Component, OnInit } from '@angular/core';
-// import { OrderService } from '../../services/order.service'; // Pas dit pad aan naar waar je service zich bevindt
-// import { Order } from '../../models/order.model'; // Pas dit pad aan naar waar je model zich bevindt
-// import { CommonModule } from '@angular/common';
-// import {ExistingOrder} from "../../models/existing-order.model";
-// import {of} from "rxjs";
-// import {OrderItem} from "../../models/order-item.model";
-//
-//
-// @Component({
-//   selector: 'app-order-history',
-//   templateUrl: './order-history.component.html',
-//   imports: [CommonModule],
-//   standalone: true,
-//   styleUrls: ['./order-history.component.scss']
-// })
-// export class OrderHistoryComponent implements OnInit {
-//   orders: ExistingOrder[] = [];
-//
-//   constructor(private orderService: OrderService) { }
-//
-//   ngOnInit() {
-//     this.loadOrders();
-//   }
-//
-//   loadOrders() {
-//     this.orderService
-//         .getOrdersByCurrentUser()
-//         .subscribe(orders => {
-//           this.orders = orders;
-//         });
-//   }
-//
-//   // calculateTotal(products: any[]): number {
-//   //   let total = 0;
-//   //   for (const product of products) {
-//   //     total += product.price;
-//   //   }
-//   //   return Number(total.toFixed(2));
-//   // }
-//     protected readonly OrderItem = OrderItem;
-// }
+  ngOnDestroy() {
+    this.orders$?.unsubscribe();
+  }
+
+  public toggleSort() {
+    this.sortNewestFirst = !this.sortNewestFirst;
+    this.alterOrders();
+  }
+
+  public alterOrders() {
+    this.alteredOrders = this.sortFilterService.alterOrders(this.orders, this.searchFilter, this.sortNewestFirst);
+  }
+}
