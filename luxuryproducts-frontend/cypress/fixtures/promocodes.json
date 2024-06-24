@@ -1,0 +1,175 @@
+[
+  {
+    "id": "612f1cf0-e126-4837-9006-e53b16229b8c",
+    "name": "WINTERSALE25",
+    "description": "Krijg 25% korting op het gehele assortiment!",
+    "percentageOff": 25,
+    "maxUsages": 15,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null,
+    "placedOrders": []
+  },
+  {
+    "id": "092255b8-c200-4d16-a0f9-bc0990cfe7e4",
+    "name": "HERFSTSALE5",
+    "description": "Krijg 5% korting op het gehele assortiment!",
+    "percentageOff": 5,
+    "maxUsages": 10,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null,
+    "placedOrders": []
+  },
+  {
+    "id": "edda292a-65ab-47c3-bbbc-25a9008cd1ba",
+    "name": "LENTESALE20",
+    "description": "Krijg 20% korting op het gehele assortiment!",
+    "percentageOff": 20,
+    "maxUsages": 1,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": true,
+    "dedicatedUserEmail": "test@test.com",
+    "placedOrders": []
+  },
+  {
+    "id": "f8caa569-3f77-4b16-997e-d416a05f5d67",
+    "name": "SUMMERSALE10",
+    "description": "Krijg 25% korting op het gehele assortiment!",
+    "percentageOff": 10,
+    "maxUsages": 100,
+    "usages": 2,
+    "totalPriceOrders": 18006.300000000003,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null,
+    "placedOrders": [
+      {
+        "id": "7a28539c-01e2-4e1b-8934-8468917aa7c2",
+        "orderDate": "2024-06-24T10:44:11.716334",
+        "notes": "",
+        "orderItems": [
+          {
+            "id": 4,
+            "quantity": 1,
+            "productType": {
+              "id": "32f53cc9-a7a5-4845-902e-caa615a92936",
+              "name": "M",
+              "stock": 2,
+              "imgUrl": "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg",
+              "price": 10004.0,
+              "productId": "2d1860b8-fa38-46aa-b509-95da4fd73d17",
+              "subSpecification": null
+            },
+            "returned": false
+          }
+        ],
+        "adress": {
+          "id": "0e669377-c3d3-4919-a6ed-7a23bc0d9064",
+          "zipcode": "1234AA",
+          "houseNumber": 12,
+          "houseNumberAddition": ""
+        },
+        "status": "PENDING",
+        "totalPriceBeforePromocode": 10004.0,
+        "totalPriceAfterPromocode": 9003.6
+      },
+      {
+        "id": "dcf39e73-0105-46c6-a8ed-11db7e9fd5ff",
+        "orderDate": "2024-06-24T10:44:11.716334",
+        "notes": "",
+        "orderItems": [
+          {
+            "id": 3,
+            "quantity": 1,
+            "productType": {
+              "id": "32f53cc9-a7a5-4845-902e-caa615a92936",
+              "name": "M",
+              "stock": 2,
+              "imgUrl": "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg",
+              "price": 10004.0,
+              "productId": "2d1860b8-fa38-46aa-b509-95da4fd73d17",
+              "subSpecification": null
+            },
+            "returned": false
+          }
+        ],
+        "adress": {
+          "id": "a299387c-09ac-46ec-8d64-cf8a451b0cd6",
+          "zipcode": "1234AA",
+          "houseNumber": 12,
+          "houseNumberAddition": ""
+        },
+        "status": "PENDING",
+        "totalPriceBeforePromocode": 10004.0,
+        "totalPriceAfterPromocode": 9003.6
+      },
+      {
+        "id": "eecc47e1-d906-4805-9592-1ffbe5f9706d",
+        "orderDate": "2024-06-24T11:38:21.962607",
+        "notes": "",
+        "orderItems": [
+          {
+            "id": 5,
+            "quantity": 1,
+            "productType": {
+              "id": "47a1660a-8ccf-456b-96bf-ca4793e2eca3",
+              "name": "M",
+              "stock": 2,
+              "imgUrl": "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg",
+              "price": 10003.0,
+              "productId": "2d1860b8-fa38-46aa-b509-95da4fd73d17",
+              "subSpecification": null
+            },
+            "returned": false
+          }
+        ],
+        "adress": {
+          "id": "f1e18121-24f1-4575-9906-e3bb3cf962be",
+          "zipcode": "1234AA",
+          "houseNumber": 12,
+          "houseNumberAddition": ""
+        },
+        "status": "PENDING",
+        "totalPriceBeforePromocode": 10003.0,
+        "totalPriceAfterPromocode": 9002.7
+      },
+      {
+        "id": "29918166-7594-4e52-98e7-ff4ff4b51b1c",
+        "orderDate": "2024-06-24T11:38:21.962607",
+        "notes": "",
+        "orderItems": [
+          {
+            "id": 6,
+            "quantity": 1,
+            "productType": {
+              "id": "47a1660a-8ccf-456b-96bf-ca4793e2eca3",
+              "name": "M",
+              "stock": 2,
+              "imgUrl": "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg",
+              "price": 10003.0,
+              "productId": "2d1860b8-fa38-46aa-b509-95da4fd73d17",
+              "subSpecification": null
+            },
+            "returned": false
+          }
+        ],
+        "adress": {
+          "id": "d6002dda-5813-4f54-870b-e296cb80780d",
+          "zipcode": "1234AA",
+          "houseNumber": 12,
+          "houseNumberAddition": ""
+        },
+        "status": "PENDING",
+        "totalPriceBeforePromocode": 10003.0,
+        "totalPriceAfterPromocode": 9002.7
+      }
+    ]
+  }
+]

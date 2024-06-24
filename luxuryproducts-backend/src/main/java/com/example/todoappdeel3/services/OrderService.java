@@ -96,7 +96,7 @@ public class OrderService {
         );
     }
 
-    private Promocode getPromocode(OrderDTO orderDTO) {
+    public Promocode getPromocode(OrderDTO orderDTO) {
         Promocode promocode = null;
 
         if (orderDTO.promocode != null) {
