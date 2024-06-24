@@ -30,7 +30,7 @@ public class AdressDAO {
         CustomUser user = userService.getUser();
 
         if(adressDTO == null){
-            if (!user.getAdress().getZipcode().isEmpty()) {
+            if (user.getAdress() != null && !user.getAdress().getZipcode().isEmpty()) {
                 Adress adress = user.getAdress();
                 return adress;
             } throw new ResponseStatusException(

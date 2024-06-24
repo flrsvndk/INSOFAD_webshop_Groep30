@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CartService } from "../services/cart.service";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Order } from '../models/order.model';
 import {Adress} from "../models/adress.model";
@@ -19,9 +19,10 @@ import {UserService} from "../services/user.service";
   selector: 'app-order',
   templateUrl: './order.component.html',
   standalone: true,
-  imports: [
-    ReactiveFormsModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        FormsModule
+    ],
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, OnDestroy {

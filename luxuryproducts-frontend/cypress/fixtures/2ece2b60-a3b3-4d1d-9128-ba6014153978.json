@@ -1,0 +1,28 @@
+{ "id": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+  "name": "Rolex Cosmograph Daytona",
+  "description": "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.",
+  "productSpecification": {
+    "id": "06fc19ce-1be3-456d-868f-a0a90497ad93",
+    "name": "materiaal",
+    "types": [
+      {
+        "id": "e7f1ef3e-412c-4ed5-b7e4-bc5f41bc5136",
+        "name": "18kt gold",
+        "stock": 8,
+        "imgUrl": "https://i.ibb.co/Z170ptk/image-2024-05-21-081438902.png",
+        "price": 55000.0,
+        "productId": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+        "subSpecification": null
+      },
+      {
+        "id": "9071c534-cae2-4525-8a63-d1119901315c",
+        "name": "silver",
+        "stock": 8,
+        "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+        "price": 55003.0,
+        "productId": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+        "subSpecification": null
+      }
+    ]
+  }
+}

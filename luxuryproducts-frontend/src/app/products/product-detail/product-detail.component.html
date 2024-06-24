@@ -10,17 +10,23 @@
                     <span>{{ productsService.calculatePrice(product, typeIndex1, typeIndex2) | currency: 'EUR' }}</span>
                 </div>
                 <p class="lead">{{ product.description }}</p>
+
                 <div class="mt-4">
                     <h4>{{ product.productSpecification.name }}</h4>
                     <div class="btn-group" role="group" aria-label="Product Types">
                         @for (productType of product.productSpecification.types; track $index){
-                        <button
-                                (click)="selectType(productType, $index)"
-                                [class.btn-primary]="$index === typeIndex1"
-                                class="btn"
-                                [ngClass]="{'btn-outline-primary': $index !== typeIndex1}">
-                            {{ productType.name }}
-                        </button>
+                            <button
+                                    (click)="selectType(productType, $index)"
+                                    [class.btn-primary]="$index === typeIndex1"
+                                    [disabled]="!inStock(productType)"
+                                    class="btn"
+                                    [ngClass]="{'btn-outline-primary': $index !== typeIndex1}">
+                                @if(!inStock(productType)){
+                                    <strong>{{ productType.name }}</strong> is not in stock
+                                } @else {
+                                    {{ productType.name }}
+                                }
+                            </button>
                         }
                     </div>
                 </div>
@@ -29,13 +35,18 @@
                     <h4>{{ chosenType1.subSpecification.name }}</h4>
                     <div class="btn-group" role="group" aria-label="Sub Types">
                         @for (subType of chosenType1.subSpecification.types; track $index){
-                        <button
-                                (click)="selectSubType(subType, $index)"
-                                [class.btn-secondary]="$index === typeIndex2"
-                                class="btn"
-                                [ngClass]="{'btn-outline-secondary': $index !== typeIndex2}">
-                            {{ subType.name }}
-                        </button>
+                            <button
+                                    (click)="selectSubType(subType, $index)"
+                                    [class.btn-secondary]="$index === typeIndex2"
+                                    [disabled]="!inStock(subType)"
+                                    class="btn"
+                                    [ngClass]="{'btn-outline-secondary': $index !== typeIndex2}">
+                                @if(!inStock(subType)){
+                                    <strong>{{ subType.name }}</strong> is not in stock
+                                } @else {
+                                    {{ subType.name }}
+                                }
+                            </button>
                         }
                     </div>
                 </div>
