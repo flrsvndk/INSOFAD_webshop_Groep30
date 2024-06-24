@@ -7,7 +7,7 @@
 
         <div class="row" style="height: 3.5rem">
             <div class="col-9" style="vertical-align: middle; align-content: center;"><h3>{{ promocode.description }}</h3></div>
-            <div class="col-3" style="border-left: 1px solid lightgray;"><button [routerLink]="['/admin/promocode-edit', promocode.id]" class="btn btn-secondary bi-pencil-fill" style="width: 240px; font-weight: bold;"> Aanpassen</button></div>
+            <div class="col-3" style="border-left: 1px solid lightgray;"><button [routerLink]="['/admin/promocode-edit', promocode.id]" class="btn btn-secondary bi-pencil-fill" style="width: 240px; font-weight: bold;" id="edit"> Aanpassen</button></div>
         </div>
 
         <div class="row" style="height: 3.5rem">
@@ -21,11 +21,11 @@
             }
 
             @if (promocode.available){
-                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center;"><h5 style="color: green; font-weight: bold">Beschikbaar</h5></div>
-                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive-fill" style="width: 240px; font-weight: bold" (click)="onArchivePromocode(promocode.id)"> Archiveren</button></div>
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center;" id="available"><h5 style="color: green; font-weight: bold">Beschikbaar</h5></div>
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive-fill" style="width: 240px; font-weight: bold" id="archive" (click)="onArchivePromocode(promocode.id)"> Archiveren</button></div>
             } @else {
-                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center"><p style="color: red; font-weight: bold">Niet Beschikbaar</p></div>
-                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive" style="width: 240px; font-weight: bold" (click)="onArchivePromocode(promocode.id)"> De-archiveren</button></div>
+                <div class="col-3" style="text-align: center; vertical-align: middle; align-content: center" id="notAvailable"><p style="color: red; font-weight: bold">Niet Beschikbaar</p></div>
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-primary bi-archive" style="width: 240px; font-weight: bold" id="unarchive" (click)="onArchivePromocode(promocode.id)"> De-archiveren</button></div>
             }
         </div>
 
@@ -37,7 +37,7 @@
             @if (promocode.usages > 0) {
                 <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)" disabled> Verwijderen</button></div>
             } @else {
-                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" (click)="onDeletePromocode(promocode.id)"> Verwijderen</button></div>
+                <div class="col-3" style="border-left: 1px solid lightgray"><button class="btn btn-danger bi-trash-fill" style="width: 240px; font-weight: bold;" id="delete" (click)="onDeletePromocode(promocode.id)"> Verwijderen</button></div>
             }
         </div>
 

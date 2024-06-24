@@ -36,7 +36,7 @@
             <li class="nav-item"><a [routerLinkActive]="['active']" [routerLink]="['auth', 'login']" class="nav-link">Login</a></li>
             <li class="nav-item"><a [routerLinkActive]="['active']" [routerLink]="['auth', 'register']" class="nav-link">Register</a></li>
         } @else {
-            <li class="nav-item"><a [routerLinkActive]="['active']" [routerLink]="['profile']" class="nav-link">
+            <li class="nav-item"><a [routerLinkActive]="['active']" [routerLink]="['profile']" class="nav-link" id="profile">
             @if(user.name){
                 Hello {{user.name}}
             } @else {

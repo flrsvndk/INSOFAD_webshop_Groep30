@@ -1,0 +1,12 @@
+{
+  "id": "612f1cf0-e126-4837-9006-e53b16229b8c",
+  "name": "WINTERSALE25",
+  "description": "Krijg 25% korting op het gehele assortiment!",
+  "percentageOff": 25,
+  "maxUsages": 15,
+  "usages": 0,
+  "totalPriceOrders": 0.0,
+  "available": true,
+  "dedicatedPromocode": false,
+  "dedicatedUserEmail": null
+}
