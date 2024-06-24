@@ -16,7 +16,7 @@ import {ProductType} from "../../models/product-type.model";
 })
 export class ProductDetailComponent {
   @Input() public product!: Product;
-  private productId: number;
+  private productId: string;
   public chosenType1: ProductType;
   public chosenType2: ProductType;
   public img: string;
@@ -36,7 +36,7 @@ export class ProductDetailComponent {
     });
 
     this.productsService
-      .getProductByIndex(this.productId)
+      .getProductById(this.productId)
       .subscribe((product: Product) => {
         this.product = product;
       });
@@ -55,15 +55,15 @@ export class ProductDetailComponent {
     this.typeIndex2 = index;
     this.img = this.chosenType2.imgUrl;
     console.log(this.chosenType2.name + " " + this.chosenType2.name);
+    console.log(this.img);
   }
 
 
   public canOrder(): boolean{
     if(this.chosenType1 == null){
       return false;
-    } else if (!this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType1) {
-      return true;
-    } else if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
+    }
+    if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
       return true;
     } else {
       return false;

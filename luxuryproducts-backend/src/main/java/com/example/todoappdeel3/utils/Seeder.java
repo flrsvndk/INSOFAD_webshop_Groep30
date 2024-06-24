@@ -6,6 +6,7 @@ import com.example.todoappdeel3.dto.ProductSpecificationsDTO;
 import com.example.todoappdeel3.dto.TypeDTO;
 import com.example.todoappdeel3.models.*;
 import com.example.todoappdeel3.repositories.*;
+import com.example.todoappdeel3.repositories.UserRepository;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -62,9 +63,11 @@ public class Seeder {
         TypeDTO typeb1a = new TypeDTO("S", 10005.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
         TypeDTO typeb1b = new TypeDTO("M", 10004.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
         TypeDTO typeb1c = new TypeDTO("L", 10000.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
+
         TypeDTO typeb2a = new TypeDTO("S", 10001.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
         TypeDTO typeb2b = new TypeDTO("M", 10003.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
         TypeDTO typeb2c = new TypeDTO("L", 10004.00, 3, "https://assets.vogue.com/photos/64e3d0a6903d9fdc472cae41/3:4/w_748%2Cc_limit/slide_3.jpg", null);
+
         TypeDTO typec1a = new TypeDTO("4", 130000.00, 8, "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png", null);
 
         typesDTO2b.add(typeb1a);

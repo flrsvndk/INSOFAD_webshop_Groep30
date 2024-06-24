@@ -6,6 +6,9 @@ public class OrderItemDTO {
     public int quantity;
     public UUID typeId;
 
+    public OrderItemDTO() {
+    }
+
     public OrderItemDTO(int quantity, UUID typeId) {
         this.quantity = quantity;
         this.typeId = typeId;
