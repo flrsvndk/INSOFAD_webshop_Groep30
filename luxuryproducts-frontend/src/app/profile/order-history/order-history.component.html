@@ -9,8 +9,8 @@
             </div>
             <div class="col-6 float-start">
                 <form (ngSubmit)="alterOrders()">
-                    <input class="form-control" placeholder="Search by order id..." [(ngModel)]="searchFilter" name="filter">
-                    <button class="btn btn-light" type="submit">Search</button>
+                    <input id="search-input" class="form-control" placeholder="Search by order id..." [(ngModel)]="searchFilter" name="filter">
+                    <button id="submit-search" class="btn btn-light" type="submit">Search</button>
                 </form>
             </div>
         </div>
