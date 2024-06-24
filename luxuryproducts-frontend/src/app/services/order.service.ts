@@ -15,7 +15,6 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  // createOrderItems(products: )
 
   getOrdersByCurrentUser(): Observable<ExistingOrder[]> {
     return this.http.get<ExistingOrder[]>(this.baseUrl + "/myOrders");

@@ -16,7 +16,7 @@ public class Adress {
     @UuidGenerator
     private UUID id;
 
-    private String zipcode;
+    private String zipCode;
     private int houseNumber;
     private String houseNumberAddition;
 
@@ -29,7 +29,7 @@ public class Adress {
     private List<PlacedOrder> placedOrder;
 
     public Adress(String zipcode, int houseNumber, String houseNumberAddition) {
-        this.zipcode = zipcode;
+        this.zipCode = zipcode;
         this.houseNumber = houseNumber;
         this.houseNumberAddition = houseNumberAddition;
     }
@@ -46,11 +46,11 @@ public class Adress {
     }
 
     public String getZipcode() {
-        return zipcode;
+        return zipCode;
     }
 
     public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+        this.zipCode = zipcode;
     }
 
     public int getHouseNumber() {

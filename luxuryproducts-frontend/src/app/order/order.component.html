@@ -3,24 +3,24 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div data-mdb-input-init class="form-outline">
-              <input type="text" id="form2.1" class="form-control" placeholder="ZipCode" [(ngModel)]="adress.zipcode" pattern="\d{4}[A-Z]{2}"/>
+              <input type="text" id="form2.1" class="form-control" placeholder="ZipCode" formControlName="zipCode" pattern="\d{4}[A-Z]{2}"/>
             </div>
         </div>
         <div class="col-md-6">
             <div data-mdb-input-init class="form-outline">
-              <input type="number" id="form2.2" class="form-control" placeholder="Housenumber" [(ngModel)]="adress.houseNumber"/>
+              <input type="number" id="form2.2" class="form-control" placeholder="Housenumber" formControlName="houseNumber"/>
             </div>
         </div>
         <div class="col-md-6">
             <div data-mdb-input-init class="form-outline">
-                <input type="text" id="form2.3" class="form-control" placeholder="Housenumber Addition" [(ngModel)]="adress.houseNumberAddition"/>
+                <input type="text" id="form2.3" class="form-control" placeholder="Housenumber Addition" formControlName="houseNumberAddition"/>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" data-toggle="toggle" [(ngModel)]="adress.save">  Save Adress
+                    <input type="checkbox" data-toggle="toggle" formControlName="save">  Save Adress
                 </label>
             </div>
         </div>

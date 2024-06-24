@@ -65,13 +65,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.products_in_cart = this.cartService.allProductsInCart();
-        // this.currentLoggedInUser = this.userService.getUserFromBearer(localStorage.getItem());
         this.bestelForm = this.fb.group({
-            Postcode: [''],
-            Huisnummer: ['', [Validators.maxLength(5)]],
+            zipCode: [''],
+            houseNumber: ['', [Validators.maxLength(5)]],
             Opmerkingen: [''],
-            HouseNummerAddition: [''],
-            Opslaan: ['']
+            houseNumberAddition: [''],
+            save: ['']
         });
     }
 
@@ -92,33 +91,21 @@ export class OrderComponent implements OnInit, OnDestroy {
             notes: formData.Opmerkingen,
 
             adressDTO: this.adress = {
-                zipcode: formData.Postcode,
-                houseNumber: formData.Huisnummer,
-                houseNumberAddition: formData.HouseNummerAddition,
-                save: formData.Opslaan,
+                zipCode: formData.zipCode,
+                houseNumber: formData.houseNumber,
+                houseNumberAddition: formData.houseNumberAddition,
+                save: formData.save,
             },
             orderItems: this.orderItems,
             promocode: this.promocode
         };
 
-        this.addOrder$ = this.cartService.addOrder(this.order).subscribe(
+        this.addOrder$ = this.cartService.addOrder(this.order)
+            .subscribe(
             (result) => {
                 console.log('Order added successfully:', result);
                 this.clearCart();
                 this.router.navigateByUrl('/paymentsuccessful');
-            },
-            (error) => {
-                console.error('Failed to add order:', error);
-            }
-        );
-        this.cartService.addOrder(this.order).subscribe(
-            (result) => {
-                console.log('Order added successfully:', result);
-                this.clearCart();
-                this.router.navigateByUrl('/paymentsuccessful');
-            },
-            (error) => {
-                console.error('Failed to add order:', error);
             }
         );
 
