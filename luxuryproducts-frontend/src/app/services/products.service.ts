@@ -18,7 +18,7 @@ export class ProductsService {
   constructor(private http: HttpClient) {
   }
 
-  getProducts(): Observable<Product[]> {
+  public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl);
   }
 
@@ -33,7 +33,6 @@ export class ProductsService {
   }
 
   public calculatePrice(product: Product, type1Index: number, type2Index : number): any {
-    // this logic
     if(!this.subSpecificationExist(product.productSpecification.types[type1Index])){
       return product.productSpecification.types.at(type1Index)?.price;
     } else if(!this.subSpecificationExist(product.productSpecification.types[type1Index].subSpecification.types[type2Index])){
@@ -41,11 +40,11 @@ export class ProductsService {
     }
   }
 
-  public createProduct(productData: Product): Observable<any> {
-    return this.http.post<Product>(this.baseUrl, productData);
+  public createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.baseUrl, product);
   }
 
-  public getProductByIndex(id: string): Observable<Product> {
+  public getProductById(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 

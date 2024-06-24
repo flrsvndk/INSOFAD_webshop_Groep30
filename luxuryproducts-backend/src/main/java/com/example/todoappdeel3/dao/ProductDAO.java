@@ -26,6 +26,7 @@ public class ProductDAO {
     private final CategoryDAO categoryDAO;
     private final ProductSpecificationDAO productSpecificationDAO;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
+
     public ProductDAO(ProductRepository productRepository, CategoryDAO categoryDAO, ProductSpecificationDAO productSpecificationDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
         this.productRepository = productRepository;
         this.categoryDAO = categoryDAO;
@@ -72,15 +73,19 @@ public class ProductDAO {
 
 
         Product product = new Product(
-            productDTO.name,
+            productDTO.prodName,
             productDTO.description,
             category
         );
+
         this.productRepository.save(product);
 
-        ProductSpecification productSpecification = this.productSpecificationDAO.createSpecification(product, productDTO.productSpecificationsDTO);
+        ProductSpecification productSpecification = this.productSpecificationDAO
+                .createSpecification(product, productDTO.productSpecificationsDTO);
+
         product.setProductSpecification(productSpecification);
         this.productRepository.save(product);
+
         return product;
     }
 

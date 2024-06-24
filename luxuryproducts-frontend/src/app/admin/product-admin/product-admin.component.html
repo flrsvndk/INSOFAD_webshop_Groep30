@@ -10,20 +10,13 @@
                     <h1 class="h3">Products Panel</h1>
                 </div>
                 <div class="d-flex justify-content-around mb-4">
-                    <a routerLink="admin/Products/newProduct" class="btn btn-primary">Create New Product</a>
-                    <a routerLink="admin/Products/updateProduct" class="btn btn-secondary">Update Products and Stock</a>
+                    <a routerLink="/admin/products/new" class="btn btn-primary">Create New Product</a>
                 </div>
-                <h1>Product Statistics</h1>
-<!--                <app-product-statistics></app-product-statistics>-->
+                <h1>Products</h1>
+                @for (product of allProducts; track $index){
+                <app-product-thumbnail [product]="product"></app-product-thumbnail>
+                }
             </div>
-
-            <!--            <div class="text-center mb-4">-->
-<!--                <h1 class="h3">Products Panel</h1>-->
-<!--            </div>-->
-<!--            <a href="admin/Products/newProduct">Create new Product</a>-->
-<!--            <a href="admin/Products/updateProduct">Update products and stock</a>-->
-<!--            <h1>Product Statistics</h1>-->
-<!--            <p>Current amount of Products:</p>-->
         </main>
     </div>
 </div>
