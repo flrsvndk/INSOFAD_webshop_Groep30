@@ -16,7 +16,7 @@
 
                         <div *ngIf="userAdressSaved(user)">
                             <h4 class="card-title">Address</h4>
-                            <p class="card-text"><strong>Postcode:</strong> {{ user.adress.zipcode }}</p>
+                            <p class="card-text"><strong>Postcode:</strong> {{ user.adress.zipCode }}</p>
                             <p class="card-text"><strong>Huisnummer:</strong> {{ user.adress.houseNumber }}</p>
                             <p class="card-text" *ngIf="user.adress.houseNumberAddition"><strong>Huisnummer Toevoeging:</strong> {{ user.adress.houseNumberAddition }}</p>
                         </div>

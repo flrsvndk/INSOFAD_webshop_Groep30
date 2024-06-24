@@ -31,8 +31,7 @@ public class AdressDAO {
 
         if (adressDTO == null) {
             if (user.getAdress() != null && !user.getAdress().getZipcode().isEmpty()) {
-                Adress adress = user.getAdress();
-                return adress;
+                return user.getAdress();
             }
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "No zipcode specified"
