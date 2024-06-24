@@ -14,7 +14,6 @@ import { OrderHistoryComponent } from './profile/order-history/order-history.com
 import {AdminComponent} from "./admin/admin.component";
 import {AdminGuard} from "./admin/admin.guard";
 import {ProductAdminComponent} from "./admin/product-admin/product-admin.component";
-import {NewProductComponent} from "./admin/product-admin/new-product/new-product.component";
 import {PlacedOrdersAdminComponent} from "./admin/placed-orders-admin/placed-orders-admin.component";
 import {UsersComponent} from "./admin/users/users.component";
 import {AdminCategoriesComponent} from "./admin/product-admin/admin-categories/admin-categories.component";
@@ -26,8 +25,10 @@ import {PromocodeThumbnailComponent} from "./admin/promocode/promocode-thumbnail
 import {PromocodeEditComponent} from "./admin/promocode/promocode-edit/promocode-edit.component";
 import {GiftcardsComponent} from "./giftcards/giftcards.component";
 import {MyGiftcardsComponent} from "./my-giftcards/my-giftcards.component";
+import {NewProductComponent} from "./admin/product-admin/new-product/new-product.component";
 import {GiftcardsAdminComponent} from "./admin/giftcards-admin/giftcards-admin.component";
 import {RetourRequestsAdminComponent} from "./admin/retour-requests-admin/retour-requests-admin.component";
+
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -50,7 +51,7 @@ export const routes: Routes = [
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products', component: ProductAdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/products/new', component: NewProductComponent, canActivate: [AdminGuard]},
-  {path: 'admin/products/update', component: UpdateProductComponent, canActivate: [AdminGuard]},
+  {path: 'admin/product/update/:id', component: UpdateProductComponent, canActivate: [AdminGuard]},
   {path: 'admin/orders', component: PlacedOrdersAdminComponent, canActivate: [AdminGuard]},
   {path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard]},
   {path: 'admin/categories', component: AdminCategoriesComponent, canActivate: [AdminGuard]},

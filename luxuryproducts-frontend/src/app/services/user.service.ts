@@ -1,4 +1,4 @@
-import {inject, Injectable, OnInit} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, map, Observable, tap} from "rxjs";
 import {environment} from "../../environments/environment";
@@ -12,7 +12,7 @@ import {FormGroup} from "@angular/forms";
 })
 export class UserService {
     private baseUrl: string = environment.BASE_URL + "/auth/user";
-    private adminUrl: string = environment.BASE_URL + "/auth/admin";
+    private adminUrl: string = environment.BASE_URL + "/auth";
 
     public $userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -47,7 +47,7 @@ export class UserService {
     }
 
     public updateUserRole(newRole: FormGroup){
-        return this.http.put(`${this.adminUrl}/new/role`, newRole, {responseType: 'text'});
+        return this.http.put(`${this.adminUrl}/role/new`, newRole, {responseType: 'text'});
 
     }
 

@@ -1,0 +1,278 @@
+[
+  {
+    "id": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+    "name": "Rolex Cosmograph Daytona",
+    "description": "Deze Rolex Daytona, bekend om zijn ongeëvenaarde precisie en iconische status, is het ultieme statussymbool voor de elite.",
+    "productSpecification": {
+      "id": "06fc19ce-1be3-456d-868f-a0a90497ad93",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "e7f1ef3e-412c-4ed5-b7e4-bc5f41bc5136",
+          "name": "18kt gold",
+          "stock": 8,
+          "imgUrl": "https://i.ibb.co/Z170ptk/image-2024-05-21-081438902.png",
+          "price": 55000.0,
+          "productId": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+          "subSpecification": null
+        },
+        {
+          "id": "9071c534-cae2-4525-8a63-d1119901315c",
+          "name": "silver",
+          "stock": 8,
+          "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+          "price": 55003.0,
+          "productId": "2ece2b60-a3b3-4d1d-9128-ba6014153978",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "54c47356-f420-468a-a112-7979c34b096e",
+    "name": "Burberry Bespoke Trench Coat",
+    "description": "Handgemaakt in Engeland met exclusieve materialen, deze Burberry trenchcoat biedt tijdloze elegantie en luxe.",
+    "productSpecification": {
+      "id": "2f27a40f-54d5-4f69-9fe8-b18ae8c69905",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "10a453d7-8368-46f3-928a-7a974f06d8c3",
+          "name": "Waterbestendig Katoen",
+          "stock": 0,
+          "imgUrl": null,
+          "price": null,
+          "productId": "54c47356-f420-468a-a112-7979c34b096e",
+          "subSpecification": {
+            "id": "9f23898d-b514-4cc0-87c7-104452223a70",
+            "name": "size",
+            "types": [
+              {
+                "id": "04de4762-7c67-4e52-a249-7446ae2986a0",
+                "name": "S",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10005.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              },
+              {
+                "id": "9fb77150-6ae5-4a00-9e1c-2d60a0f10387",
+                "name": "M",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10004.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              },
+              {
+                "id": "529ae4bd-7626-48da-8d72-936fa1d9a23f",
+                "name": "L",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10000.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "a686f737-ffb8-400a-be72-ef32e0ac6707",
+          "name": "Polyester",
+          "stock": 0,
+          "imgUrl": null,
+          "price": null,
+          "productId": "54c47356-f420-468a-a112-7979c34b096e",
+          "subSpecification": {
+            "id": "5f4329cc-d7c8-4e30-b809-e88902f4fd62",
+            "name": "size",
+            "types": [
+              {
+                "id": "d8c2a960-940a-4f9c-a9ae-9fce40ea9418",
+                "name": "S",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10001.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              },
+              {
+                "id": "8968eb28-0819-4249-a3f2-380d11745fb5",
+                "name": "M",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10003.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              },
+              {
+                "id": "4cee5b05-d457-4222-9df2-1fc4f6c06c98",
+                "name": "L",
+                "stock": 3,
+                "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+                "price": 10004.0,
+                "productId": "54c47356-f420-468a-a112-7979c34b096e",
+                "subSpecification": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "2dcc2bcf-6094-4fc1-be45-cacd7ce56d2d",
+    "name": "Chanel Classic Flap Bag",
+    "description": "Deze Chanel tas, met zijn iconische quiltdesign en kettingschouderband, is een symbool van luxueuze mode.",
+    "productSpecification": {
+      "id": "5b1b9885-6a7b-45c4-a7fb-58b5a3a4e3cd",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "232d28af-ef9f-4f86-a52a-19f7e43b04e3",
+          "name": "Lamshuid leder",
+          "stock": 8,
+          "imgUrl": "https://images.vestiairecollective.com/images/resized/w=1024,q=75,f=auto,/produit/black-leather-timeless-classique-chanel-handbag-41859734-1_2.jpg",
+          "price": 8000.0,
+          "productId": "2dcc2bcf-6094-4fc1-be45-cacd7ce56d2d",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "587a1c1b-6839-48a8-8d57-f0919df9f3fa",
+    "name": "Audemars Piguet Royal Oak Offshore",
+    "description": "De Royal Oak Offshore, met zijn gedurfde, innovatieve design, vertegenwoordigt de hoogste standaard van luxueuze horlogerie.",
+    "productSpecification": {
+      "id": "1b856ad8-1338-4afa-8e6c-ed87ee4e5d24",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "809de606-4925-4a33-bd51-9d103257e635",
+          "name": "Roestvrijstaal",
+          "stock": 8,
+          "imgUrl": "https://theswisscollector.com/22433/audemars-piguet-royal-oak-offshore.jpg",
+          "price": 40000.0,
+          "productId": "587a1c1b-6839-48a8-8d57-f0919df9f3fa",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "fedf4484-c1eb-497f-a961-b54c52367db0",
+    "name": "Hermès Silk Scarf",
+    "description": "Deze Hermès sjaal, vervaardigd uit de fijnste zijde, toont een kunstzinnig ontwerp dat elegantie en cultuur uitstraalt.",
+    "productSpecification": {
+      "id": "670e568f-b098-474d-9a44-e1cab99be0a3",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "302a4a6c-a8c1-473b-a4ed-87e71d344d89",
+          "name": "Monogram canvas",
+          "stock": 8,
+          "imgUrl": "https://www.winkelstraat.nl/cdn-cgi/image/w=1280,h=1280,format=auto/img/2700/2700/trim/catalog/product/4/3/4356647_wsnl736-5i3pol5qt306t4jt-image_default.jpg",
+          "price": 4500.0,
+          "productId": "fedf4484-c1eb-497f-a961-b54c52367db0",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "97847bc6-15f1-4ad8-8e67-71248fc477ee",
+    "name": "Tesla Model S Plaid",
+    "description": "De Tesla Model S Plaid, een topmodel in elektrische luxeauto's, biedt ongeëvenaarde prestaties en toonaangevende technologie.",
+    "productSpecification": {
+      "id": "d87fb76a-6ed8-4014-b0d4-6cbf40b9f712",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "6050f468-ab3a-4d9a-a03d-5962b6598b9b",
+          "name": "100% zijde",
+          "stock": 8,
+          "imgUrl": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSb58_lh7Su_uS6a0Hjs_4OK3eXA5PcS6kPMprUBGwke_pRxePxNuzMQlo45iVpIbJaKYf8F4wWdQQL9Gec5v3MZO2-pM8upDslLXHPf1EC_qa5a7eGjnBUkQ&usqp=CAE",
+          "price": 1200.0,
+          "productId": "97847bc6-15f1-4ad8-8e67-71248fc477ee",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "dd20ab56-a670-45be-9255-59fbc63f2213",
+    "name": "Cartier Love Bracelet",
+    "description": "De Cartier Love Bracelet, versierd met diamanten, is een teken van tijdloze toewijding en luxe.",
+    "productSpecification": {
+      "id": "b8f0f87b-453b-4b87-824c-d017cff709d7",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "03ccc159-eb87-41d8-ba85-b7c0753589d6",
+          "name": "Elektrisch",
+          "stock": 0,
+          "imgUrl": null,
+          "price": null,
+          "productId": "dd20ab56-a670-45be-9255-59fbc63f2213",
+          "subSpecification": {
+            "id": "afb60469-d266-4ff8-944c-67f08f7f8c30",
+            "name": "wielen",
+            "types": [
+              {
+                "id": "18ce0ca0-eb21-4277-812b-c7c0ae64fbe1",
+                "name": "4",
+                "stock": 8,
+                "imgUrl": "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png",
+                "price": 130000.0,
+                "productId": "dd20ab56-a670-45be-9255-59fbc63f2213",
+                "subSpecification": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "c56b2ec0-e83d-48d6-8dbb-9ce10425c9f4",
+    "name": "Louis Vuitton Keepall Bandoulière 55",
+    "description": "De Keepall Bandoulière 55 van Louis Vuitton, perfect voor de wereldreiziger, combineert luxe met functionaliteit.",
+    "productSpecification": {
+      "id": "d76b6d46-86fc-4e99-a011-d91fc550e2eb",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "aa2f2e6a-2ebc-4fcf-85b5-b29a1c75b8c0",
+          "name": "18kt goud",
+          "stock": 8,
+          "imgUrl": "https://www.cartier.com/variants/images/1647597277058388/img1/w960.jpg",
+          "price": 6500.0,
+          "productId": "c56b2ec0-e83d-48d6-8dbb-9ce10425c9f4",
+          "subSpecification": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "7ea8e0c6-ab30-45b7-82a5-f84530c04ef1",
+    "name": "Giorgio Armani Black Label Suit",
+    "description": "Deze Giorgio Armani pak, uit de Black Label collectie, biedt ongeëvenaarde Italiaanse vakmanschap en stijl.",
+    "productSpecification": {
+      "id": "b5e303db-7011-467d-86b9-173e0c2cc1d5",
+      "name": "materiaal",
+      "types": [
+        {
+          "id": "94660289-b81b-4091-95d7-bf77299ab02f",
+          "name": "Wol",
+          "stock": 8,
+          "imgUrl": "https://www.armani.com/variants/images/17266703523712898/F/w480.jpg",
+          "price": 3500.0,
+          "productId": "7ea8e0c6-ab30-45b7-82a5-f84530c04ef1",
+          "subSpecification": null
+        }
+      ]
+    }
+  }
+]

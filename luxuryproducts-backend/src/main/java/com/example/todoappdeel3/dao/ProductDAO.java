@@ -1,6 +1,8 @@
 package com.example.todoappdeel3.dao;
 
+import com.example.todoappdeel3.dto.CategoryDTO;
 import com.example.todoappdeel3.dto.ProductDTO;
+import com.example.todoappdeel3.dto.UpdatedProductDTO;
 import com.example.todoappdeel3.models.Category;
 import com.example.todoappdeel3.models.Product;
 import com.example.todoappdeel3.models.ProductSpecification;
@@ -24,6 +26,7 @@ public class ProductDAO {
     private final CategoryDAO categoryDAO;
     private final ProductSpecificationDAO productSpecificationDAO;
     private final ProductSpecificationTypesRepository productSpecificationTypesRepository;
+
     public ProductDAO(ProductRepository productRepository, CategoryDAO categoryDAO, ProductSpecificationDAO productSpecificationDAO, ProductSpecificationTypesRepository productSpecificationTypesRepository) {
         this.productRepository = productRepository;
         this.categoryDAO = categoryDAO;
@@ -44,29 +47,45 @@ public class ProductDAO {
     }
 
     @Transactional
-    public Product createProduct(ProductDTO productDTO){
-         Category category;
+    public Product updateProduct(UpdatedProductDTO updatedProductDTO){
+        Product product = this.getProductById(updatedProductDTO.id);
 
-         if(productDTO.category == null && productDTO.categoryId != 0){
-             category = this.categoryDAO.getById(productDTO.categoryId);
-         } else if (productDTO.category != null) {
-             category = this.categoryDAO.createCategory(productDTO.category.name);
-         } else {
-             throw new ResponseStatusException(
-                     HttpStatus.NOT_FOUND, "No correct category was given"
-             );
-         }
+        product.setName(updatedProductDTO.name);
+        product.setDescription(updatedProductDTO.description);
+
+        if (updatedProductDTO.productSpecification == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Specification not found"
+            );
+        }
+        ProductSpecification specification = this.productSpecificationDAO.updateSpecification(updatedProductDTO.productSpecification);
+
+        product.setProductSpecification(specification);
+
+        this.productRepository.save(product);
+
+        return product;
+    }
+
+    @Transactional
+    public Product createProduct(ProductDTO productDTO){
+         Category category = this.setCategory(productDTO.category, productDTO.categoryId);
+
 
         Product product = new Product(
-            productDTO.name,
+            productDTO.prodName,
             productDTO.description,
             category
         );
+
         this.productRepository.save(product);
 
-        ProductSpecification productSpecification = this.productSpecificationDAO.createSpecification(product, productDTO.productSpecificationsDTO);
+        ProductSpecification productSpecification = this.productSpecificationDAO
+                .createSpecification(product, productDTO.productSpecificationsDTO);
+
         product.setProductSpecification(productSpecification);
         this.productRepository.save(product);
+
         return product;
     }
 
@@ -88,4 +107,15 @@ public class ProductDAO {
         productSpecificationTypesRepository.save(product);
     }
 
+    private Category setCategory(CategoryDTO category, Long categoryId) {
+        if(category == null && categoryId != 0){
+            return this.categoryDAO.getById(categoryId);
+        } else if (category != null) {
+            return this.categoryDAO.createCategory(category.name);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No correct category was given"
+            );
+        }
+    }
 }

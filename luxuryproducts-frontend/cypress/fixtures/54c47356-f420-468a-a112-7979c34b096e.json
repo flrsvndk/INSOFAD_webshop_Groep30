@@ -1,0 +1,93 @@
+{
+  "id": "54c47356-f420-468a-a112-7979c34b096e",
+  "name": "Burberry Bespoke Trench Coat",
+  "description": "Handgemaakt in Engeland met exclusieve materialen, deze Burberry trenchcoat biedt tijdloze elegantie en luxe.",
+  "productSpecification": {
+    "id": "2f27a40f-54d5-4f69-9fe8-b18ae8c69905",
+    "name": "materiaal",
+    "types": [
+      {
+        "id": "10a453d7-8368-46f3-928a-7a974f06d8c3",
+        "name": "Waterbestendig Katoen",
+        "stock": 0,
+        "imgUrl": null,
+        "price": null,
+        "productId": "54c47356-f420-468a-a112-7979c34b096e",
+        "subSpecification": {
+          "id": "9f23898d-b514-4cc0-87c7-104452223a70",
+          "name": "size",
+          "types": [
+            {
+              "id": "04de4762-7c67-4e52-a249-7446ae2986a0",
+              "name": "S",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10005.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            },
+            {
+              "id": "9fb77150-6ae5-4a00-9e1c-2d60a0f10387",
+              "name": "M",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10004.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            },
+            {
+              "id": "529ae4bd-7626-48da-8d72-936fa1d9a23f",
+              "name": "L",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10000.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            }
+          ]
+        }
+      },
+      {
+        "id": "a686f737-ffb8-400a-be72-ef32e0ac6707",
+        "name": "Polyester",
+        "stock": 0,
+        "imgUrl": null,
+        "price": null,
+        "productId": "54c47356-f420-468a-a112-7979c34b096e",
+        "subSpecification": {
+          "id": "5f4329cc-d7c8-4e30-b809-e88902f4fd62",
+          "name": "size",
+          "types": [
+            {
+              "id": "d8c2a960-940a-4f9c-a9ae-9fce40ea9418",
+              "name": "S",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10001.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            },
+            {
+              "id": "8968eb28-0819-4249-a3f2-380d11745fb5",
+              "name": "M",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10003.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            },
+            {
+              "id": "4cee5b05-d457-4222-9df2-1fc4f6c06c98",
+              "name": "L",
+              "stock": 3,
+              "imgUrl": "https://schapi-products.s3.eu-central-1.amazonaws.com/3523776/m126500ln-0001_modelpage_front_facing_landscape.png",
+              "price": 10004.0,
+              "productId": "54c47356-f420-468a-a112-7979c34b096e",
+              "subSpecification": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

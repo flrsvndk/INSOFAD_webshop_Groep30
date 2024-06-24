@@ -5,13 +5,39 @@
     "name" : "speelgoed"
   },
   "categoryId": 0,
+
   "productSpecificationsDTO": {
     "name": "materiaal",
     "typesDTO" : [{
-      "name": "18kt gold",
-      "price": 55000.00,
-      "imgUrl": "https://i.ibb.co/Z170ptk/image-2024-05-21-081438902.png",
-      "subSpecification": null
+      "name": "polyesther",
+      "price": 0,
+      "stock": 9,
+      "imgUrl": null,
+      "productSpecificationsDTO": {
+        "name": "kleur",
+        "typesDTO" : [{
+          "name": "oranje",
+          "price": 0,
+          "stock": 9,
+          "imgUrl": null,
+          "productSpecificationsDTO": {
+            "name": "maat",
+            "typesDTO" : [{
+              "name": "klein",
+              "price": 55.00,
+              "stock": 9,
+              "imgUrl": "https://cdn.myonlinestore.eu/93c61a2d-6be1-11e9-a722-44a8421b9960/image/cache/full/9a38de2d84384dbd045b3f897d1dd1433afc844c.jpg",
+              "productSpecificationsDTO": null
+            }, {
+              "name": "groot",
+              "price": 75.00,
+              "stock": 9,
+              "imgUrl": "https://cdn.myonlinestore.eu/944ca6d6-6be1-11e9-a722-44a8421b9960/image/cache/full/9be20a263dbc5c60543bc1f2d6bf8aa5df0a7dec.jpg",
+              "productSpecificationsDTO": null
+            }]
+          }
+        }]
+      }
     }]
   }
 }

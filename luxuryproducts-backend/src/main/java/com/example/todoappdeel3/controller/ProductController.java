@@ -2,6 +2,7 @@ package com.example.todoappdeel3.controller;
 
 import com.example.todoappdeel3.dao.ProductDAO;
 import com.example.todoappdeel3.dto.ProductDTO;
+import com.example.todoappdeel3.dto.UpdatedProductDTO;
 import com.example.todoappdeel3.models.Product;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable UUID id){
         return ResponseEntity.ok(this.productDAO.getProductById(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<Product> updateProduct(@RequestBody UpdatedProductDTO updatedProductDTO){
+        return ResponseEntity.ok(this.productDAO.updateProduct(updatedProductDTO));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
