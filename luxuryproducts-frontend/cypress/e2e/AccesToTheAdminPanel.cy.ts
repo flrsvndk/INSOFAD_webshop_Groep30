@@ -15,7 +15,7 @@ describe('admin-dashboard', () => {
     })
 
     it('shouldLetAdminInPanel', () => {
-        let userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJEdWNrIFN0dWRpb3MiLCJleHAiOjE3MTkyNzUwNzMsImlhdCI6MTcxOTI1MzQ3MywiZW1haWwiOiJib2JAYm9ic2x1eHVyeWVudGVycHJpc2UuY29tIn0.3WT7-oLijvsBbDavBlLPZ8QcwWE56BCL0fEXDqcZ820";
+        let userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJIb3Jpem9uIERldmVsb3BtZW50cyIsImV4cCI6MTcxOTI4NzcwMCwiaWF0IjoxNzE5MjY2MTAwLCJlbWFpbCI6ImJvYkBib2JzbHV4dXJ5ZW50ZXJwcmlzZS5jb20ifQ.93eHhp575onquMcP2PPDHay8Ib-2XWrVE3IzoOT4h-k";
         window.localStorage.setItem('token', userToken);
 
         cy.visit('http://localhost:4200/admin')

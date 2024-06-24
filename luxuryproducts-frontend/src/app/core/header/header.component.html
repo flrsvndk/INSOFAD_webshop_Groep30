@@ -37,7 +37,7 @@
             <li class="nav-item"><a [routerLinkActive]="['active']" [routerLink]="['auth', 'register']" class="nav-link">Register</a></li>
         } @else {
             <li class="nav-item"><a id="profile-button" [routerLinkActive]="['active']" [routerLink]="['profile']" class="nav-link">
-            @if(user.name){
+            @if(user.name != null){
                 Hello {{user.name}}
             } @else {
                 Profile
