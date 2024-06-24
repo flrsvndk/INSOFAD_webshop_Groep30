@@ -1,0 +1,34 @@
+{
+  "id": "d029010a-1a7a-40b9-b85a-b66e1d08f1f4",
+  "name": "Tesla Model S Plaid",
+  "description": "De Tesla Model S Plaid, een topmodel in elektrische luxeauto's, biedt ongeëvenaarde prestaties en toonaangevende technologie.",
+  "productSpecification": {
+    "id": "7d96ccf9-d24d-48de-a013-57ae9c76d0ab",
+    "name": "materiaal",
+    "types": [
+      {
+        "id": "db8505dd-6465-4d83-9207-6dd9e0271684",
+        "name": "Elektrisch",
+        "stock": 0,
+        "imgUrl": "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png",
+        "price": null,
+        "productId": null,
+        "subSpecification": {
+          "id": "56352df1-0be5-41fc-82be-ede02961f522",
+          "name": "wielen",
+          "types": [
+            {
+              "id": "cb2274ca-64d7-487e-932b-ad9d9bb92ab4",
+              "name": "4",
+              "stock": 8,
+              "imgUrl": "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png",
+              "price": 130000.0,
+              "productId": "d029010a-1a7a-40b9-b85a-b66e1d08f1f4",
+              "subSpecification": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

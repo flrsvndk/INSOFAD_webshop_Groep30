@@ -35,14 +35,14 @@
                     <p class="fw-bold me-2">Total Price:</p>
                     <p class="text-decoration-line-through me-2">{{ getTotalPriceWithoutPromocodeAndGiftcards() | currency: 'EUR' }}</p>
                     @if (usedPromocode != null) {
-                      <p class="fw-bold">(-{{ usedPromocode.percentageOff }}%) {{ getTotalPrice() | currency: 'EUR' }}</p>
+                      <p class="fw-bold" id="totalPriceWithPromocode">(-{{ usedPromocode.percentageOff }}%) {{ getTotalPrice() | currency: 'EUR' }}</p>
                     } @else {
                       <p class="fw-bold"> {{ getTotalPrice() | currency: 'EUR' }}</p>
                     }
                 </div>
             } @else {
                 <div>
-                    <p class="fw-bold">Total Price: {{ getTotalPriceWithoutPromocodeAndGiftcards() | currency: 'EUR' }}</p>
+                    <p class="fw-bold" id="totalPriceWithoutPromocodeAndGiftCards">Total Price: {{ getTotalPriceWithoutPromocodeAndGiftcards() | currency: 'EUR' }}</p>
                 </div>
             }
         </div>
@@ -57,9 +57,9 @@
           <div class="col-md-12">
               <input class="form-outline" style="border-radius: .5rem; border: 1px solid gray" type="text" formControlName="Promocode" placeholder="Vul Promocode in..." (input)="onNameInput($event)">
               @if (promocodeError) {
-                  <p style="font-weight: bold; color: red">Fout bij verwerken promocode</p>
+                  <p style="font-weight: bold; color: red" id="promocodeError">Fout bij verwerken promocode</p>
               }
-              <button class="btn btn-success fw-bold" (click)="onSubmitPromocode()" ><i class="bi-check-lg"></i>Toepassen</button>
+              <button class="btn btn-success fw-bold" (click)="onSubmitPromocode()" id="promocode"><i class="bi-check-lg"></i>Toepassen</button>
           </div>
         </form>
 
