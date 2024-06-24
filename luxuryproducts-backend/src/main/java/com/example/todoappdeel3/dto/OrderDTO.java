@@ -10,4 +10,14 @@ public class OrderDTO{
     public PromocodeDTO promocode;
 
     public UUID id;
+
+    public OrderDTO() {
+    }
+
+    public OrderDTO(String notes, List<OrderItemDTO> orderItems, AdressDTO adressDTO, PromocodeDTO promocode) {
+        this.notes = notes;
+        this.orderItems = orderItems;
+        this.adressDTO = adressDTO;
+        this.promocode = promocode;
+    }
 }

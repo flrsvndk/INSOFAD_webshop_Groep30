@@ -52,7 +52,7 @@ export class UpdateProductComponent implements OnInit{
           this.loadedAdmin = true;
         });
         console.log(this.admin);
-        this.productService.getProductByIndex(this.productId)
+        this.productService.getProductById(this.productId)
             .subscribe((product: Product) =>{
             this.product = product;
         });

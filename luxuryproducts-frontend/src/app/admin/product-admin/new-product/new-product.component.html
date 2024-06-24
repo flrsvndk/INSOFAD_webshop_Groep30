@@ -1,353 +1,68 @@
-<div class="container mt-5">
-    <h2 class="mb-4">Create New Product</h2>
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <div class="form-group mb-3">
-            <label for="name">Name</label>
-            <input id="name" formControlName="name" class="form-control" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="description">Description</label>
-            <textarea id="description" formControlName="description" class="form-control"></textarea>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="categoryId">Category</label>
-            <select id="categoryId" formControlName="category" class="form-control">
-                @for (category of categories; track $index){
-                    <option [value]="category.id">{{ category.name }}</option>
-                }
-            </select>
-        </div>
-
-        <div class="newProductSpecification mb-4">
-            <h4 class="mb-3">Specification</h4>
-            <div class="form-group mb-3">
-                <label for="SpecificationName">Name</label>
-                <input id="SpecificationName" formControlName="SpecificationName" class="form-control" />
+    <div class="row">
+        <aside class="col-md-3 col-lg-2 d-md-block sidebar py-4">
+            <app-sidepanel></app-sidepanel>
+        </aside>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2>Create New Product</h2>
             </div>
 
-                <div class="specificationType">
-                    <h5 class="mb-3">Type</h5>
-                    <div class="form-group mb-3">
-                        <label for="typeName">Name</label>
-                        <input id="typeName" formControlName="typeName" class="form-control" />
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="price">Price</label>
-                        <input type="text" id="price" formControlName="SpecificationName" class="form-control" />
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="imgURL">Image Url</label>
-                        <input id="imgURL" formControlName="typeName" class="form-control" />
-                    </div>
-                    <button type="button" class="btn btn-secondary mb-3" (click)="addSpecification()">+ Specification</button>
+            <form [formGroup]="newProductForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" formControlName="name" class="form-control" placeholder="Enter product name" />
                 </div>
-           
-            <button type="button" class="btn btn-secondary mb-3" (click)="addType()">+ Type</button>
-        </div>
 
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" formControlName="description" class="form-control" placeholder="Enter product description"></textarea>
+                </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Create Product</button>
-    </form>
-</div>
+                <div class="form-group">
+                    <label for="categoryId">Category</label>
+                    <select id="categoryId" formControlName="categoryId" class="form-control">
+                        @for (category of categories; track $index){
+                        <option [value]="category.id">{{ category.name }}</option>
+                        }
+                    </select>
+                </div>
 
-<!--<div class="container mt-5">-->
-<!--    <h2>Create New Product</h2>-->
-<!--    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">-->
-<!--        <div class="form-group">-->
-<!--            <label for="name">Name</label>-->
-<!--            <input id="name" formControlName="name" class="form-control" />-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="description">Description</label>-->
-<!--            <textarea id="description" formControlName="description" class="form-control"></textarea>-->
-<!--        </div>-->
+                <div [formGroupName]="'productSpecificationsDTO'">
+                    <div class="form-group">
+                        <label for="specificationName">Specification</label>
+                        <input id="specificationName" type="text" formControlName="name" placeholder="Specification Name" class="form-control" />
+                        <button type="button" class="btn btn-secondary mt-2" (click)="addType()">Add new Type</button>
+                    </div>
 
-<!--        <div class="form-group">-->
-<!--            <label for="categoryId">Category</label>-->
-<!--            <select id="categoryId" formControlName="category" class="form-control">-->
-<!--                @for (category of categories; track $index){-->
-<!--                    <option [value]="category.id">{{ category.name }}</option>-->
-<!--                }-->
-<!--            </select>-->
-<!--        </div>-->
+                    <div formArrayName="typesDTO">
+                        @for (type of getTypes().controls; track $index){
+                        <div [formGroupName]="$index" class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Type {{ $index + 1 }}</h5>
+                                <div class="form-group">
+                                    <label for="typeName{{$index}}">Name</label>
+                                    <input id="typeName{{$index}}" type="text" formControlName="name" class="form-control" placeholder="Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="typePrice{{$index}}">Price</label>
+                                    <input id="typePrice{{$index}}" type="number" formControlName="price" class="form-control" placeholder="Price" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="typeStock{{$index}}">Stock</label>
+                                    <input id="typeStock{{$index}}" type="number" formControlName="stock" class="form-control" placeholder="Stock" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="typeImgUrl{{$index}}">Image URL</label>
+                                    <input id="typeImgUrl{{$index}}" type="text" formControlName="imgUrl" class="form-control" placeholder="Image URL" />
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
 
-<!--        <div class="newProductSpecification">-->
-<!--            <h4>Specification</h4>-->
-<!--            <div class="form-group">-->
-<!--                <label for="SpecificationName">Name</label>-->
-<!--                <input id="SpecificationName" formControlName="SpecificationName" class="form-control" />-->
-<!--            </div>-->
-<!--            <div class="specificationType">-->
-<!--                <h5>Type</h5>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="typeName">Name</label>-->
-<!--                    <input id="typeName" formControlName="typeName" class="form-control" />-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="price">Price</label>-->
-<!--                    <input type="text" id="price" formControlName="SpecificationName" class="form-control" />-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="imgURL">Image Url</label>-->
-<!--                    <input id="imgURL" formControlName="typeName" class="form-control" />-->
-<!--                </div>-->
-<!--                <button (click)="addSpecification()">+ Specification</button>-->
-<!--            </div>-->
-<!--            <button (click)="addType()">+ Type</button>-->
-<!--        </div>-->
+                <button type="submit" class="btn btn-primary mt-3" [disabled]="!newProductForm.valid">Create Product</button>
+            </form>
+        </main>
+    </div>
 
-<!--        <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Create Product</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--    <h2>Create New Product</h2>-->
-<!--    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">-->
-<!--        <div class="form-group">-->
-<!--            <label for="name">Name</label>-->
-<!--            <input id="name" formControlName="name" class="form-control" />-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="description">Description</label>-->
-<!--            <textarea id="description" formControlName="description" class="form-control"></textarea>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="price">Price</label>-->
-<!--            <input id="price" type="number" formControlName="price" class="form-control" />-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Create Product</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-
-<!--&lt;!&ndash;<form [formGroup]="form">&ndash;&gt;-->
-<!--&lt;!&ndash;    <div formArrayName="inputs">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div *ngFor="let input of inputs.controls; let i = index" [formGroupName]="i">&ndash;&gt;-->
-<!--&lt;!&ndash;            <ng-container [ngSwitch]="input.get('type')?.value">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div *ngSwitchCase="'text'">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <h5>Type</h5>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label for="typeName">name</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type= text id="typeName" formControlName="typeName">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label for="price">price</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type= number id="price" formControlName="price">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label for="imgUrl">image URL</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type= text id="imgUrl" formControlName="imgUrl">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <button (click)="createSpecification()">Add Specification</button>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <label>Type:</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <input formControlName="value" type="text" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </ng-container>&ndash;&gt;-->
-<!--&lt;!&ndash;            <button type="button" (click)="removeInput(i)">Remove</button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button type="button" (click)="addType()">Add Type</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    &lt;!&ndash; Add more buttons for different input types as needed &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <button type="button" (click)="submitForm()">Submit</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</form>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;<form [formGroup]="productForm">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    <h1>New Product</h1>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <label for="name">Name</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <input type= text id="name" formControlName="name">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <label for="description">description</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <input type= text id="description" formControlName="description">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;    <div class="category">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <label for="category">category</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <input  id="category" formControlName="category">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;    <div class="specification">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <h2>Product Specification</h2>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;            <label for="specName">Specification Name</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;            <input type= text id="specName" formControlName="specName">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;        <button (click)="addType()">Add Type</button>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;        @for (type of this.types; track $index){&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;            <form [formGroup]="typeForm">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <h5>Type {{$index}}</h5>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <label for="typeName">name</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <input type= text id="typeName" formControlName="typeName">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <label for="price">price</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <input type= number id="price" formControlName="price">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <label for="imgUrl">image URL</label>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <input type= text id="imgUrl" formControlName="imgUrl">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <button (click)="createSpecification()">Add Specification</button>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;            </form>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<form [formGroup]="productForm" (ngSubmit)="onSubmit()">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <label for="name">Name</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <input id="name" formControlName="name">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <label for="description">Description</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <textarea id="description" formControlName="description"></textarea>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div formGroupName="category">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <label for="category-name">Category Name</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <input id="category-name" formControlName="name">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <label for="categoryId">Category ID</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <input id="categoryId" formControlName="categoryId" type="number">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div formGroupName="productSpecificationsDTO">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <label for="spec-name">Specification Name</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <input id="spec-name" formControlName="name">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <div formArrayName="typesDTO">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <div *ngFor="let type of typesDTO.controls; let i=index" [formGroupName]="i">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <label for="type-name">Type Name</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <input id="type-name" formControlName="name">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <label for="type-price">Price</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <input id="type-price" formControlName="price" type="number">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <label for="type-imgUrl">Image URL</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <input id="type-imgUrl" formControlName="imgUrl">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <label for="subSpecification">Sub Specification</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <input id="subSpecification" formControlName="subSpecification">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <button type="button" (click)="removeType(i)">Remove Type</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <button type="button" (click)="addType()">Add Type</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <button type="submit">Submit</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="container-fluid mt-5">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div class="row">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <aside class="col-md-3 col-lg-2 d-md-block sidebar">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <div class="list-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <a href="/admin/AllOrders" class="list-group-item list-group-item-action">Placed Orders</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <a href="/admin/Products" class="list-group-item list-group-item-action">Products Dashboard</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                @if(isAdmin()){&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <a href="/admin/Categories" class="list-group-item list-group-item-action">Categories</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <a href="/admin/allUsers" class="list-group-item list-group-item-action">User Overview</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        </aside>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <div class="text-center mb-4">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <h1 class="h3">New Product Panel</h1>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <div class="col-md-7">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label>Name:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" formControlName="name">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    &lt;!&ndash; Similar fields for description and price &ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <div formArrayName="specifications">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        @for(specification of specifications; track $index){&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                            <div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                <div [formGroupName]="$index">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                    <label>Specification Type:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                    <input type="text" formControlName="type">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                    &lt;!&ndash; Similar fields for specification details &ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                    <button type="button" (click)="removeSpecification($index)">Remove</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                            </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        }&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <button type="button" (click)="addSpecification()">Add Specification</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <button type="submit">Submit</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </form>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                &lt;!&ndash;                <div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <h2>New Product</h2>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form1.1" class="form-label">naam:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form1.1" class="form-control" [(ngModel)]="product.name"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form1.2" class="form-label">omschrijving:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form1.2" class="form-control" [(ngModel)]="product.description"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <p></p>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <h5>Product Specification:</h5>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form2.1" class="form-label">Product Specification name:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form2.1" class="form-control" [(ngModel)]="product.productSpecification.name"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form2.2" class="form-label">Product Specification Types:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form2.2" class="form-control" [(ngModel)]="product.productSpecification.name"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form1.3" class="form-label">Achternaam:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form1.3" class="form-control" [(ngModel)]="user.lastName"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form1.4" class="form-label">E-mail:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="email" id="form1.4" class="form-control" [(ngModel)]="user.email"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <label for="form1.5" class="form-label">Image URL:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <input type="text" id="form1.5" class="form-control" [(ngModel)]="user.imgUrl"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div formGroupName="adress">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <label for="form2.1" class="form-label">Postcode:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <input type="text" id="form2.1" class="form-control" [(ngModel)]="user.adress.zipcode"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <label for="form2.2" class="form-label">Huisnummer:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <input type="number" id="form2.2" class="form-control" [(ngModel)]="user.adress.houseNumber"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <label for="form2.3" class="form-label">Huisnummer toevoeging:</label>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <input type="text" id="form2.3" class="form-control" [(ngModel)]="user.adress.houseNumberAddition"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <div class="d-flex justify-content-between mt-4">&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <button class="btn btn-primary" (click)="createProduct()">Opslaan</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <button class="btn btn-danger" (click)="deleteProduct()">Verwijder Account</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        </main>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -48,7 +50,7 @@ public class AuthController {
         return ResponseEntity.ok(this.authenticationDAO.getStaff());
     }
 
-    @PostMapping("/admin/new/role")
+    @PutMapping("/role/new")
     public ResponseEntity<String> addNewRole(@RequestBody RoleUpgradeDTO roleUpgradeDTO) {
         String message = this.authenticationDAO.newRole(roleUpgradeDTO);
         return ResponseEntity.ok(message);
@@ -124,6 +126,18 @@ public class AuthController {
         return ResponseEntity.ok(userDAO.findAll());
     }
     
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<CustomUser> getUserWithId(@PathVariable("id") UUID id){
+        Optional<CustomUser> customUserOptional =  this.userDAO.findById(id);
+        if(customUserOptional.isPresent()){
+            return ResponseEntity.ok(customUserOptional.get());
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user was not found"
+            );
+        }
+    }
 
     @GetMapping("/user/role")
     public ResponseEntity<String> getUserRole() {
