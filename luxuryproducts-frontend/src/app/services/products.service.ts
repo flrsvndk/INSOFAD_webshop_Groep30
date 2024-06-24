@@ -25,11 +25,7 @@ export class ProductsService {
   public subSpecificationExist(prodtype: ProductType){
     if(prodtype == null){
       return false;
-    } else if (prodtype.subSpecification == null){
-      return false;
-    } else {
-      return true;
-    }
+    } else return prodtype.subSpecification != null;
   }
 
   public calculatePrice(product: Product, type1Index: number, type2Index : number): any {

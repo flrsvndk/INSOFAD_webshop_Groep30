@@ -8,6 +8,7 @@ import { SidepanelComponent } from "../../sidepanel/sidepanel.component";
 import {Product} from "../../../models/product.model";
 import {NgForOf, NgIf} from "@angular/common";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-product',
@@ -34,7 +35,8 @@ export class NewProductComponent implements OnInit, OnDestroy {
       private userService: UserService,
       private fb: FormBuilder,
       private productService: ProductsService,
-      private categoryService: CategoriesService
+      private categoryService: CategoriesService,
+      private router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -135,6 +137,8 @@ export class NewProductComponent implements OnInit, OnDestroy {
         });
 
         alert("Product created");
+
+        this.router.navigateByUrl("/admin/products")
       });
     }
   }

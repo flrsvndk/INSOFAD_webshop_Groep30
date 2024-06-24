@@ -68,7 +68,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.productsInCart$?.unsubscribe();
     this.loginState$?.unsubscribe();
   }
-
   public clearCart() {
     this.cartService.clearCart();
   }
