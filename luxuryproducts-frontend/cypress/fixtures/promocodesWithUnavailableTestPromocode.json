@@ -1,0 +1,62 @@
+[
+  {
+    "id": "612f1cf0-e126-4837-9006-e53b16229b8c",
+    "name": "WINTERSALE25",
+    "description": "Krijg 25% korting op het gehele assortiment!",
+    "percentageOff": 25,
+    "maxUsages": 15,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null
+  },
+  {
+    "id": "092255b8-c200-4d16-a0f9-bc0990cfe7e4",
+    "name": "HERFSTSALE5",
+    "description": "Krijg 5% korting op het gehele assortiment!",
+    "percentageOff": 5,
+    "maxUsages": 10,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null
+  },
+  {
+    "id": "edda292a-65ab-47c3-bbbc-25a9008cd1ba",
+    "name": "LENTESALE20",
+    "description": "Krijg 20% korting op het gehele assortiment!",
+    "percentageOff": 20,
+    "maxUsages": 1,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": true,
+    "dedicatedPromocode": true,
+    "dedicatedUserEmail": "test@test.com"
+  },
+  {
+    "id": "f8caa569-3f77-4b16-997e-d416a05f5d67",
+    "name": "SUMMERSALE10",
+    "description": "Krijg 25% korting op het gehele assortiment!",
+    "percentageOff": 10,
+    "maxUsages": 100,
+    "usages": 2,
+    "totalPriceOrders": 18006.300000000003,
+    "available": true,
+    "dedicatedPromocode": false,
+    "dedicatedUserEmail": null
+  },
+  {
+    "id": "f8caa349-3f77-4b16-997e-d416a05f5d67",
+    "name": "TESTPROMOCODE123",
+    "description": "Testbeschrijving voor de Promocode! 10%!",
+    "percentageOff": 10,
+    "maxUsages": 100,
+    "usages": 0,
+    "totalPriceOrders": 0.0,
+    "available": false,
+    "dedicatedPromocode": true,
+    "dedicatedUserEmail": "user@example.com"
+  }
+]
