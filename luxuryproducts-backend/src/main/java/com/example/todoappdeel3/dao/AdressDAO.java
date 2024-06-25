@@ -26,34 +26,36 @@ public class AdressDAO {
         this.userRepository = userRepository;
     }
 
-    public Adress createAdress(AdressDTO adressDTO){
+    public Adress createAdress(AdressDTO adressDTO) {
         CustomUser user = userService.getUser();
 
-        if(adressDTO == null){
-            if (!user.getAdress().getZipcode().isEmpty()) {
-                Adress adress = user.getAdress();
-                return adress;
-            } throw new ResponseStatusException(
+        if (adressDTO == null) {
+            if (user.getAdress() != null && !user.getAdress().getZipcode().isEmpty()) {
+                return user.getAdress();
+            }
+            throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "No zipcode specified"
             );
         }
-        if(credentialValidator.isValidZipCode(adressDTO.zipcode)) {
-            Adress adress = new Adress(adressDTO.zipcode, adressDTO.houseNumber, adressDTO.houseNumberAddition);
+        if (adressDTO.zipCode != null && credentialValidator.isValidZipCode(adressDTO.zipCode)) {
+                Adress adress = new Adress(adressDTO.zipCode, adressDTO.houseNumber, adressDTO.houseNumberAddition);
 
+                System.out.println(user.getId() + user.getEmail());
 
-            System.out.println(user.getId() + user.getEmail());
+                if (adressDTO.save) {
+                    adress.setCustomUser(user);
+                    user.setAdress(adress);
+                    this.userRepository.save(user);
+                }
 
-            if (adressDTO.save){
-                adress.setCustomUser(user);
-                user.setAdress(adress);
-                this.userRepository.save(user);
-            }
+                this.adressRepository.save(adress);
 
-            this.adressRepository.save(adress);
+                return adress;
 
-            return adress;
-        } throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "no correct zipcode specified"
-        );
+        } else{
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "no correct zipcode specified"
+            );
+        }
     }
 }

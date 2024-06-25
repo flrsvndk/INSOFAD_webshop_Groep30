@@ -1,68 +1,110 @@
-    <div class="row">
-        <aside class="col-md-3 col-lg-2 d-md-block sidebar py-4">
-            <app-sidepanel></app-sidepanel>
-        </aside>
-        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h2>Create New Product</h2>
+<div class="row">
+    <aside class="col-md-3 col-lg-2 d-md-block sidebar py-4">
+        <app-sidepanel></app-sidepanel>
+    </aside>
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2>Create New Product</h2>
+        </div>
+
+        <div [formGroup]="newProductForm">
+            <div class="form-group">
+                <label for="prodName">Name</label>
+                <input id="prodName" formControlName="prodName" class="form-control" placeholder="Enter product name" />
             </div>
 
-            <form [formGroup]="newProductForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" formControlName="name" class="form-control" placeholder="Enter product name" />
-                </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" formControlName="description" class="form-control" placeholder="Enter product description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryId">Category</label>
+                <select id="categoryId" formControlName="categoryId" class="form-control">
+                    <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                </select>
+            </div>
+
+            <div formGroupName="productSpecificationsDTO">
 
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" formControlName="description" class="form-control" placeholder="Enter product description"></textarea>
+                    <label for="specName">Specification</label>
+                    <input id="specName" type="text" formControlName="specificationName" placeholder="Specification Name" class="form-control"/>
+                    <button type="button" class="btn btn-secondary mt-2" (click)="addType()">Add new Type</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="categoryId">Category</label>
-                    <select id="categoryId" formControlName="categoryId" class="form-control">
-                        @for (category of categories; track $index){
-                        <option [value]="category.id">{{ category.name }}</option>
-                        }
-                    </select>
-                </div>
-
-                <div [formGroupName]="'productSpecificationsDTO'">
-                    <div class="form-group">
-                        <label for="specificationName">Specification</label>
-                        <input id="specificationName" type="text" formControlName="name" placeholder="Specification Name" class="form-control" />
-                        <button type="button" class="btn btn-secondary mt-2" (click)="addType()">Add new Type</button>
-                    </div>
-
-                    <div formArrayName="typesDTO">
-                        @for (type of getTypes().controls; track $index){
+                <!--        <button type="submit" class="btn btn-primary" [disabled]="!newProductForm.valid">Create Product</button>-->
+                <div formArrayName="typesDTO">
+                    @for (type of getTypes().controls; track $index){
                         <div [formGroupName]="$index" class="card mt-3">
                             <div class="card-body">
                                 <h5 class="card-title">Type {{ $index + 1 }}</h5>
                                 <div class="form-group">
-                                    <label for="typeName{{$index}}">Name</label>
-                                    <input id="typeName{{$index}}" type="text" formControlName="name" class="form-control" placeholder="Name" />
+                                    <label for="name{{$index}}">Name</label>
+                                    <input id="name{{$index}}" type="text" formControlName="typeName" class="form-control" placeholder="Name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="typePrice{{$index}}">Price</label>
-                                    <input id="typePrice{{$index}}" type="number" formControlName="price" class="form-control" placeholder="Price" />
+                                    <label for="price{{$index}}">Price</label>
+                                    <input id="price{{$index}}" type="number" formControlName="price" class="form-control" placeholder="Price" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="typeStock{{$index}}">Stock</label>
-                                    <input id="typeStock{{$index}}" type="number" formControlName="stock" class="form-control" placeholder="Stock" />
+                                    <label for="stock{{$index}}">Stock</label>
+                                    <input id="stock{{$index}}" type="number" formControlName="stock" class="form-control" placeholder="Stock" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="typeImgUrl{{$index}}">Image URL</label>
-                                    <input id="typeImgUrl{{$index}}" type="text" formControlName="imgUrl" class="form-control" placeholder="Image URL" />
+                                    <label for="imgUrl{{$index}}">Image URL</label>
+                                    <input id="imgUrl{{$index}}" type="text" formControlName="imgUrl" class="form-control" placeholder="Image URL" />
                                 </div>
+
+                                <button type="button" class="bi-plus btn btn-secondary mt-2" (click)="addSpecification($index)"> Add Specification</button>
+                                <button type="button" class="bi-trash btn btn-danger mt-2" (click)="removeType($index)"> Remove Type</button>
+
+                                @if (getSubSpecification($index)){
+                                    <button (click)="removeSpecification($index)">Remove Specification</button>
+
+                                    <div formArrayName="productSpecificationsDTO">
+
+                                        <div class="form-group">
+                                            <label for="name1.{{$index}}">Specification</label>
+                                            <input id="name1.{{$index}}" type="text" formControlName="specificationName" placeholder="Specification Name" class="form-control"/>
+                                            <button type="button" class="btn btn-secondary mt-2" (click)="addTypeWithSpecification(getSubSpecification($index))">Add new Type</button>
+                                        </div>
+
+                                        <div formArrayName="typesDTO">
+                                            @for (type of getTypes().controls; track $index){
+                                                <div [formGroupName]="$index" class="card mt-3">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Type {{ $index + 1 }}</h5>
+                                                        <div class="form-group">
+                                                            <label for="name1.{{$index}}">Name</label>
+                                                            <input id="name1.{{$index}}" type="text" formControlName="typeName" class="form-control" placeholder="Name" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="price1.{{$index}}">Price</label>
+                                                            <input id="price1.{{$index}}" type="number" formControlName="price" class="form-control" placeholder="Price" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="stock.1{{$index}}">Stock</label>
+                                                            <input id="stock1.{{$index}}" type="number" formControlName="stock" class="form-control" placeholder="Stock" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="imgUrl1.{{$index}}">Image URL</label>
+                                                            <input id="imgUrl1.{{$index}}" type="text" formControlName="imgUrl" class="form-control" placeholder="Image URL" />
+                                                        </div>
+
+                                                        <button type="button" class="bi-trash btn btn-danger mt-2" (click)="removeType($index)"> Remove Type</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
-                        }
-                    </div>
+                    }
                 </div>
-
-                <button type="submit" class="btn btn-primary mt-3" [disabled]="!newProductForm.valid">Create Product</button>
-            </form>
-        </main>
-    </div>
-
+            </div>
+            <button (click)="onSubmit()" class="btn btn-primary mt-3">Create Product</button>
+        </div>
+    </main>
+</div>

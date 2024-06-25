@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.GET,"/products/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/products").hasAnyAuthority("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyAuthority("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.GET, "/category").permitAll()
                         .requestMatchers(HttpMethod.POST, "/category").hasAnyAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/promocodes").permitAll()

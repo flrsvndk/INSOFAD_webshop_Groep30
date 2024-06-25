@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CartService } from "../services/cart.service";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Order } from '../models/order.model';
 import {Adress} from "../models/adress.model";
@@ -19,9 +19,10 @@ import {UserService} from "../services/user.service";
   selector: 'app-order',
   templateUrl: './order.component.html',
   standalone: true,
-  imports: [
-    ReactiveFormsModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        FormsModule
+    ],
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, OnDestroy {
@@ -64,13 +65,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.products_in_cart = this.cartService.allProductsInCart();
-        // this.currentLoggedInUser = this.userService.getUserFromBearer(localStorage.getItem());
         this.bestelForm = this.fb.group({
-            Postcode: [''],
-            Huisnummer: ['', [Validators.maxLength(5)]],
+            zipCode: [''],
+            houseNumber: ['', [Validators.maxLength(5)]],
             Opmerkingen: [''],
-            HouseNummerAddition: [''],
-            Opslaan: ['']
+            houseNumberAddition: [''],
+            save: ['']
         });
     }
 
@@ -91,33 +91,21 @@ export class OrderComponent implements OnInit, OnDestroy {
             notes: formData.Opmerkingen,
 
             adressDTO: this.adress = {
-                zipcode: formData.Postcode,
-                houseNumber: formData.Huisnummer,
-                houseNumberAddition: formData.HouseNummerAddition,
-                save: formData.Opslaan,
+                zipCode: formData.zipCode,
+                houseNumber: formData.houseNumber,
+                houseNumberAddition: formData.houseNumberAddition,
+                save: formData.save,
             },
             orderItems: this.orderItems,
             promocode: this.promocode
         };
 
-        this.addOrder$ = this.cartService.addOrder(this.order).subscribe(
+        this.addOrder$ = this.cartService.addOrder(this.order)
+            .subscribe(
             (result) => {
                 console.log('Order added successfully:', result);
                 this.clearCart();
                 this.router.navigateByUrl('/paymentsuccessful');
-            },
-            (error) => {
-                console.error('Failed to add order:', error);
-            }
-        );
-        this.cartService.addOrder(this.order).subscribe(
-            (result) => {
-                console.log('Order added successfully:', result);
-                this.clearCart();
-                this.router.navigateByUrl('/paymentsuccessful');
-            },
-            (error) => {
-                console.error('Failed to add order:', error);
             }
         );
 

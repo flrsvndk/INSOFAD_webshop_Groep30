@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {Product} from '../../models/product.model';
@@ -50,34 +50,41 @@ export class ProductDetailComponent {
     console.log(this.img);
   }
 
+  public inStock(productType: ProductType): boolean{
+    if(this.productsService.subSpecificationExist(productType)){
+      return true;
+    } else return productType.stock > 0;
+  }
+
   public selectSubType(productType: ProductType, index: number){
     this.chosenType2 = productType;
     this.typeIndex2 = index;
     this.img = this.chosenType2.imgUrl;
     console.log(this.chosenType2.name + " " + this.chosenType2.name);
-    console.log(this.img);
   }
 
 
   public canOrder(): boolean{
     if(this.chosenType1 == null){
       return false;
-    }
-    if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
-      return true;
+    } else if (!this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType1) {
+      return this.inStock(this.chosenType1);
+    } else if(this.productsService.subSpecificationExist(this.chosenType1) && this.chosenType2){
+      return this.inStock(this.chosenType2);
     } else {
       return false;
     }
   }
 
   public onBuyProduct(product: Product) {
-    if(this.chosenType2 == null){
-      if(product.productSpecification.types.includes(this.chosenType1)) {
-        this.cartService.addProductToCart(this.chosenType1);
+    if(this.canOrder()) {
+      if (this.chosenType2 == null) {
+        if (product.productSpecification.types.includes(this.chosenType1)) {
+          this.cartService.addProductToCart(this.chosenType1);
+        }
+      } else if (product.productSpecification.types.includes(this.chosenType1)) {
+        this.cartService.addProductToCart(this.chosenType2);
       }
-    }
-    if(product.productSpecification.types.includes(this.chosenType1)) {
-      this.cartService.addProductToCart(this.chosenType2);
     }
   }
 

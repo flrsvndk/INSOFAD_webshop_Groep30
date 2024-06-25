@@ -67,6 +67,7 @@ export class UpdateProductComponent implements OnInit{
         this.productService.updateProductByIndex(this.product)
             .subscribe((response: Product) => {
             console.log(response);
+            this.router.navigateByUrl("/admin/products")
         })
     }
 }
