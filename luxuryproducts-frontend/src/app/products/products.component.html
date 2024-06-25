@@ -3,6 +3,7 @@
 @if (loadingProducts) {
   <h4>Loading products...</h4>
 } @else {
+    <app-promocode-advert></app-promocode-advert>
   @for (product of products; track $index) {
     <app-product-thumbnail [product]="product"></app-product-thumbnail>
     

@@ -11,6 +11,7 @@ import {MatMenuTrigger} from "@angular/material/menu";
 import {MatFormField} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
+import {PromocodeAdvertComponent} from "../admin/promocode/promocode-advert/promocode-advert.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatInput} from "@angular/material/input";
         MatMenuTrigger,
         MatFormField,
         MatSelect,
-        MatInput
+        MatInput,
+        PromocodeAdvertComponent
     ],
   exports: [
     ProductsComponent
