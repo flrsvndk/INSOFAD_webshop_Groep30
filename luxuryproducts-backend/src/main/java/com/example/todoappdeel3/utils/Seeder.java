@@ -254,7 +254,7 @@ public class Seeder {
     }
 
     private void seedPromocodes() {
-        Promocode promocode0 = new Promocode("SUMMERSALE10", "Krijg 25% korting op het gehele assortiment!", 10, 100, 0, 0, true, false, null);
+        Promocode promocode0 = new Promocode("SUMMERSALE10", "Krijg 10% korting op het gehele assortiment!", 10, 100, 0, 0, true, false, null);
         Promocode promocode1 = new Promocode("WINTERSALE25", "Krijg 25% korting op het gehele assortiment!", 25, 15, 0, 0, true, false, null);
         Promocode promocode2 = new Promocode("HERFSTSALE5", "Krijg 5% korting op het gehele assortiment!", 5, 10, 0, 0, true, false, null);
         Promocode promocode3 = new Promocode("LENTESALE20", "Krijg 20% korting op het gehele assortiment!", 20, 1, 0, 0, true, true, "test@test.com");
